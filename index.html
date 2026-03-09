@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Crop Health & Disease Diagnosis Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet for OpenStreetMap (alternative) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #166534;
+            --primary-light: #22c55e;
+            --secondary: #92400E;
+            --accent: #F59E0B;
+            --background: #FFFBEB;
+            --healthy: #10B981;
+            --moderate: #F59E0B;
+            --high-risk: #EF4444;
+            --text-primary: #000000;
+            --text-secondary: #374151;
+            --text-tertiary: #6B7280;
+        }
+        
+        body {
+            background: var(--background);
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+            color: var(--text-primary);
+        }
+        
+        .dark body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+        }
+        
+        .dark .text-gray-800 {
+            color: #ffffff !important;
+        }
+        
+        .dark .text-gray-600 {
+            color: #cbd5e1 !important;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Floating Agriculture Icons */
+        .floating-icon {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+            50% { transform: translateY(-30px) translateX(-10px) rotate(-5deg); }
+            75% { transform: translateY(-15px) translateX(15px) rotate(3deg); }
+        }
+        
+        /* Animated Gradient Waves */
+        .gradient-wave {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(22, 101, 52, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
+            animation: waveMove 20s ease infinite;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        @keyframes waveMove {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        /* Professional Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(22, 101, 52, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .dark .nav-item {
+            color: #e2e8f0;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background: rgba(22, 101, 52, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-item:hover::after {
+            width: 80%;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .nav-item.active::after {
+            width: 80%;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover i {
+            transform: scale(1.1);
+        }
+        
+        /* Glowing hover effect */
+        .glow-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(22, 101, 52, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Glassmorphism cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(22, 101, 52, 0.2);
+        }
+        
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(22, 101, 52, 0.4);
+        }
+        
+        /* AI Scanning Animation */
+        .ai-scanning {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-scanning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            to { left: 100%; }
+        }
+        
+        /* Voice waveform animation */
+        .waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 30px;
+        }
+        
+        .waveform-bar {
+            width: 4px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: waveform 1s ease-in-out infinite;
+        }
+        
+        .waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+        .waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+        .waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+        .waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+        
+        @keyframes waveform {
+            0%, 100% { height: 10px; }
+            50% { height: 30px; }
+        }
+        
+        /* Speaking avatar animation */
+        .speaking-avatar {
+            animation: speakPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes speakPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        /* Popup animation for scheme cards */
+        .scheme-popup {
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Card hover glow */
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(22, 101, 52, 0.3);
+        }
+        
+        /* Page transitions */
+        .page {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Language selector */
+        .language-select {
+            background: transparent;
+            border: 1px solid rgba(22, 101, 52, 0.3);
+            color: var(--text-secondary);
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23166534'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .language-select {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+        }
+        
+        .language-select:hover {
+            border-color: var(--primary);
+            background-color: rgba(22, 101, 52, 0.05);
+        }
+        
+        /* Loading animation */
+        .loading-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .loading-dots div {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .loading-dots div:nth-child(2) { animation-delay: -0.32s; }
+        .loading-dots div:nth-child(3) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Map container */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Location button */
+        .location-btn {
+            background: white;
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .location-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(22, 101, 52, 0.3);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Background Elements -->
+<div id="particles-js"></div>
+<div class="gradient-wave"></div>
+
+<!-- Floating Agriculture Icons -->
+<div class="floating-icon" style="top: 10%; left: 5%;">
+    <i class="ri-leaf-line text-6xl text-green-500"></i>
+</div>
+<div class="floating-icon" style="top: 70%; right: 10%; animation-delay: 2s;">
+    <i class="ri-seedling-line text-6xl text-green-600"></i>
+</div>
+<div class="floating-icon" style="bottom: 20%; left: 15%; animation-delay: 4s;">
+    <i class="ri-tree-line text-6xl text-green-400"></i>
+</div>
+<div class="floating-icon" style="top: 40%; right: 20%; animation-delay: 6s;">
+    <i class="ri-flower-line text-6xl text-yellow-500"></i>
+</div>
+
+<div class="min-h-screen">
+    <!-- Professional Navbar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo + Project Name -->
+                <div class="flex items-center">
+                    <a href="#" onclick="changePage('home')" class="flex items-center space-x-3 group">
+                        <div class="relative">
+                            <i class="ri-leaf-line text-4xl text-[#166534] group-hover:animate-bounce"></i>
+                            <div class="absolute -inset-1 bg-green-500 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-[#166534] to-[#22c55e] bg-clip-text text-transparent">
+                            AI Crop Health
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Center Menu - Desktop -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" onclick="changePage('home')" class="nav-item" id="nav-home">
+                        <i class="ri-home-4-line"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" onclick="changePage('detect')" class="nav-item" id="nav-detect">
+                        <i class="ri-bug-line"></i>
+                        <span>Detect Disease</span>
+                    </a>
+                    <a href="#" onclick="changePage('crops')" class="nav-item" id="nav-crops">
+                        <i class="ri-plant-line"></i>
+                        <span>Crop Selection</span>
+                    </a>
+                    <a href="#" onclick="changePage('chatbot')" class="nav-item" id="nav-chatbot">
+                        <i class="ri-robot-line"></i>
+                        <span>AI Chatbot</span>
+                    </a>
+                    <a href="#" onclick="changePage('weather')" class="nav-item" id="nav-weather">
+                        <i class="ri-cloud-line"></i>
+                        <span>Weather</span>
+                    </a>
+                    <a href="#" onclick="changePage('schemes')" class="nav-item" id="nav-schemes">
+                        <i class="ri-government-line"></i>
+                        <span>Govt Schemes</span>
+                    </a>
+                    <a href="#" onclick="changePage('map')" class="nav-item" id="nav-map">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Map</span>
+                    </a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="flex items-center space-x-3">
+                    <!-- Language Selector -->
+                    <select id="languageSelect" onchange="changeLanguage(this.value)" class="language-select">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="hi">🇮🇳 हिन्दी</option>
+                        <option value="mr">🇮🇳 मराठी</option>
+                        <option value="ta">🇮🇳 தமிழ்</option>
+                        <option value="te">🇮🇳 తెలుగు</option>
+                        <option value="bn">🇮🇳 বাংলা</option>
+                    </select>
+
+                    <!-- Voice Search Button -->
+                    <button onclick="toggleVoiceSearch()" id="voiceSearchBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all glow-hover" title="Voice Search">
+                        <i class="ri-mic-line text-xl text-[#166534]"></i>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all glow-hover" id="themeToggle">
+                        <i class="ri-moon-line text-xl text-[#166534]"></i>
+                    </button>
+
+                    <!-- Login / User Profile -->
+                    <div id="authButtons">
+                        <button onclick="showLoginModal()" class="btn-primary">
+                            <i class="ri-user-line"></i>
+                            <span>Login</span>
+                        </button>
+                    </div>
+                    <div id="userMenu" class="hidden items-center space-x-2">
+                        <span id="userName" class="text-sm font-medium text-[#166534]"></span>
+                        <button onclick="logout()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                            <i class="ri-logout-box-line text-xl text-[#166534]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                        <i class="ri-menu-line text-xl text-[#166534]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden py-4 space-y-2">
+                <a href="#" onclick="changePage('home')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-home-4-line text-[#166534]"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" onclick="changePage('detect')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-bug-line text-[#166534]"></i>
+                    <span>Detect Disease</span>
+                </a>
+                <a href="#" onclick="changePage('crops')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-plant-line text-[#166534]"></i>
+                    <span>Crop Selection</span>
+                </a>
+                <a href="#" onclick="changePage('chatbot')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-robot-line text-[#166534]"></i>
+                    <span>AI Chatbot</span>
+                </a>
+                <a href="#" onclick="changePage('weather')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-cloud-line text-[#166534]"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="#" onclick="changePage('schemes')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-government-line text-[#166534]"></i>
+                    <span>Govt Schemes</span>
+                </a>
+                <a href="#" onclick="changePage('map')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    <i class="ri-map-pin-line text-[#166534]"></i>
+                    <span>Map</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Voice Transcript Display -->
+    <div id="voiceTranscript" class="hidden fixed top-24 right-4 glass-card p-4 rounded-xl shadow-2xl z-50 animate__animated animate__fadeIn"></div>
+
+    <!-- Main Content Area -->
+    <div id="contentArea" class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Home Page -->
+        <div id="homePage" class="page">
+            <!-- Hero Section -->
+            <div class="relative overflow-hidden rounded-3xl glass-card p-12 mb-12">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#166534] to-[#22c55e] opacity-5"></div>
+                <div class="relative z-10">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h1 class="text-5xl md:text-6xl font-black mb-4">
+                                <span class="text-[#166534]">AI-powered</span><br>
+                                <span class="text-gray-900 dark:text-white">Crop Health & Disease</span><br>
+                                <span class="text-[#22c55e]">Diagnosis Platform</span>
+                            </h1>
+                            <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
+                                Advanced AI technology for early disease detection, real-time monitoring, and smart farming recommendations
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="changePage('detect')" class="btn-primary">
+                                    <i class="ri-upload-cloud-line"></i>
+                                    Upload Crop Image
+                                </button>
+                                <button onclick="changePage('detect')" class="bg-white text-[#166534] px-8 py-4 rounded-xl hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center gap-2 border-2 border-[#166534]">
+                                    <i class="ri-camera-line"></i>
+                                    Analyze Plant
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600" alt="Agriculture" class="rounded-3xl shadow-2xl">
+                            <div class="absolute -bottom-4 -right-4 glass-card rounded-2xl p-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span class="font-semibold text-gray-900 dark:text-white">AI Active - 24/7 Monitoring</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <i class="ri-leaf-line text-4xl text-[#166534] mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Real-time Detection</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Instant disease identification with 95% accuracy</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <i class="ri-cloud-line text-4xl text-[#166534] mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Weather Prediction</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Disease forecasting based on weather conditions</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <i class="ri-robot-line text-4xl text-[#166534] mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">AI Chatbot</h3>
+                    <p class="text-gray-700 dark:text-gray-300">24/7 farming assistant with voice support</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <i class="ri-government-line text-4xl text-[#166534] mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Govt Schemes</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Access to agricultural subsidies and schemes</p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-[#166534]">50+</div>
+                    <div class="text-gray-700 dark:text-gray-300">Diseases Detected</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-[#166534]">95%</div>
+                    <div class="text-gray-700 dark:text-gray-300">Accuracy Rate</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-[#166534]">10K+</div>
+                    <div class="text-gray-700 dark:text-gray-300">Farmers Helped</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-[#166534]">24/7</div>
+                    <div class="text-gray-700 dark:text-gray-300">AI Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disease Detection Page -->
+        <div id="detectPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">AI Disease Detection</h1>
+
+            <!-- Crop Selection Menu -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Select Crop Type</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('rice')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Rice</span>
+                    </div>
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('wheat')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Wheat</span>
+                    </div>
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('corn')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Corn</span>
+                    </div>
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('tomato')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Tomato</span>
+                    </div>
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('potato')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Potato</span>
+                    </div>
+                    <div class="crop-item glass-card p-4 rounded-xl text-center cursor-pointer hover-glow" onclick="selectCrop('cotton')">
+                        <i class="ri-plant-line text-3xl text-[#166534] mb-2"></i>
+                        <span class="block text-gray-900 dark:text-white">Cotton</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Upload Section -->
+                <div class="glass-card p-6 rounded-2xl">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Upload Plant Image</h2>
+                    
+                    <!-- Drag & Drop Area -->
+                    <div id="uploadArea" class="border-2 border-dashed border-[#166534] p-8 rounded-2xl text-center mb-4 cursor-pointer transition-all hover:border-[#22c55e] hover:bg-green-50 dark:hover:bg-green-900/20"
+                         ondragover="handleDragOver(event)"
+                         ondragleave="handleDragLeave(event)"
+                         ondrop="handleDrop(event)"
+                         onclick="document.getElementById('fileInput').click()">
+                        <i class="ri-upload-cloud-line text-5xl text-[#166534] mb-4"></i>
+                        <p class="text-gray-700 dark:text-gray-300 mb-2">Drag & drop your image here</p>
+                        <p class="text-sm text-gray-500">or click to browse</p>
+                        <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                    </div>
+
+                    <!-- Real-time Camera Detection -->
+                    <div class="flex gap-3 mb-4">
+                        <button onclick="toggleCamera()" class="flex-1 bg-[#166534] text-white px-4 py-3 rounded-xl hover:bg-[#22c55e] transition-all flex items-center justify-center gap-2">
+                            <i class="ri-camera-line"></i>
+                            Open Camera
+                        </button>
+                        <button onclick="captureImage()" id="captureBtn" class="flex-1 bg-[#F59E0B] text-white px-4 py-3 rounded-xl hover:bg-[#D97706] transition-all flex items-center justify-center gap-2 hidden">
+                            <i class="ri-camera-switch-line"></i>
+                            Capture
+                        </button>
+                    </div>
+
+                    <!-- Camera Preview -->
+                    <div id="cameraContainer" class="hidden mt-4 relative rounded-xl overflow-hidden">
+                        <video id="cameraPreview" autoplay class="w-full"></video>
+                    </div>
+
+                    <!-- Image Preview with AI Scanning -->
+                    <div id="imagePreview" class="hidden mt-4 relative ai-scanning rounded-xl overflow-hidden">
+                        <img id="previewImage" src="" alt="Preview" class="w-full">
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm" id="scanningStatus">
+                            AI Scanning...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="glass-card p-6 rounded-2xl">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Analysis Results</h2>
+
+                    <!-- Loading State -->
+                    <div id="analysisLoading" class="hidden text-center py-12">
+                        <div class="loading-dots justify-center mb-4">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">AI analyzing your crop image...</p>
+                    </div>
+
+                    <!-- Results Content -->
+                    <div id="analysisResults" class="hidden space-y-6">
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-semibold text-lg text-gray-900 dark:text-white" id="diseaseName">Early Blight</h3>
+                                <span class="px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800" id="riskBadge">Moderate Risk</span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-700 dark:text-gray-300">Detection Confidence</span>
+                                    <span class="text-[#166534] font-semibold" id="confidenceValue">92%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-[#166534] h-2 rounded-full" id="confidenceBar" style="width: 92%"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div>
+                                    <p class="text-2xl font-bold text-[#166534]" id="severityScore">75</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">Severity Score</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold text-[#F59E0B]" id="affectedArea">30%</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">Affected Area</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold mb-3 text-gray-900 dark:text-white">Treatment Recommendations</h3>
+                            <ul class="space-y-2" id="treatmentList">
+                                <li class="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                                    <i class="ri-check-line text-green-500 mt-1"></i>
+                                    <span>Apply fungicide containing copper oxychloride</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                                    <i class="ri-check-line text-green-500 mt-1"></i>
+                                    <span>Improve air circulation by proper spacing</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold mb-3 text-gray-900 dark:text-white">Preventive Measures</h3>
+                            <ul class="space-y-2" id="preventiveList">
+                                <li class="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                                    <i class="ri-arrow-right-s-line text-[#166534]"></i>
+                                    <span>Use disease-resistant varieties</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                                    <i class="ri-arrow-right-s-line text-[#166534]"></i>
+                                    <span>Practice crop rotation</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="noAnalysis" class="text-center py-12">
+                        <i class="ri-image-line text-6xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Upload an image to start analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Page with Voice Assistant -->
+        <div id="chatbotPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">AI Farmer Assistant</h1>
+
+            <div class="glass-card rounded-2xl overflow-hidden">
+                <!-- Chat Header with Avatar -->
+                <div class="bg-gradient-to-r from-[#166534] to-[#22c55e] text-white px-6 py-4">
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <i class="ri-robot-line text-4xl speaking-avatar"></i>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-300 rounded-full animate-pulse"></div>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold">Crop Health AI</h2>
+                            <p class="text-sm opacity-90">Voice-enabled assistant • Online</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div id="chatMessages" class="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
+                    <div class="flex justify-start">
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 max-w-[80%] shadow">
+                            <p class="text-gray-900 dark:text-white">Hello! I'm your AI farming assistant. How can I help you today?</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <p class="text-xs text-gray-500">AI • Just now</p>
+                                <button onclick="speakText('Hello! I am your AI farming assistant. How can I help you today?')" class="text-[#166534] hover:text-[#22c55e]">
+                                    <i class="ri-volume-up-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input with Voice -->
+                <div class="p-4 border-t dark:border-gray-700">
+                    <div class="flex gap-2">
+                        <button onclick="toggleVoiceInput()" id="chatVoiceBtn" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-xl hover:bg-gray-200 transition-all relative">
+                            <i class="ri-mic-line text-xl text-[#166534]"></i>
+                            <div id="waveform" class="waveform absolute -top-8 left-0 hidden">
+                                <div class="waveform-bar"></div>
+                                <div class="waveform-bar"></div>
+                                <div class="waveform-bar"></div>
+                                <div class="waveform-bar"></div>
+                                <div class="waveform-bar"></div>
+                            </div>
+                        </button>
+                        <input type="text" id="chatInput" placeholder="Type your question or use voice..." 
+                               class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white">
+                        <button onclick="sendMessage()" class="bg-[#166534] text-white px-6 py-3 rounded-xl hover:bg-[#22c55e] transition-all">
+                            <i class="ri-send-plane-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Page with Location -->
+        <div id="mapPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">Disease Hotspot Map</h1>
+            
+            <!-- Location Button -->
+            <button onclick="getUserLocation()" class="location-btn">
+                <i class="ri-map-pin-line"></i>
+                <span>📍 Use My Current Location</span>
+            </button>
+            
+            <div class="glass-card p-6 rounded-2xl">
+                <div id="map"></div>
+                
+                <!-- Map Legend -->
+                <div class="flex justify-center gap-6 mt-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                        <span class="text-gray-700 dark:text-gray-300">High Risk</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                        <span class="text-gray-700 dark:text-gray-300">Medium Risk</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+                        <span class="text-gray-700 dark:text-gray-300">Low Risk</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crop Selection Page -->
+        <div id="cropsPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">Crop Selection Guide</h1>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <img src="https://images.unsplash.com/photo-1530099486328-e021101a494a?w=400" alt="Rice" class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Rice</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Best planted in rainy season. Requires adequate water supply.</p>
+                    <button class="bg-[#166534] text-white px-4 py-2 rounded-lg hover:bg-[#22c55e] w-full transition-all" onclick="selectCrop('rice')">Select Rice</button>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1c5d8d1b0?w=400" alt="Wheat" class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Wheat</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Winter crop. Requires cool climate and well-drained soil.</p>
+                    <button class="bg-[#166534] text-white px-4 py-2 rounded-lg hover:bg-[#22c55e] w-full transition-all" onclick="selectCrop('wheat')">Select Wheat</button>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl hover-glow">
+                    <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400" alt="Corn" class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Corn</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Grows in various climates. Requires fertile soil.</p>
+                    <button class="bg-[#166534] text-white px-4 py-2 rounded-lg hover:bg-[#22c55e] w-full transition-all" onclick="selectCrop('corn')">Select Corn</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Government Schemes Page -->
+        <div id="schemesPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">Government Agricultural Schemes</h1>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-2xl hover-glow cursor-pointer" onclick="showSchemeDetails('pmkisan')">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-[#166534] p-3 rounded-xl">
+                            <i class="ri-government-line text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">PM-KISAN Scheme</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Income support of ₹6000 per year to farmer families</p>
+                            <button class="mt-3 text-[#166534] font-semibold hover:underline">Learn More →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl hover-glow cursor-pointer" onclick="showSchemeDetails('soilhealth')">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-[#166534] p-3 rounded-xl">
+                            <i class="ri-seedling-line text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Soil Health Card Scheme</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Free soil testing and nutrient recommendations</p>
+                            <button class="mt-3 text-[#166534] font-semibold hover:underline">Learn More →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl hover-glow cursor-pointer" onclick="showSchemeDetails('pmksy')">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-[#166534] p-3 rounded-xl">
+                            <i class="ri-drop-line text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">PMKSY - Irrigation Scheme</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Improve water use efficiency through micro-irrigation</p>
+                            <button class="mt-3 text-[#166534] font-semibold hover:underline">Learn More →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl hover-glow cursor-pointer" onclick="showSchemeDetails('kcc')">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-[#166534] p-3 rounded-xl">
+                            <i class="ri-funds-line text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Kisan Credit Card</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Affordable credit for farmers with interest subvention</p>
+                            <button class="mt-3 text-[#166534] font-semibold hover:underline">Learn More →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scheme Details Modal -->
+            <div id="schemeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                <div class="glass-card p-8 rounded-2xl max-w-md w-full scheme-popup">
+                    <div id="schemeContent"></div>
+                    <button onclick="hideSchemeModal()" class="mt-4 w-full bg-[#166534] text-white py-2 rounded-lg hover:bg-[#22c55e] transition-all">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Prediction Page -->
+        <div id="weatherPage" class="page hidden">
+            <h1 class="text-3xl font-bold text-[#166534] mb-8">Weather-Based Disease Prediction</h1>
+
+            <div class="mb-6">
+                <input type="text" id="locationInput" placeholder="Enter your location" 
+                       class="w-full md:w-96 p-3 border-2 border-[#166534] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white">
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl mb-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Current Weather</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20">
+                        <i class="ri-sun-line text-3xl text-yellow-500 mb-2"></i>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Temperature</p>
+                        <p class="text-2xl font-bold text-[#166534]" id="temperature">28°C</p>
+                    </div>
+                    <div class="p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20">
+                        <i class="ri-drop-line text-3xl text-blue-500 mb-2"></i>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Humidity</p>
+                        <p class="text-2xl font-bold text-[#166534]" id="humidity">75%</p>
+                    </div>
+                    <div class="p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20">
+                        <i class="ri-cloud-rain-line text-3xl text-blue-500 mb-2"></i>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Rainfall</p>
+                        <p class="text-2xl font-bold text-[#166534]" id="rainfall">12 mm</p>
+                    </div>
+                    <div class="p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20">
+                        <i class="ri-windy-line text-3xl text-gray-500 mb-2"></i>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Wind Speed</p>
+                        <p class="text-2xl font-bold text-[#166534]" id="windSpeed">15 km/h</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Disease Risk Assessment</h2>
+                <div class="mb-4">
+                    <span class="px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800" id="weatherRiskLevel">Medium Risk</span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-2 text-gray-900 dark:text-white">Potential Diseases:</h3>
+                        <ul class="space-y-2" id="weatherDiseases">
+                            <li class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                                <i class="ri-bug-line text-red-500"></i>
+                                Late Blight
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                                <i class="ri-bug-line text-yellow-500"></i>
+                                Powdery Mildew
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-2 text-gray-900 dark:text-white">Recommendations:</h3>
+                        <ul class="space-y-2" id="weatherRecommendations">
+                            <li class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                                <i class="ri-check-line text-green-500"></i>
+                                Apply preventive fungicides
+                            </li>
+                            <li class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                                <i class="ri-check-line text-green-500"></i>
+                                Ensure proper air circulation
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="glass-card p-8 rounded-2xl max-w-md w-full">
+        <div class="text-center mb-6">
+            <i class="ri-leaf-line text-5xl text-[#166534]"></i>
+            <h2 class="text-2xl font-bold mt-2 text-gray-900 dark:text-white">Welcome Back</h2>
+            <p class="text-gray-600 dark:text-gray-400">Login to your account</p>
+        </div>
+
+        <form id="loginForm" onsubmit="event.preventDefault(); validateAndLogin();">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Email</label>
+                    <input type="email" id="loginEmail" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Enter your email">
+                    <div id="loginEmailError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Password</label>
+                    <input type="password" id="loginPassword" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Enter your password">
+                    <div id="loginPasswordError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <button type="submit" class="w-full btn-primary">
+                    Login
+                </button>
+
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    Don't have an account? 
+                    <button onclick="showRegisterModal()" class="text-[#166534] font-semibold hover:underline">
+                        Register
+                    </button>
+                </p>
+            </div>
+        </form>
+
+        <button onclick="hideLoginModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <i class="ri-close-line text-2xl"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="glass-card p-8 rounded-2xl max-w-md w-full">
+        <div class="text-center mb-6">
+            <i class="ri-leaf-line text-5xl text-[#166534]"></i>
+            <h2 class="text-2xl font-bold mt-2 text-gray-900 dark:text-white">Create Account</h2>
+            <p class="text-gray-600 dark:text-gray-400">Join our farming community</p>
+        </div>
+
+        <form id="registerForm" onsubmit="event.preventDefault(); validateAndRegister();">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Full Name</label>
+                    <input type="text" id="registerName" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Enter your full name">
+                    <div id="registerNameError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Email</label>
+                    <input type="email" id="registerEmail" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Enter your email">
+                    <div id="registerEmailError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Password</label>
+                    <input type="password" id="registerPassword" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Create a password (min. 6 characters)">
+                    <div id="registerPasswordError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" 
+                           class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#166534] dark:bg-gray-800 dark:text-white"
+                           placeholder="Confirm your password">
+                    <div id="registerConfirmError" class="error-message hidden text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <button type="submit" class="w-full btn-primary">
+                    Register
+                </button>
+
+                <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    Already have an account? 
+                    <button onclick="showLoginModal()" class="text-[#166534] font-semibold hover:underline">
+                        Login
+                    </button>
+                </p>
+            </div>
+        </form>
+
+        <button onclick="hideRegisterModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <i class="ri-close-line text-2xl"></i>
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    // Initialize particles.js
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#166534' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.3, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
+            size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1 } },
+            line_linked: { enable: true, distance: 150, color: '#166534', opacity: 0.2, width: 1 },
+            move: { enable: true, speed: 1, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } }
+        }
+    });
+
+    // Global variables
+    let currentPage = 'home';
+    let isDarkMode = localStorage.getItem('theme') === 'dark';
+    let isAuthenticated = false;
+    let currentUser = null;
+    let mediaStream = null;
+    let map = null;
+    let leafletMap = null;
+    let markers = [];
+    let textSize = 100;
+    let currentLanguage = 'en';
+    let isListening = false;
+    let recognition = null;
+    let selectedCrop = '';
+
+    // Initialize speech recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        
+        recognition.onstart = function() {
+            isListening = true;
+            document.getElementById('voiceSearchBtn').classList.add('bg-red-500', 'text-white');
+            document.getElementById('waveform')?.classList.remove('hidden');
+        };
+        
+        recognition.onend = function() {
+            isListening = false;
+            document.getElementById('voiceSearchBtn').classList.remove('bg-red-500', 'text-white');
+            document.getElementById('waveform')?.classList.add('hidden');
+        };
+        
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('voiceTranscript').innerHTML = `
+                <strong class="text-[#166534]">You said:</strong> "${transcript}"
+            `;
+            document.getElementById('voiceTranscript').classList.remove('hidden');
+            
+            if (currentPage === 'chatbot') {
+                document.getElementById('chatInput').value = transcript;
+                sendMessage();
+            } else if (currentPage === 'detect') {
+                handleVoiceSearch(transcript);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('voiceTranscript').classList.add('hidden');
+            }, 3000);
+        };
+    }
+
+    // Voice functions
+    function toggleVoiceSearch() {
+        if (!recognition) {
+            alert('Voice recognition not supported');
+            return;
+        }
+        
+        if (isListening) {
+            recognition.stop();
+        } else {
+            recognition.lang = getLanguageCode(currentLanguage);
+            recognition.start();
+        }
+    }
+
+    function toggleVoiceInput() {
+        toggleVoiceSearch();
+    }
+
+    function getLanguageCode(lang) {
+        const codes = {
+            'en': 'en-US',
+            'hi': 'hi-IN',
+            'mr': 'mr-IN',
+            'ta': 'ta-IN',
+            'te': 'te-IN',
+            'bn': 'bn-IN'
+        };
+        return codes[lang] || 'en-US';
+    }
+
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = getLanguageCode(currentLanguage);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    function handleVoiceSearch(transcript) {
+        const lower = transcript.toLowerCase();
+        if (lower.includes('rice')) selectCrop('rice');
+        else if (lower.includes('wheat')) selectCrop('wheat');
+        else if (lower.includes('corn')) selectCrop('corn');
+        else if (lower.includes('tomato')) selectCrop('tomato');
+    }
+
+    // Text size control
+    function changeTextSize(increase) {
+        const newSize = increase ? textSize + 10 : textSize - 10;
+        if (newSize >= 80 && newSize <= 150) {
+            textSize = newSize;
+            document.documentElement.style.fontSize = textSize + '%';
+        }
+    }
+
+    // Language change
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+        showNotification(`Language changed to ${lang}`, 'success');
+    }
+
+    // Map initialization with OpenStreetMap (Leaflet)
+    function initMap() {
+        leafletMap = L.map('map').setView([20.5937, 78.9629], 5);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(leafletMap);
+
+        // Add disease hotspots
+        const hotspots = [
+            { lat: 28.6139, lng: 77.2090, name: 'Delhi', disease: 'Leaf Blight', risk: 'high' },
+            { lat: 19.0760, lng: 72.8777, name: 'Mumbai', disease: 'Powdery Mildew', risk: 'medium' },
+            { lat: 13.0827, lng: 80.2707, name: 'Chennai', disease: 'Bacterial Blight', risk: 'low' },
+            { lat: 22.5726, lng: 88.3639, name: 'Kolkata', disease: 'Rust', risk: 'high' },
+            { lat: 12.9716, lng: 77.5946, name: 'Bangalore', disease: 'Early Blight', risk: 'medium' }
+        ];
+
+        hotspots.forEach(hotspot => {
+            const markerColor = hotspot.risk === 'high' ? 'red' : hotspot.risk === 'medium' ? 'orange' : 'green';
+            
+            const marker = L.marker([hotspot.lat, hotspot.lng], {
+                icon: L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background-color: ${markerColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`
+                })
+            }).addTo(leafletMap);
+            
+            marker.bindPopup(`
+                <b>${hotspot.name}</b><br>
+                Disease: ${hotspot.disease}<br>
+                Risk: <span style="color: ${markerColor}">${hotspot.risk.toUpperCase()}</span>
+            `);
+            
+            markers.push(marker);
+        });
+    }
+
+    // Get user location
+    function getUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    leafletMap.setView([latitude, longitude], 12);
+                    
+                    L.marker([latitude, longitude], {
+                        icon: L.divIcon({
+                            className: 'user-marker',
+                            html: '<div style="background-color: #166534; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.3);"></div>'
+                        })
+                    }).addTo(leafletMap)
+                      .bindPopup('Your Location')
+                      .openPopup();
+                      
+                    showNotification('Location found!', 'success');
+                },
+                (error) => {
+                    showNotification('Unable to get location', 'error');
+                }
+            );
+        }
+    }
+
+    // Page Navigation
+    function changePage(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+        document.getElementById(page + 'Page').classList.remove('hidden');
+        currentPage = page;
+        
+        // Update active nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        document.getElementById('nav-' + page)?.classList.add('active');
+
+        if (page === 'map' && !leafletMap) {
+            initMap();
+        }
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+        isDarkMode = !isDarkMode;
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        document.getElementById('themeToggle').innerHTML = isDarkMode ? '<i class="ri-sun-line text-xl text-[#166534]"></i>' : '<i class="ri-moon-line text-xl text-[#166534]"></i>';
+    }
+
+    // Auth functions
+    function updateAuthUI() {
+        if (isAuthenticated && currentUser) {
+            document.getElementById('authButtons').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            document.getElementById('userName').textContent = currentUser.name;
+        } else {
+            document.getElementById('authButtons').classList.remove('hidden');
+            document.getElementById('userMenu').classList.add('hidden');
+        }
+    }
+
+    function showLoginModal() {
+        document.getElementById('loginModal').classList.remove('hidden');
+        document.getElementById('loginModal').classList.add('flex');
+    }
+
+    function hideLoginModal() {
+        document.getElementById('loginModal').classList.add('hidden');
+        document.getElementById('loginModal').classList.remove('flex');
+    }
+
+    function showRegisterModal() {
+        hideLoginModal();
+        document.getElementById('registerModal').classList.remove('hidden');
+        document.getElementById('registerModal').classList.add('flex');
+    }
+
+    function hideRegisterModal() {
+        document.getElementById('registerModal').classList.add('hidden');
+        document.getElementById('registerModal').classList.remove('flex');
+    }
+
+    function logout() {
+        isAuthenticated = false;
+        currentUser = null;
+        localStorage.removeItem('user');
+        updateAuthUI();
+        showNotification('Logged out successfully', 'success');
+    }
+
+    // Validation functions
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePassword(password) {
+        return password.length >= 6;
+    }
+
+    function validateName(name) {
+        return name.length >= 2;
+    }
+
+    function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.classList.remove('hidden');
+    }
+
+    function hideError(elementId) {
+        document.getElementById(elementId).classList.add('hidden');
+    }
+
+    function validateAndLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        let isValid = true;
+
+        if (!email) {
+            showError('loginEmailError', 'Email is required');
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            showError('loginEmailError', 'Invalid email format');
+            isValid = false;
+        } else {
+            hideError('loginEmailError');
+        }
+
+        if (!password) {
+            showError('loginPasswordError', 'Password is required');
+            isValid = false;
+        } else if (!validatePassword(password)) {
+            showError('loginPasswordError', 'Password must be at least 6 characters');
+            isValid = false;
+        } else {
+            hideError('loginPasswordError');
+        }
+
+        if (isValid) {
+            const user = { email, name: email.split('@')[0] };
+            isAuthenticated = true;
+            currentUser = user;
+            localStorage.setItem('user', JSON.stringify(user));
+            updateAuthUI();
+            hideLoginModal();
+            showNotification('Login successful!', 'success');
+        }
+    }
+
+    function validateAndRegister() {
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const confirm = document.getElementById('registerConfirmPassword').value;
+        
+        let isValid = true;
+
+        if (!name) {
+            showError('registerNameError', 'Name is required');
+            isValid = false;
+        } else if (!validateName(name)) {
+            showError('registerNameError', 'Name must be at least 2 characters');
+            isValid = false;
+        } else {
+            hideError('registerNameError');
+        }
+
+        if (!email) {
+            showError('registerEmailError', 'Email is required');
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            showError('registerEmailError', 'Invalid email format');
+            isValid = false;
+        } else {
+            hideError('registerEmailError');
+        }
+
+        if (!password) {
+            showError('registerPasswordError', 'Password is required');
+            isValid = false;
+        } else if (!validatePassword(password)) {
+            showError('registerPasswordError', 'Password must be at least 6 characters');
+            isValid = false;
+        } else {
+            hideError('registerPasswordError');
+        }
+
+        if (password !== confirm) {
+            showError('registerConfirmError', 'Passwords do not match');
+            isValid = false;
+        } else {
+            hideError('registerConfirmError');
+        }
+
+        if (isValid) {
+            const user = { email, name };
+            isAuthenticated = true;
+            currentUser = user;
+            localStorage.setItem('user', JSON.stringify(user));
+            updateAuthUI();
+            hideRegisterModal();
+            showNotification('Registration successful!', 'success');
+        }
+    }
+
+    // Mobile menu
+    function toggleMobileMenu() {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // Crop selection
+    function selectCrop(crop) {
+        selectedCrop = crop;
+        document.querySelectorAll('.crop-item').forEach(item => {
+            item.classList.remove('selected', 'bg-[#166534]', 'text-white');
+            if (item.textContent.toLowerCase().includes(crop)) {
+                item.classList.add('selected', 'bg-[#166534]', 'text-white');
+            }
+        });
+        showNotification(`Selected: ${crop}`, 'success');
+    }
+
+    // File upload handlers
+    function handleDragOver(e) {
+        e.preventDefault();
+        document.getElementById('uploadArea').classList.add('border-[#22c55e]', 'bg-green-50');
+    }
+
+    function handleDragLeave(e) {
+        e.preventDefault();
+        document.getElementById('uploadArea').classList.remove('border-[#22c55e]', 'bg-green-50');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        handleDragLeave(e);
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            processImage(file);
+        }
+    }
+
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) processImage(file);
+    }
+
+    function processImage(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImage').src = e.target.result;
+            document.getElementById('imagePreview').classList.remove('hidden');
+            document.getElementById('noAnalysis').classList.add('hidden');
+            document.getElementById('analysisResults').classList.add('hidden');
+            document.getElementById('analysisLoading').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('analysisLoading').classList.add('hidden');
+                document.getElementById('analysisResults').classList.remove('hidden');
+                updateResultsForCrop(selectedCrop);
+                showNotification('Analysis complete!', 'success');
+            }, 3000);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function updateResultsForCrop(crop) {
+        const results = {
+            rice: { disease: 'Rice Blast', confidence: 94, severity: 65, area: 25 },
+            wheat: { disease: 'Wheat Rust', confidence: 89, severity: 45, area: 20 },
+            corn: { disease: 'Corn Leaf Blight', confidence: 92, severity: 55, area: 30 },
+            default: { disease: 'Early Blight', confidence: 92, severity: 75, area: 30 }
+        };
+
+        const result = results[crop] || results.default;
+        
+        document.getElementById('diseaseName').textContent = result.disease;
+        document.getElementById('confidenceValue').textContent = result.confidence + '%';
+        document.getElementById('confidenceBar').style.width = result.confidence + '%';
+        document.getElementById('severityScore').textContent = result.severity;
+        document.getElementById('affectedArea').textContent = result.area + '%';
+    }
+
+    // Camera functions
+    async function toggleCamera() {
+        const container = document.getElementById('cameraContainer');
+        const btn = document.getElementById('captureBtn');
+        
+        if (container.classList.contains('hidden')) {
+            try {
+                mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById('cameraPreview').srcObject = mediaStream;
+                container.classList.remove('hidden');
+                btn.classList.remove('hidden');
+            } catch (err) {
+                showNotification('Camera access denied', 'error');
+            }
+        } else {
+            if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+            container.classList.add('hidden');
+            btn.classList.add('hidden');
+        }
+    }
+
+    function captureImage() {
+        const video = document.getElementById('cameraPreview');
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        
+        canvas.toBlob(blob => {
+            const file = new File([blob], 'capture.jpg', { type: 'image/jpeg' });
+            processImage(file);
+            
+            if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+            document.getElementById('cameraContainer').classList.add('hidden');
+            document.getElementById('captureBtn').classList.add('hidden');
+        }, 'image/jpeg');
+    }
+
+    // Chat functions
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (!message) return;
+
+        addMessage(message, 'user');
+        input.value = '';
+
+        showTypingIndicator();
+
+        setTimeout(() => {
+            hideTypingIndicator();
+            const response = getBotResponse(message);
+            addMessage(response, 'bot');
+            speakText(response);
+        }, 1500);
+    }
+
+    function addMessage(text, sender) {
+        const container = document.getElementById('chatMessages');
+        const div = document.createElement('div');
+        div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} animate__animated animate__fadeIn`;
+        
+        div.innerHTML = `
+            <div class="${sender === 'user' ? 'bg-[#166534] text-white' : 'bg-white dark:bg-gray-800'} rounded-2xl p-4 max-w-[80%] shadow">
+                <p class="${sender === 'user' ? 'text-white' : 'text-gray-900 dark:text-white'}">${text}</p>
+                <div class="flex items-center gap-2 mt-2">
+                    <p class="text-xs ${sender === 'user' ? 'text-green-100' : 'text-gray-500'}">
+                        ${sender === 'user' ? 'You' : 'AI'} • Just now
+                    </p>
+                    ${sender === 'bot' ? `<button onclick="speakText('${text}')" class="text-[#166534] hover:text-[#22c55e]"><i class="ri-volume-up-line"></i></button>` : ''}
+                </div>
+            </div>
+        `;
+        
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+        const container = document.getElementById('chatMessages');
+        const div = document.createElement('div');
+        div.className = 'flex justify-start typing-indicator';
+        div.id = 'typingIndicator';
+        div.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow">
+                <div class="loading-dots">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+        document.getElementById('typingIndicator')?.remove();
+    }
+
+    function getBotResponse(message) {
+        const msg = message.toLowerCase();
+        if (msg.includes('rice')) return 'Rice crops can be affected by Blast, Bacterial Leaf Blight, and Sheath Rot. Would you like specific information?';
+        if (msg.includes('wheat')) return 'Wheat commonly suffers from Rust, Smut, and Powdery Mildew. Describe the symptoms for better assistance.';
+        if (msg.includes('fertilizer')) return 'Fertilizer recommendations depend on soil test results. Consider getting a soil test for accurate advice.';
+        if (msg.includes('weather')) return 'Check our weather prediction feature for disease forecasts based on local conditions.';
+        return 'I can help with crop diseases, fertilizers, weather, and farming practices. What would you like to know?';
+    }
+
+    // Weather functions
+    function updateWeatherData() {
+        const weather = { temperature: 28, humidity: 75, rainfall: 12, windSpeed: 15 };
+        document.getElementById('temperature').textContent = weather.temperature + '°C';
+        document.getElementById('humidity').textContent = weather.humidity + '%';
+        document.getElementById('rainfall').textContent = weather.rainfall + ' mm';
+        document.getElementById('windSpeed').textContent = weather.windSpeed + ' km/h';
+        
+        const risk = weather.humidity > 80 ? 'High' : weather.humidity > 60 ? 'Medium' : 'Low';
+        const riskElement = document.getElementById('weatherRiskLevel');
+        riskElement.textContent = risk + ' Risk';
+        riskElement.className = `px-4 py-2 rounded-full text-sm font-semibold ${
+            risk === 'High' ? 'bg-red-100 text-red-800' : 
+            risk === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 
+            'bg-green-100 text-green-800'
+        }`;
+    }
+
+    // Scheme functions
+    function showSchemeDetails(scheme) {
+        const details = {
+            'pmkisan': {
+                title: 'PM-KISAN Scheme',
+                description: 'Income support of ₹6000 per year',
+                benefit: '₹2000 every 4 months',
+                eligibility: 'Small and marginal farmers',
+                apply: 'https://pmkisan.gov.in'
+            },
+            'soilhealth': {
+                title: 'Soil Health Card Scheme',
+                description: 'Free soil testing',
+                benefit: 'Nutrient recommendations',
+                eligibility: 'All farmers',
+                apply: 'https://soilhealth.dac.gov.in'
+            },
+            'pmksy': {
+                title: 'PMKSY - Irrigation Scheme',
+                description: 'Improve water efficiency',
+                benefit: 'Subsidy on irrigation equipment',
+                eligibility: 'All farmers',
+                apply: 'https://pmksy.gov.in'
+            },
+            'kcc': {
+                title: 'Kisan Credit Card',
+                description: 'Affordable credit',
+                benefit: 'Credit up to ₹3 lakhs',
+                eligibility: 'All farmers',
+                apply: 'https://kcc.gov.in'
+            }
+        };
+
+        const schemeData = details[scheme];
+        if (schemeData) {
+            document.getElementById('schemeContent').innerHTML = `
+                <div class="text-center mb-4">
+                    <i class="ri-government-line text-5xl text-[#166534] mb-3"></i>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">${schemeData.title}</h3>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-gray-700 dark:text-gray-300"><strong>Description:</strong> ${schemeData.description}</p>
+                    <p class="text-gray-700 dark:text-gray-300"><strong>Benefit:</strong> ${schemeData.benefit}</p>
+                    <p class="text-gray-700 dark:text-gray-300"><strong>Eligibility:</strong> ${schemeData.eligibility}</p>
+                    <a href="${schemeData.apply}" target="_blank" class="block text-center mt-4 text-[#166534] hover:underline">Apply Here →</a>
+                </div>
+            `;
+            document.getElementById('schemeModal').classList.remove('hidden');
+            document.getElementById('schemeModal').classList.add('flex');
+        }
+    }
+
+    function hideSchemeModal() {
+        document.getElementById('schemeModal').classList.add('hidden');
+        document.getElementById('schemeModal').classList.remove('flex');
+    }
+
+    // Notification
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-24 right-4 px-6 py-3 rounded-xl shadow-2xl z-50 animate__animated animate__slideInRight ${
+            type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        } text-white`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        if (isDarkMode) {
+            document.body.classList.add('dark');
+            document.getElementById('themeToggle').innerHTML = '<i class="ri-sun-line text-xl text-[#166534]"></i>';
+        }
+
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            isAuthenticated = true;
+            currentUser = JSON.parse(savedUser);
+            updateAuthUI();
+        }
+
+        updateWeatherData();
+        setInterval(updateWeatherData, 60000);
+        changePage('home');
+    });
+</script>
+
+</body>
+</html>
