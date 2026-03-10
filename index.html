@@ -596,16 +596,27 @@
         
         /* Language selector */
         .language-selector {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            border: 1px solid #14532d;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #14532d;
             background: transparent;
             color: inherit;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .language-selector:hover {
+            border-color: #22c55e;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
         }
         
         .dark .language-selector {
             border-color: #22c55e;
+            background: #1f2937;
+            color: white;
         }
         
         /* Verified badge */
@@ -624,6 +635,235 @@
             margin-top: 0.5rem;
             text-align: center;
         }
+        
+        /* Profile & Settings merged styles */
+        .profile-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark .profile-section {
+            background: #1f2937;
+        }
+        
+        .settings-card {
+            background: rgba(20, 83, 45, 0.05);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .settings-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.15);
+        }
+        
+        .dark .settings-card {
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .notification-toggle {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+        
+        .notification-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #14532d;
+        }
+        
+        input:focus + .toggle-slider {
+            box-shadow: 0 0 1px #14532d;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        .dark .toggle-slider {
+            background-color: #4b5563;
+        }
+        
+        .dark input:checked + .toggle-slider {
+            background-color: #22c55e;
+        }
+        
+        .shop-marker {
+            background: transparent;
+            border: none;
+        }
+        
+        .shop-marker i {
+            font-size: 2rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            transition: all 0.3s ease;
+        }
+        
+        .shop-marker:hover i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 6px 8px rgba(34, 197, 94, 0.3));
+        }
+        
+        .shop-popup .leaflet-popup-content-wrapper {
+            border-radius: 1rem;
+            background: white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .shop-popup .leaflet-popup-content-wrapper {
+            background: #1f2937;
+            color: white;
+        }
+        
+        .shop-popup .leaflet-popup-tip {
+            background: white;
+        }
+        
+        .dark .shop-popup .leaflet-popup-tip {
+            background: #1f2937;
+        }
+        
+        .radius-selector {
+            background: white;
+            border: 2px solid #14532d;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1rem;
+            color: #1f2937;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radius-selector:hover {
+            border-color: #22c55e;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+        }
+        
+        .dark .radius-selector {
+            background: #1f2937;
+            color: white;
+            border-color: #22c55e;
+        }
+        
+        .shop-list-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid #14532d;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .shop-list-item:hover {
+            transform: translateX(5px);
+            border-left-color: #22c55e;
+            box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.2);
+        }
+        
+        .dark .shop-list-item {
+            background: #1f2937;
+            color: white;
+        }
+        
+        .direction-btn {
+            background: linear-gradient(135deg, #14532d, #22c55e);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .direction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(34, 197, 94, 0.3);
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 1rem;
+        }
+        
+        .dark .loading-overlay {
+            background: rgba(17, 24, 39, 0.9);
+        }
+        
+        .shop-type-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(20, 83, 45, 0.1);
+            color: #14532d;
+            border: 1px solid #14532d;
+        }
+        
+        .dark .shop-type-badge {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-color: #22c55e;
+        }
+        
+        .distance-badge {
+            background: #f59e0b;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="transition-colors duration-300">
@@ -638,39 +878,36 @@
                 <div class="flex items-center flex-shrink-0">
                     <a href="#" onclick="changePage('home')" class="flex items-center space-x-2 group cursor-pointer" style="white-space: nowrap;">
                         <i class="ri-leaf-line text-2xl" style="color: #14532d;"></i>
-                        <span class="logo-text">AI Crop Health</span>
+                        <span class="logo-text" id="logoText">AI Crop Health</span>
                     </a>
                 </div>
 
                 <!-- Center Menu Items -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
-                    <a href="#" onclick="changePage('dashboard')" class="nav-menu-item auth-required" data-page="dashboard" style="display: none;">
-                        Dashboard
-                    </a>
-                    <a href="#" onclick="changePage('detect')" class="nav-menu-item" data-page="detect">
+                    <a href="#" onclick="changePage('detect')" class="nav-menu-item" data-page="detect" id="navDetect">
                         Crop Diagnosis
                     </a>
-                    <a href="#" onclick="changePage('weather')" class="nav-menu-item" data-page="weather">
+                    <a href="#" onclick="changePage('weather')" class="nav-menu-item" data-page="weather" id="navWeather">
                         Weather
                     </a>
-                    <a href="#" onclick="changePage('schemes')" class="nav-menu-item" data-page="schemes">
+                    <a href="#" onclick="changePage('schemes')" class="nav-menu-item" data-page="schemes" id="navSchemes">
                         Government Schemes
                     </a>
-                    <a href="#" onclick="changePage('history')" class="nav-menu-item" data-page="history">
+                    <a href="#" onclick="changePage('shops')" class="nav-menu-item" data-page="shops" id="navShops">
+                        Fertilizer Shops
+                    </a>
+                    <a href="#" onclick="changePage('history')" class="nav-menu-item" data-page="history" id="navHistory">
                         History
                     </a>
                 </div>
 
                 <!-- Right Menu Items -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
-                    <a href="#" onclick="changePage('chatbot')" class="nav-menu-item" data-page="chatbot">
+                    <a href="#" onclick="changePage('chatbot')" class="nav-menu-item" data-page="chatbot" id="navChatbot">
                         Chatbot
                     </a>
-                    <a href="#" onclick="changePage('profile')" class="nav-menu-item auth-required" data-page="profile" style="display: none;">
-                        Profile
-                    </a>
-                    <a href="#" onclick="changePage('settings')" class="nav-menu-item auth-required" data-page="settings" style="display: none;">
-                        Settings
+                    <a href="#" onclick="changePage('profile')" class="nav-menu-item auth-required" data-page="profile" style="display: none;" id="navProfile">
+                        Profile & Settings
                     </a>
                     
                     <!-- Accessibility Text Size Controls -->
@@ -709,7 +946,7 @@
 
                     <!-- Login/User Menu -->
                     <div id="authButtons" class="ml-2">
-                        <button onclick="showLoginModal()" class="btn-primary !px-4 !py-2 text-sm">
+                        <button onclick="showLoginModal()" class="btn-primary !px-4 !py-2 text-sm" id="loginBtn">
                             Login
                         </button>
                     </div>
@@ -722,7 +959,7 @@
                             </span>
                         </button>
                         <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                            <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-[#22c55e] hover:text-white rounded-lg transition-all">
+                            <button onclick="logout()" class="w-full text-left px-4 py-2 hover:bg-[#22c55e] hover:text-white rounded-lg transition-all" id="logoutBtn">
                                 <i class="ri-logout-box-line mr-2"></i> Logout
                             </button>
                         </div>
@@ -741,14 +978,13 @@
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden md:hidden">
             <div class="max-w-7xl mx-auto px-4 py-2 space-y-1">
-                <a href="#" onclick="changePage('dashboard')" class="mobile-nav-item auth-required-mobile" style="display: none;">Dashboard</a>
-                <a href="#" onclick="changePage('detect')" class="mobile-nav-item">Crop Diagnosis</a>
-                <a href="#" onclick="changePage('weather')" class="mobile-nav-item">Weather</a>
-                <a href="#" onclick="changePage('schemes')" class="mobile-nav-item">Government Schemes</a>
-                <a href="#" onclick="changePage('history')" class="mobile-nav-item">History</a>
-                <a href="#" onclick="changePage('chatbot')" class="mobile-nav-item">Chatbot</a>
-                <a href="#" onclick="changePage('profile')" class="mobile-nav-item auth-required-mobile" style="display: none;">Profile</a>
-                <a href="#" onclick="changePage('settings')" class="mobile-nav-item auth-required-mobile" style="display: none;">Settings</a>
+                <a href="#" onclick="changePage('detect')" class="mobile-nav-item" id="mobileDetect">Crop Diagnosis</a>
+                <a href="#" onclick="changePage('weather')" class="mobile-nav-item" id="mobileWeather">Weather</a>
+                <a href="#" onclick="changePage('schemes')" class="mobile-nav-item" id="mobileSchemes">Government Schemes</a>
+                <a href="#" onclick="changePage('shops')" class="mobile-nav-item" id="mobileShops">Fertilizer Shops</a>
+                <a href="#" onclick="changePage('history')" class="mobile-nav-item" id="mobileHistory">History</a>
+                <a href="#" onclick="changePage('chatbot')" class="mobile-nav-item" id="mobileChatbot">Chatbot</a>
+                <a href="#" onclick="changePage('profile')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileProfile">Profile & Settings</a>
             </div>
         </div>
     </nav>
@@ -767,19 +1003,19 @@
                     <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div>
                             <h1 class="text-5xl md:text-6xl font-black mb-4">
-                                <span style="color: #14532d;">AI-powered</span><br>
-                                <span style="color: #1f2937;">Crop Health & Disease</span><br>
-                                <span style="color: #22c55e;">Diagnosis Platform</span>
+                                <span style="color: #14532d;" id="heroAiPowered">AI-powered</span><br>
+                                <span style="color: #1f2937;" id="heroCropHealth">Crop Health & Disease</span><br>
+                                <span style="color: #22c55e;" id="heroDiagnosis">Diagnosis Platform</span>
                             </h1>
-                            <p class="text-xl" style="color: #4b5563; margin-bottom: 2rem;">
+                            <p class="text-xl" style="color: #4b5563; margin-bottom: 2rem;" id="heroDescription">
                                 Advanced AI technology for early disease detection, real-time monitoring, and smart farming recommendations
                             </p>
                             <div class="flex flex-wrap gap-4">
-                                <button onclick="changePage('detect')" class="btn-primary flex items-center gap-2">
+                                <button onclick="changePage('detect')" class="btn-primary flex items-center gap-2" id="heroUploadBtn">
                                     <i class="ri-upload-cloud-line"></i>
                                     Upload Crop Image
                                 </button>
-                                <button onclick="changePage('detect')" class="bg-[#F59E0B] text-white px-8 py-4 rounded-xl hover:bg-[#D97706] transition-all transform hover:scale-105 flex items-center gap-2">
+                                <button onclick="changePage('detect')" class="bg-[#F59E0B] text-white px-8 py-4 rounded-xl hover:bg-[#D97706] transition-all transform hover:scale-105 flex items-center gap-2" id="heroAnalyzeBtn">
                                     <i class="ri-camera-line"></i>
                                     Analyze Plant
                                 </button>
@@ -790,7 +1026,7 @@
                             <div class="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-xl">
                                 <div class="flex items-center gap-3">
                                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                                    <span class="font-semibold" style="color: #1f2937;">AI Active - 24/7 Monitoring</span>
+                                    <span class="font-semibold" style="color: #1f2937;" id="heroAiStatus">AI Active - 24/7 Monitoring</span>
                                 </div>
                             </div>
                         </div>
@@ -802,23 +1038,23 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition-all">
                     <i class="ri-leaf-line text-4xl mb-4" style="color: #14532d;"></i>
-                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">Real-time Detection</h3>
-                    <p style="color: #4b5563;">Instant disease identification with 95% accuracy</p>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="featureDetection">Real-time Detection</h3>
+                    <p style="color: #4b5563;" id="featureDetectionDesc">Instant disease identification with 95% accuracy</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition-all">
                     <i class="ri-cloud-line text-4xl mb-4" style="color: #14532d;"></i>
-                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">Weather Prediction</h3>
-                    <p style="color: #4b5563;">Disease forecasting based on weather conditions</p>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="featureWeather">Weather Prediction</h3>
+                    <p style="color: #4b5563;" id="featureWeatherDesc">Disease forecasting based on weather conditions</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition-all">
                     <i class="ri-robot-line text-4xl mb-4" style="color: #14532d;"></i>
-                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">AI Chatbot</h3>
-                    <p style="color: #4b5563;">24/7 farming assistant for all your queries</p>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="featureChatbot">AI Chatbot</h3>
+                    <p style="color: #4b5563;" id="featureChatbotDesc">24/7 farming assistant for all your queries</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl hover:transform hover:scale-105 transition-all">
                     <i class="ri-government-line text-4xl mb-4" style="color: #14532d;"></i>
-                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">Govt Schemes</h3>
-                    <p style="color: #4b5563;">Access to agricultural subsidies and schemes</p>
+                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="featureSchemes">Govt Schemes</h3>
+                    <p style="color: #4b5563;" id="featureSchemesDesc">Access to agricultural subsidies and schemes</p>
                 </div>
             </div>
 
@@ -826,54 +1062,54 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="glass-card p-6 rounded-2xl text-center">
                     <div class="text-3xl font-bold" style="color: #14532d;">50+</div>
-                    <div style="color: #4b5563;">Diseases Detected</div>
+                    <div style="color: #4b5563;" id="statsDiseases">Diseases Detected</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl text-center">
                     <div class="text-3xl font-bold" style="color: #14532d;">95%</div>
-                    <div style="color: #4b5563;">Accuracy Rate</div>
+                    <div style="color: #4b5563;" id="statsAccuracy">Accuracy Rate</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl text-center">
                     <div class="text-3xl font-bold" style="color: #14532d;">10K+</div>
-                    <div style="color: #4b5563;">Farmers Helped</div>
+                    <div style="color: #4b5563;" id="statsFarmers">Farmers Helped</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl text-center">
                     <div class="text-3xl font-bold" style="color: #14532d;">24/7</div>
-                    <div style="color: #4b5563;">AI Support</div>
+                    <div style="color: #4b5563;" id="statsSupport">AI Support</div>
                 </div>
             </div>
         </div>
 
         <!-- Disease Detection Page -->
         <div id="detectPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">AI Disease Detection</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="detectTitle">AI Disease Detection</h1>
 
             <!-- Crop Selection Menu -->
             <div class="mb-8">
-                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Select Crop Type</h2>
+                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;" id="selectCropTitle">Select Crop Type</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('rice')">
                         <i class="ri-plant-line text-3xl mb-2" style="color: inherit;"></i>
-                        <span class="block font-medium">Rice</span>
+                        <span class="block font-medium" id="cropRice">Rice</span>
                     </div>
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('wheat')">
                         <i class="ri-plant-line text-3xl mb-2"></i>
-                        <span class="block font-medium">Wheat</span>
+                        <span class="block font-medium" id="cropWheat">Wheat</span>
                     </div>
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('corn')">
                         <i class="ri-plant-line text-3xl mb-2"></i>
-                        <span class="block font-medium">Corn</span>
+                        <span class="block font-medium" id="cropCorn">Corn</span>
                     </div>
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('tomato')">
                         <i class="ri-plant-line text-3xl mb-2"></i>
-                        <span class="block font-medium">Tomato</span>
+                        <span class="block font-medium" id="cropTomato">Tomato</span>
                     </div>
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('potato')">
                         <i class="ri-plant-line text-3xl mb-2"></i>
-                        <span class="block font-medium">Potato</span>
+                        <span class="block font-medium" id="cropPotato">Potato</span>
                     </div>
                     <div class="crop-item p-4 rounded-xl text-center" onclick="selectCrop('cotton')">
                         <i class="ri-plant-line text-3xl mb-2"></i>
-                        <span class="block font-medium">Cotton</span>
+                        <span class="block font-medium" id="cropCotton">Cotton</span>
                     </div>
                 </div>
             </div>
@@ -881,7 +1117,7 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Upload Section -->
                 <div class="glass-card p-6 rounded-2xl">
-                    <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Upload Plant Image</h2>
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;" id="uploadTitle">Upload Plant Image</h2>
                     
                     <!-- Drag & Drop Area -->
                     <div id="uploadArea" class="upload-area p-8 rounded-2xl text-center mb-4"
@@ -890,18 +1126,18 @@
                          ondrop="handleDrop(event)"
                          onclick="document.getElementById('fileInput').click()">
                         <i class="ri-upload-cloud-line text-5xl mb-4" style="color: #14532d;"></i>
-                        <p class="mb-2" style="color: #4b5563;">Drag & drop your image here</p>
-                        <p class="text-sm" style="color: #9ca3af;">or click to browse</p>
+                        <p class="mb-2" style="color: #4b5563;" id="dragDropText">Drag & drop your image here</p>
+                        <p class="text-sm" style="color: #9ca3af;" id="clickToBrowse">or click to browse</p>
                         <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
                     </div>
 
                     <!-- Camera buttons -->
                     <div class="flex gap-3 mb-4">
-                        <button onclick="toggleCamera()" class="flex-1 bg-[#14532d] text-white px-4 py-3 rounded-xl hover:bg-[#22c55e] transition-all flex items-center justify-center gap-2">
+                        <button onclick="toggleCamera()" class="flex-1 bg-[#14532d] text-white px-4 py-3 rounded-xl hover:bg-[#22c55e] transition-all flex items-center justify-center gap-2" id="openCameraBtn">
                             <i class="ri-camera-line"></i>
                             Open Camera
                         </button>
-                        <button onclick="captureImage()" id="captureBtn" class="flex-1 bg-[#F59E0B] text-white px-4 py-3 rounded-xl hover:bg-[#D97706] transition-all flex items-center justify-center gap-2 hidden">
+                        <button onclick="captureImage()" id="captureBtn" class="flex-1 bg-[#F59E0B] text-white px-4 py-3 rounded-xl hover:bg-[#D97706] transition-all flex items-center justify-center gap-2 hidden" id="captureBtn">
                             <i class="ri-camera-switch-line"></i>
                             Capture
                         </button>
@@ -926,18 +1162,18 @@
                     <!-- Invalid Image Message -->
                     <div id="invalidImageMessage" class="hidden mt-4 p-4 bg-red-100 text-red-700 rounded-xl text-center">
                         <i class="ri-error-warning-line text-2xl mb-2"></i>
-                        <p>Please upload or capture an image containing a plant, leaf, or tree.</p>
+                        <p id="invalidImageMsg">Please upload or capture an image containing a plant, leaf, or tree.</p>
                     </div>
                 </div>
 
                 <!-- Results Section -->
                 <div class="glass-card p-6 rounded-2xl">
-                    <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Analysis Results</h2>
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;" id="resultsTitle">Analysis Results</h2>
 
                     <!-- Loading State -->
                     <div id="analysisLoading" class="hidden text-center py-12">
                         <div class="loading-spinner mx-auto mb-4"></div>
-                        <p style="color: #4b5563;">AI analyzing your crop image...</p>
+                        <p style="color: #4b5563;" id="analysisLoadingText">AI analyzing your crop image...</p>
                     </div>
 
                     <!-- Results Content -->
@@ -948,13 +1184,13 @@
                                 <h3 class="font-semibold text-lg" style="color: #1f2937;" id="diseaseName">Early Blight</h3>
                                 <span class="risk-indicator moderate" id="riskBadge">
                                     <i class="ri-alert-line"></i>
-                                    <span>Moderate Risk</span>
+                                    <span id="riskLevel">Moderate Risk</span>
                                 </span>
                             </div>
                             
                             <div class="mb-3">
                                 <div class="flex justify-between text-sm mb-1">
-                                    <span style="color: #4b5563;">Detection Confidence</span>
+                                    <span style="color: #4b5563;" id="confidenceLabel">Detection Confidence</span>
                                     <span class="font-semibold" style="color: #1f2937;" id="confidenceValue">92%</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2">
@@ -965,18 +1201,18 @@
                             <div class="grid grid-cols-2 gap-3 text-center">
                                 <div>
                                     <p class="text-2xl font-bold" style="color: #14532d;" id="severityScore">75</p>
-                                    <p class="text-xs" style="color: #6b7280;">Severity Score</p>
+                                    <p class="text-xs" style="color: #6b7280;" id="severityLabel">Severity Score</p>
                                 </div>
                                 <div>
                                     <p class="text-2xl font-bold" style="color: #F59E0B;" id="affectedArea">30%</p>
-                                    <p class="text-xs" style="color: #6b7280;">Affected Area</p>
+                                    <p class="text-xs" style="color: #6b7280;" id="affectedAreaLabel">Affected Area</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Symptoms -->
                         <div>
-                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;">
+                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;" id="symptomsTitle">
                                 <i class="ri-alert-line" style="color: #14532d;"></i>
                                 Symptoms
                             </h3>
@@ -990,7 +1226,7 @@
 
                         <!-- Causes -->
                         <div>
-                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;">
+                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;" id="causesTitle">
                                 <i class="ri-bug-line" style="color: #14532d;"></i>
                                 Causes
                             </h3>
@@ -1004,7 +1240,7 @@
 
                         <!-- Treatment -->
                         <div>
-                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;">
+                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;" id="treatmentTitle">
                                 <i class="ri-medicine-bottle-line" style="color: #14532d;"></i>
                                 Treatment Recommendations
                             </h3>
@@ -1018,7 +1254,7 @@
 
                         <!-- Preventive Measures -->
                         <div>
-                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;">
+                            <h3 class="font-semibold mb-3 flex items-center gap-2" style="color: #1f2937;" id="preventiveTitle">
                                 <i class="ri-shield-check-line" style="color: #14532d;"></i>
                                 Preventive Measures
                             </h3>
@@ -1032,17 +1268,17 @@
 
                         <!-- Government Schemes -->
                         <div class="p-4 bg-[#F59E0B] bg-opacity-10 rounded-xl">
-                            <h3 class="font-semibold mb-2 flex items-center gap-2" style="color: #1f2937;">
+                            <h3 class="font-semibold mb-2 flex items-center gap-2" style="color: #1f2937;" id="schemesSubtitle">
                                 <i class="ri-government-line" style="color: #F59E0B;"></i>
                                 Eligible Government Schemes
                             </h3>
-                            <p class="text-sm mb-2" style="color: #4b5563;">You may be eligible for:</p>
+                            <p class="text-sm mb-2" style="color: #4b5563;" id="schemesEligibleText">You may be eligible for:</p>
                             <ul class="space-y-1 text-sm" style="color: #4b5563;" id="schemesList">
                                 <li>• PM-KISAN Financial Support</li>
                                 <li>• Soil Health Card Scheme</li>
                                 <li>• Crop Insurance Program</li>
                             </ul>
-                            <button class="mt-3 font-semibold text-sm hover:underline" style="color: #14532d;" onclick="changePage('schemes')">
+                            <button class="mt-3 font-semibold text-sm hover:underline" style="color: #14532d;" onclick="changePage('schemes')" id="viewAllSchemesBtn">
                                 View all schemes →
                             </button>
                         </div>
@@ -1051,7 +1287,7 @@
                     <!-- Empty State -->
                     <div id="noAnalysis" class="text-center py-12">
                         <i class="ri-image-line text-6xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-500">Upload an image to start analysis</p>
+                        <p class="text-gray-500" id="noAnalysisText">Upload an image to start analysis</p>
                     </div>
                 </div>
             </div>
@@ -1059,7 +1295,7 @@
 
         <!-- AI Chatbot Page -->
         <div id="chatbotPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">AI Farmer Assistant</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="chatbotTitle">AI Farmer Assistant</h1>
 
             <div class="glass-card rounded-2xl overflow-hidden">
                 <!-- Chat Header -->
@@ -1071,8 +1307,8 @@
                                 <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                             </div>
                             <div>
-                                <h2 class="font-semibold">Crop Health AI</h2>
-                                <p class="text-sm opacity-90">Ask me anything about your crops</p>
+                                <h2 class="font-semibold" id="chatbotHeader">Crop Health AI</h2>
+                                <p class="text-sm opacity-90" id="chatbotSubheader">Ask me anything about your crops</p>
                             </div>
                         </div>
                         <!-- Voice Status -->
@@ -1096,8 +1332,8 @@
                 <div id="chatMessages" class="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
                     <div class="flex justify-start">
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 max-w-[80%] shadow">
-                            <p style="color: #1f2937;">Hello! I'm your AI farming assistant. How can I help you today?</p>
-                            <p class="text-xs text-gray-500 mt-2">AI • Just now</p>
+                            <p style="color: #1f2937;" id="welcomeMessage">Hello! I'm your AI farming assistant. How can I help you today?</p>
+                            <p class="text-xs text-gray-500 mt-2">AI • <span id="justNow">Just now</span></p>
                         </div>
                     </div>
                 </div>
@@ -1109,8 +1345,8 @@
                             <i class="ri-mic-line"></i>
                         </button>
                         <input type="text" id="chatInput" placeholder="Type your question or use voice..." 
-                               class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white">
-                        <button onclick="sendMessage()" class="bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+                               class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white" id="chatInputPlaceholder">
+                        <button onclick="sendMessage()" class="bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all" id="sendBtn">
                             <i class="ri-send-plane-line"></i>
                         </button>
                     </div>
@@ -1120,17 +1356,17 @@
 
         <!-- Weather Page -->
         <div id="weatherPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Weather-Based Disease Prediction</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="weatherTitle">Weather-Based Disease Prediction</h1>
 
             <!-- Location Input -->
             <div class="mb-6 flex gap-4 flex-wrap">
                 <input type="text" id="locationInput" placeholder="Enter your location (city, area)" 
-                       class="flex-1 p-3 border-2 border-[#14532d] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white min-w-[250px]">
-                <button onclick="getWeatherByLocation()" class="location-btn">
+                       class="flex-1 p-3 border-2 border-[#14532d] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white min-w-[250px]" id="locationPlaceholder">
+                <button onclick="getWeatherByLocation()" class="location-btn" id="getWeatherBtn">
                     <i class="ri-map-pin-line"></i>
                     Get Weather
                 </button>
-                <button onclick="getUserLocation()" class="location-btn">
+                <button onclick="getUserLocation()" class="location-btn" id="useLocationBtn">
                     <i class="ri-crosshair-line"></i>
                     Use My Location
                 </button>
@@ -1138,51 +1374,51 @@
 
             <!-- Current Weather -->
             <div class="glass-card p-6 rounded-2xl mb-6">
-                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Current Weather</h2>
+                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;" id="currentWeatherTitle">Current Weather</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="p-4 rounded-xl text-center" style="background: rgba(20, 83, 45, 0.05);">
                         <i class="ri-sun-line text-3xl text-yellow-500 mb-2"></i>
-                        <p class="text-sm" style="color: #4b5563;">Temperature</p>
+                        <p class="text-sm" style="color: #4b5563;" id="tempLabel">Temperature</p>
                         <p class="text-2xl font-bold" style="color: #1f2937;" id="temperature">--°C</p>
                     </div>
                     <div class="p-4 rounded-xl text-center" style="background: rgba(20, 83, 45, 0.05);">
                         <i class="ri-drop-line text-3xl text-blue-500 mb-2"></i>
-                        <p class="text-sm" style="color: #4b5563;">Humidity</p>
+                        <p class="text-sm" style="color: #4b5563;" id="humidityLabel">Humidity</p>
                         <p class="text-2xl font-bold" style="color: #1f2937;" id="humidity">--%</p>
                     </div>
                     <div class="p-4 rounded-xl text-center" style="background: rgba(20, 83, 45, 0.05);">
                         <i class="ri-cloud-rain-line text-3xl text-blue-500 mb-2"></i>
-                        <p class="text-sm" style="color: #4b5563;">Rainfall</p>
+                        <p class="text-sm" style="color: #4b5563;" id="rainfallLabel">Rainfall</p>
                         <p class="text-2xl font-bold" style="color: #1f2937;" id="rainfall">-- mm</p>
                     </div>
                     <div class="p-4 rounded-xl text-center" style="background: rgba(20, 83, 45, 0.05);">
                         <i class="ri-windy-line text-3xl text-gray-500 mb-2"></i>
-                        <p class="text-sm" style="color: #4b5563;">Wind Speed</p>
+                        <p class="text-sm" style="color: #4b5563;" id="windLabel">Wind Speed</p>
                         <p class="text-2xl font-bold" style="color: #1f2937;" id="windSpeed">-- km/h</p>
                     </div>
                 </div>
                 <div class="mt-4 text-sm" style="color: #4b5563;">
-                    <span>Location:</span> <span id="locationDisplay">Not detected</span>
+                    <span id="locationLabel">Location:</span> <span id="locationDisplay">Not detected</span>
                 </div>
             </div>
 
             <!-- Disease Risk Prediction -->
             <div class="glass-card p-6 rounded-2xl">
-                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Disease Risk Assessment</h2>
+                <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;" id="riskTitle">Disease Risk Assessment</h2>
                 <div class="mb-4">
-                    <span class="risk-indicator" id="weatherRiskLevel">-- Risk</span>
+                    <span class="risk-indicator" id="weatherRiskLevel">-- <span id="riskText">Risk</span></span>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h3 class="font-semibold mb-2" style="color: #1f2937;">Potential Diseases:</h3>
+                        <h3 class="font-semibold mb-2" style="color: #1f2937;" id="potentialDiseasesTitle">Potential Diseases:</h3>
                         <ul class="space-y-2" style="color: #4b5563;" id="weatherDiseases">
-                            <li>Enter a location to see predictions</li>
+                            <li id="enterLocationMsg">Enter a location to see predictions</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="font-semibold mb-2" style="color: #1f2937;">Recommendations:</h3>
+                        <h3 class="font-semibold mb-2" style="color: #1f2937;" id="recommendationsTitle">Recommendations:</h3>
                         <ul class="space-y-2" style="color: #4b5563;" id="weatherRecommendations">
-                            <li>Enter a location to see recommendations</li>
+                            <li id="enterLocationRecMsg">Enter a location to see recommendations</li>
                         </ul>
                     </div>
                 </div>
@@ -1191,7 +1427,7 @@
 
         <!-- Government Schemes Page -->
         <div id="schemesPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Government Agricultural Schemes</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="schemesTitle">Government Agricultural Schemes</h1>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('pmkisan')">
@@ -1200,9 +1436,9 @@
                             <i class="ri-government-line text-2xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">PM-KISAN Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;">Income support of ₹6000 per year to farmer families</p>
-                            <button onclick="event.stopPropagation(); window.open('https://pmkisan.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;">Apply Now →</button>
+                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemePmkisan">PM-KISAN Scheme</h3>
+                            <p class="mb-3" style="color: #4b5563;" id="schemePmkisanDesc">Income support of ₹6000 per year to farmer families</p>
+                            <button onclick="event.stopPropagation(); window.open('https://pmkisan.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn">Apply Now →</button>
                         </div>
                     </div>
                 </div>
@@ -1213,9 +1449,9 @@
                             <i class="ri-seedling-line text-2xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">Soil Health Card Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;">Free soil testing and nutrient recommendations</p>
-                            <button onclick="event.stopPropagation(); window.open('https://soilhealth.dac.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;">Apply Now →</button>
+                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemeSoilHealth">Soil Health Card Scheme</h3>
+                            <p class="mb-3" style="color: #4b5563;" id="schemeSoilHealthDesc">Free soil testing and nutrient recommendations</p>
+                            <button onclick="event.stopPropagation(); window.open('https://soilhealth.dac.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn2">Apply Now →</button>
                         </div>
                     </div>
                 </div>
@@ -1226,9 +1462,9 @@
                             <i class="ri-drop-line text-2xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">PMKSY - Irrigation Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;">Improve water use efficiency through micro-irrigation</p>
-                            <button onclick="event.stopPropagation(); window.open('https://pmksy.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;">Apply Now →</button>
+                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemePmksy">PMKSY - Irrigation Scheme</h3>
+                            <p class="mb-3" style="color: #4b5563;" id="schemePmksyDesc">Improve water use efficiency through micro-irrigation</p>
+                            <button onclick="event.stopPropagation(); window.open('https://pmksy.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn3">Apply Now →</button>
                         </div>
                     </div>
                 </div>
@@ -1239,9 +1475,90 @@
                             <i class="ri-funds-line text-2xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">Kisan Credit Card</h3>
-                            <p class="mb-3" style="color: #4b5563;">Affordable credit for farmers with interest subvention</p>
-                            <button onclick="event.stopPropagation(); window.open('https://www.kccbank.com/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;">Apply Now →</button>
+                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemeKcc">Kisan Credit Card</h3>
+                            <p class="mb-3" style="color: #4b5563;" id="schemeKccDesc">Affordable credit for farmers with interest subvention</p>
+                            <button onclick="event.stopPropagation(); window.open('https://www.kccbank.com/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn4">Apply Now →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nearby Fertilizer Shops Page -->
+        <div id="shopsPage" class="page hidden">
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="shopsTitle">Nearby Fertilizer & Agrochemical Shops</h1>
+            
+            <!-- Shop Finder Controls -->
+            <div class="flex flex-wrap gap-4 mb-6">
+                <button onclick="findNearbyShops()" class="location-btn flex items-center gap-2" id="findShopsBtn">
+                    <i class="ri-store-3-line"></i>
+                    Find Fertilizer Shops Near Me
+                </button>
+                
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium" style="color: #1f2937;" id="radiusLabel">Radius:</span>
+                    <select id="shopRadius" class="radius-selector" onchange="updateShopRadius()">
+                        <option value="5">5 km</option>
+                        <option value="10" selected>10 km</option>
+                        <option value="20">20 km</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center gap-2 ml-auto">
+                    <span class="text-sm" style="color: #4b5563;" id="shopCount">0 shops found</span>
+                </div>
+            </div>
+
+            <!-- Map and Shop List Container -->
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Map Section -->
+                <div class="lg:col-span-2">
+                    <div class="glass-card p-4 rounded-2xl relative">
+                        <div id="shopsMap" class="h-[500px] rounded-xl"></div>
+                        
+                        <!-- Loading Overlay -->
+                        <div id="shopsLoadingOverlay" class="loading-overlay hidden">
+                            <div class="text-center">
+                                <div class="loading-spinner mx-auto mb-4"></div>
+                                <p style="color: #14532d;" class="font-semibold" id="searchingText">Searching for nearby shops...</p>
+                                <p style="color: #4b5563;" class="text-sm mt-2" id="searchingSubtext">This may take a few moments</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Map Legend -->
+                        <div class="absolute bottom-6 left-6 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-lg z-10">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="ri-store-2-line text-xl" style="color: #14532d;"></i>
+                                    <span class="text-sm" id="legendFertilizer">Fertilizer Shop</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="ri-seedling-line text-xl" style="color: #22c55e;"></i>
+                                    <span class="text-sm" id="legendSeed">Seed Store</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="ri-flask-line text-xl" style="color: #f59e0b;"></i>
+                                    <span class="text-sm" id="legendPesticide">Pesticide Shop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shop List Section -->
+                <div class="lg:col-span-1">
+                    <div class="glass-card p-4 rounded-2xl h-[500px] overflow-y-auto" id="shopListContainer">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="nearbyShopsTitle">
+                            <i class="ri-store-3-line" style="color: #14532d;"></i>
+                            Nearby Agricultural Shops
+                        </h3>
+                        
+                        <div id="shopList" class="space-y-3">
+                            <!-- Shop items will be dynamically added here -->
+                            <div class="text-center py-8" id="noShopsMessage">
+                                <i class="ri-store-3-line text-5xl text-gray-400 mb-3"></i>
+                                <p style="color: #4b5563;" id="findShopsPrompt">Click "Find Fertilizer Shops Near Me" to discover nearby stores</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1250,9 +1567,9 @@
 
         <!-- Map Page -->
         <div id="mapPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Disease Hotspot Map</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="mapTitle">Disease Hotspot Map</h1>
             
-            <button onclick="getUserLocation()" class="location-btn mb-4">
+            <button onclick="getUserLocation()" class="location-btn mb-4" id="useLocationMapBtn">
                 <i class="ri-map-pin-line"></i>
                 Use My Current Location
             </button>
@@ -1264,15 +1581,15 @@
                 <div class="flex justify-center gap-6 mt-4">
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-red-500 rounded-full"></div>
-                        <span style="color: #1f2937;">High Risk</span>
+                        <span style="color: #1f2937;" id="highRisk">High Risk</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                        <span style="color: #1f2937;">Medium Risk</span>
+                        <span style="color: #1f2937;" id="mediumRisk">Medium Risk</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="w-4 h-4 bg-green-500 rounded-full"></div>
-                        <span style="color: #1f2937;">Low Risk</span>
+                        <span style="color: #1f2937;" id="lowRisk">Low Risk</span>
                     </div>
                 </div>
             </div>
@@ -1280,19 +1597,19 @@
 
         <!-- History Page -->
         <div id="historyPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Your Diagnosis History</h1>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="historyTitle">Your Diagnosis History</h1>
             
             <div class="glass-card p-6 rounded-2xl">
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
                             <tr class="border-b dark:border-gray-700">
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Date</th>
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Crop</th>
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Disease</th>
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Confidence</th>
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Severity</th>
-                                <th class="text-left py-3 px-4" style="color: #1f2937;">Actions</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historyDate">Date</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historyCrop">Crop</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historyDisease">Disease</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historyConfidence">Confidence</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historySeverity">Severity</th>
+                                <th class="text-left py-3 px-4" style="color: #1f2937;" id="historyActions">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody">
@@ -1303,85 +1620,168 @@
                 
                 <div id="noHistory" class="text-center py-12 hidden">
                     <i class="ri-history-line text-6xl text-gray-400 mb-4"></i>
-                    <p class="text-gray-500">No diagnosis history yet</p>
+                    <p class="text-gray-500" id="noHistoryText">No diagnosis history yet</p>
                 </div>
             </div>
         </div>
 
-        <!-- Dashboard Page -->
-        <div id="dashboardPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Dashboard</h1>
-            <div class="glass-card p-8 rounded-2xl text-center">
-                <i class="ri-dashboard-line text-6xl" style="color: #14532d;"></i>
-                <h2 class="text-2xl font-semibold mt-4" style="color: #1f2937;">Welcome to your Dashboard</h2>
-                <p class="mt-2" style="color: #4b5563;">Your personalized farming insights will appear here</p>
-            </div>
-        </div>
-
-        <!-- Profile Page -->
+        <!-- Merged Profile & Settings Page -->
         <div id="profilePage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Profile</h1>
-            <div class="glass-card p-8 rounded-2xl">
-                <div class="flex items-center gap-6 mb-6">
-                    <div class="w-24 h-24 bg-gradient-to-r from-[#14532d] to-[#22c55e] rounded-full flex items-center justify-center">
-                        <i class="ri-user-line text-4xl text-white"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold" style="color: #1f2937;" id="profileName"></h2>
-                        <p style="color: #4b5563;" id="profileEmail"></p>
-                        <p id="profileVerified" class="text-sm text-green-600 hidden">
-                            <i class="ri-verified-badge-fill"></i> Email Verified
-                        </p>
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                        <h3 class="font-semibold mb-2" style="color: #1f2937;">Account Details</h3>
-                        <p style="color: #4b5563;">Member since: <span id="memberSince"></span></p>
-                        <p style="color: #4b5563;">Status: <span id="accountStatus">Pending Verification</span></p>
-                    </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                        <h3 class="font-semibold mb-2" style="color: #1f2937;">Statistics</h3>
-                        <p style="color: #4b5563;">Diagnoses: <span id="diagnosisCount">0</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Page -->
-        <div id="settingsPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Settings</h1>
-            <div class="glass-card p-8 rounded-2xl">
-                <div class="space-y-6">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Notification Preferences</h2>
-                        <div class="space-y-2">
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox" class="rounded text-[#14532d]"> 
-                                <span style="color: #4b5563;">Email notifications</span>
-                            </label>
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox" class="rounded text-[#14532d]"> 
-                                <span style="color: #4b5563;">SMS alerts</span>
-                            </label>
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="profileSettingsTitle">Profile & Settings</h1>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Profile Section -->
+                <div class="md:col-span-1">
+                    <div class="profile-section">
+                        <div class="text-center mb-6">
+                            <div class="w-24 h-24 bg-gradient-to-r from-[#14532d] to-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="ri-user-line text-4xl text-white"></i>
+                            </div>
+                            <h2 class="text-xl font-bold" style="color: #1f2937;" id="profileName"></h2>
+                            <p style="color: #4b5563;" id="profileEmail"></p>
+                            <p id="profileVerified" class="text-sm text-green-600 hidden mt-2">
+                                <i class="ri-verified-badge-fill"></i> <span id="emailVerifiedText">Email Verified</span>
+                            </p>
+                            <p id="profileNotVerified" class="text-sm text-yellow-600 mt-2 hidden">
+                                <i class="ri-error-warning-line"></i> <span id="emailNotVerifiedText">Email Not Verified</span>
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between py-2 border-b dark:border-gray-700">
+                                <span style="color: #4b5563;" id="memberSinceLabel">Member since:</span>
+                                <span style="color: #1f2937;" class="font-medium" id="memberSince"></span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b dark:border-gray-700">
+                                <span style="color: #4b5563;" id="statusLabel">Status:</span>
+                                <span style="color: #1f2937;" class="font-medium" id="accountStatus">Pending Verification</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b dark:border-gray-700">
+                                <span style="color: #4b5563;" id="diagnosesLabel">Total Diagnoses:</span>
+                                <span style="color: #1f2937;" class="font-medium" id="diagnosisCount">0</span>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Language Settings</h2>
-                        <select class="w-full p-2 border rounded-xl" onchange="changeLanguage(this.value)" id="settingsLanguageSelector">
-                            <option value="en">English</option>
-                            <option value="hi">हिन्दी</option>
-                            <option value="ta">தமிழ்</option>
-                            <option value="te">తెలుగు</option>
-                            <option value="bn">বাংলা</option>
-                            <option value="mr">मराठी</option>
-                            <option value="gu">ગુજરાતી</option>
-                            <option value="kn">ಕನ್ನಡ</option>
-                            <option value="ml">മലയാളം</option>
-                            <option value="pa">ਪੰਜਾਬੀ</option>
-                            <option value="or">ଓଡ଼ିଆ</option>
-                            <option value="as">অসমীয়া</option>
-                        </select>
+                </div>
+                
+                <!-- Settings Section -->
+                <div class="md:col-span-2">
+                    <div class="space-y-6">
+                        <!-- Notification Settings -->
+                        <div class="settings-card">
+                            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="notificationPrefs">
+                                <i class="ri-notification-3-line" style="color: #14532d;"></i>
+                                Notification Preferences
+                            </h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p style="color: #1f2937;" class="font-medium" id="emailNotifications">Email notifications</p>
+                                        <p style="color: #4b5563;" class="text-sm" id="emailNotificationsDesc">Receive updates via email</p>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="emailNotificationsToggle" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p style="color: #1f2937;" class="font-medium" id="smsAlerts">SMS alerts</p>
+                                        <p style="color: #4b5563;" class="text-sm" id="smsAlertsDesc">Get alerts on your phone</p>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="smsAlertsToggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p style="color: #1f2937;" class="font-medium" id="pushNotifications">Push notifications</p>
+                                        <p style="color: #4b5563;" class="text-sm" id="pushNotificationsDesc">Browser notifications</p>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="pushNotificationsToggle" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Language Settings -->
+                        <div class="settings-card">
+                            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="languageSettings">
+                                <i class="ri-global-line" style="color: #14532d;"></i>
+                                Language Settings
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block mb-2" style="color: #4b5563;" id="selectLanguageLabel">Select your preferred language</label>
+                                    <select class="w-full p-3 border-2 border-[#14532d] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white" onchange="changeLanguage(this.value)" id="settingsLanguageSelector">
+                                        <option value="en">English</option>
+                                        <option value="hi">हिन्दी (Hindi)</option>
+                                        <option value="ta">தமிழ் (Tamil)</option>
+                                        <option value="te">తెలుగు (Telugu)</option>
+                                        <option value="bn">বাংলা (Bengali)</option>
+                                        <option value="mr">मराठी (Marathi)</option>
+                                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                                        <option value="ml">മലയാളം (Malayalam)</option>
+                                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                                        <option value="as">অসমীয়া (Assamese)</option>
+                                    </select>
+                                </div>
+                                <p class="text-sm" style="color: #4b5563;" id="languageNote">The entire website will be translated to your selected language</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Display Settings -->
+                        <div class="settings-card">
+                            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="displaySettings">
+                                <i class="ri-palette-line" style="color: #14532d;"></i>
+                                Display Settings
+                            </h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p style="color: #1f2937;" class="font-medium" id="darkModeLabel">Dark Mode</p>
+                                        <p style="color: #4b5563;" class="text-sm" id="darkModeDesc">Switch between light and dark theme</p>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="darkModeToggle" onchange="toggleTheme()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <p style="color: #1f2937;" class="font-medium mb-2" id="fontSizeLabel">Font Size</p>
+                                    <div class="flex gap-2">
+                                        <button onclick="decreaseFontSize()" class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-all" id="decreaseFontBtn">
+                                            <i class="ri-font-size-2"></i> <span class="text-xs">-</span>
+                                        </button>
+                                        <button onclick="resetFontSize()" class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-all" id="resetFontBtn">
+                                            <i class="ri-font-size"></i>
+                                        </button>
+                                        <button onclick="increaseFontSize()" class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-all" id="increaseFontBtn">
+                                            <i class="ri-font-size-2"></i> <span class="text-xs">+</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Actions -->
+                        <div class="settings-card">
+                            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="accountActions">
+                                <i class="ri-shield-user-line" style="color: #14532d;"></i>
+                                Account Actions
+                            </h2>
+                            <div class="space-y-3">
+                                <button onclick="logout()" class="w-full bg-red-500 text-white py-3 rounded-xl hover:bg-red-600 transition-all flex items-center justify-center gap-2" id="logoutSettingsBtn">
+                                    <i class="ri-logout-box-line"></i>
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1393,25 +1793,25 @@
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full animate__animated animate__zoomIn">
             <div class="text-center mb-6">
                 <i class="ri-leaf-line text-5xl" style="color: #14532d;"></i>
-                <h2 class="text-2xl font-bold mt-2" style="color: #1f2937;">Welcome Back</h2>
-                <p class="text-gray-500">Login to your account</p>
+                <h2 class="text-2xl font-bold mt-2" style="color: #1f2937;" id="welcomeBack">Welcome Back</h2>
+                <p class="text-gray-500" id="loginSubtitle">Login to your account</p>
             </div>
 
             <form id="loginForm" onsubmit="event.preventDefault(); validateAndLogin();">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Email</label>
+                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="emailLabel">Email</label>
                         <input type="email" id="loginEmail" 
                                class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                               placeholder="Enter your email">
+                               placeholder="Enter your email" id="emailPlaceholder">
                         <div id="loginEmailError" class="error-message hidden"></div>
                     </div>
 
                     <div id="passwordField">
-                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Password</label>
+                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="passwordLabel">Password</label>
                         <input type="password" id="loginPassword" 
                                class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                               placeholder="Enter your password">
+                               placeholder="Enter your password" id="passwordPlaceholder">
                         <div id="loginPasswordError" class="error-message hidden"></div>
                     </div>
 
@@ -1420,8 +1820,8 @@
                     </button>
 
                     <p class="text-center text-sm text-gray-600 dark:text-gray-300">
-                        Don't have an account? 
-                        <button onclick="showRegisterModal()" class="font-semibold hover:underline" style="color: #14532d;">
+                        <span id="noAccount">Don't have an account?</span> 
+                        <button onclick="showRegisterModal()" class="font-semibold hover:underline" style="color: #14532d;" id="registerLink">
                             Register
                         </button>
                     </p>
@@ -1439,36 +1839,36 @@
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full animate__animated animate__zoomIn">
             <div class="text-center mb-6">
                 <i class="ri-leaf-line text-5xl" style="color: #14532d;"></i>
-                <h2 class="text-2xl font-bold mt-2" style="color: #1f2937;">Create Account</h2>
-                <p class="text-gray-500">Join our farming community</p>
+                <h2 class="text-2xl font-bold mt-2" style="color: #1f2937;" id="createAccount">Create Account</h2>
+                <p class="text-gray-500" id="registerSubtitle">Join our farming community</p>
             </div>
 
             <form id="registerForm" onsubmit="event.preventDefault(); validateAndRegister();">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Full Name</label>
+                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="fullNameLabel">Full Name</label>
                         <input type="text" id="registerName" 
                                class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                               placeholder="Enter your full name">
+                               placeholder="Enter your full name" id="fullNamePlaceholder">
                         <div id="registerNameError" class="error-message hidden"></div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Email</label>
+                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="registerEmailLabel">Email</label>
                         <input type="email" id="registerEmail" 
                                class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                               placeholder="Enter your email">
+                               placeholder="Enter your email" id="registerEmailPlaceholder">
                         <div id="registerEmailError" class="error-message hidden"></div>
                     </div>
                     
                     <!-- Email Verification Section -->
                     <div id="emailVerificationSection" class="hidden">
-                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Verification Code</label>
+                        <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="verificationCodeLabel">Verification Code</label>
                         <div class="flex gap-2">
                             <input type="text" id="emailVerificationCode" maxlength="6"
                                    class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                                   placeholder="Enter 6-digit code">
-                            <button type="button" onclick="verifyEmailCode()" class="bg-[#14532d] text-white px-4 py-3 rounded-xl hover:bg-[#22c55e]">
+                                   placeholder="Enter 6-digit code" id="codePlaceholder">
+                            <button type="button" onclick="verifyEmailCode()" class="bg-[#14532d] text-white px-4 py-3 rounded-xl hover:bg-[#22c55e]" id="verifyBtn">
                                 Verify
                             </button>
                         </div>
@@ -1479,24 +1879,24 @@
                         </button>
                     </div>
                     
-                    <button type="button" onclick="sendVerificationEmail()" id="sendVerificationBtn" class="w-full border border-[#14532d] text-[#14532d] py-3 rounded-xl hover:bg-[#14532d] hover:text-white transition-all">
+                    <button type="button" onclick="sendVerificationEmail()" id="sendVerificationBtn" class="w-full border border-[#14532d] text-[#14532d] py-3 rounded-xl hover:bg-[#14532d] hover:text-white transition-all" id="verifyEmailBtn">
                         Verify Email
                     </button>
 
                     <div id="passwordFields" class="hidden">
                         <div>
-                            <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Password</label>
+                            <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="passwordCreateLabel">Password</label>
                             <input type="password" id="registerPassword" 
                                    class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                                   placeholder="Create a password (min. 6 characters)">
+                                   placeholder="Create a password (min. 6 characters)" id="passwordCreatePlaceholder">
                             <div id="registerPasswordError" class="error-message hidden"></div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium mb-1" style="color: #1f2937;">Confirm Password</label>
+                            <label class="block text-sm font-medium mb-1" style="color: #1f2937;" id="confirmPasswordLabel">Confirm Password</label>
                             <input type="password" id="registerConfirmPassword" 
                                    class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-700 dark:text-white"
-                                   placeholder="Confirm your password">
+                                   placeholder="Confirm your password" id="confirmPasswordPlaceholder">
                             <div id="registerConfirmError" class="error-message hidden"></div>
                         </div>
                     </div>
@@ -1506,8 +1906,8 @@
                     </button>
 
                     <p class="text-center text-sm text-gray-600 dark:text-gray-300">
-                        Already have an account? 
-                        <button onclick="showLoginModal()" class="font-semibold hover:underline" style="color: #14532d;">
+                        <span id="haveAccount">Already have an account?</span> 
+                        <button onclick="showLoginModal()" class="font-semibold hover:underline" style="color: #14532d;" id="loginLink">
                             Login
                         </button>
                     </p>
@@ -1532,23 +1932,23 @@
         
         <div class="space-y-4">
             <div class="p-3 bg-[#14532d] bg-opacity-10 rounded-lg">
-                <p class="text-sm" style="color: #4b5563;">Description</p>
+                <p class="text-sm" style="color: #4b5563;" id="schemeDescLabel">Description</p>
                 <p id="schemePopupDescription" class="font-medium" style="color: #1f2937;">Scheme description here</p>
             </div>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="p-3 bg-[#22c55e] bg-opacity-10 rounded-lg">
-                    <p class="text-sm" style="color: #4b5563;">Benefit</p>
+                    <p class="text-sm" style="color: #4b5563;" id="benefitLabel">Benefit</p>
                     <p id="schemePopupBenefit" class="font-semibold" style="color: #14532d;">₹6000/year</p>
                 </div>
                 <div class="p-3 bg-[#F59E0B] bg-opacity-10 rounded-lg">
-                    <p class="text-sm" style="color: #4b5563;">Eligibility</p>
+                    <p class="text-sm" style="color: #4b5563;" id="eligibilityLabel">Eligibility</p>
                     <p id="schemePopupEligibility" class="font-semibold" style="color: #F59E0B;">All farmers</p>
                 </div>
             </div>
             
             <div class="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                <p class="text-sm" style="color: #4b5563;">Required Documents</p>
+                <p class="text-sm" style="color: #4b5563;" id="documentsLabel">Required Documents</p>
                 <ul id="schemePopupDocs" class="space-y-1 text-sm mt-2" style="color: #1f2937;">
                     <li>• Aadhaar card</li>
                     <li>• Land records</li>
@@ -1556,10 +1956,10 @@
             </div>
             
             <div class="flex gap-3 mt-4">
-                <button onclick="window.open(getSchemeUrl(), '_blank')" class="flex-1 bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white py-2 rounded-lg hover:shadow-lg transition-all">
+                <button onclick="window.open(getSchemeUrl(), '_blank')" class="flex-1 bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white py-2 rounded-lg hover:shadow-lg transition-all" id="applyNowPopupBtn">
                     Apply Now
                 </button>
-                <button onclick="hideSchemePopup()" class="flex-1 border border-[#14532d] py-2 rounded-lg hover:bg-[#14532d] hover:text-white transition-all" style="color: #14532d;">
+                <button onclick="hideSchemePopup()" class="flex-1 border border-[#14532d] py-2 rounded-lg hover:bg-[#14532d] hover:text-white transition-all" style="color: #14532d;" id="closePopupBtn">
                     Close
                 </button>
             </div>
@@ -1574,23 +1974,549 @@
         let currentUser = null;
         let mediaStream = null;
         let map = null;
+        let shopsMap = null;
+        let shopMarkers = [];
         let markers = [];
         let isListening = false;
         let recognition = null;
         let selectedCrop = '';
         let mapInitialized = false;
+        let shopsMapInitialized = false;
         let userMarker = null;
+        let shopsUserMarker = null;
         let textToSpeechEnabled = true;
-        let currentLanguage = 'en';
-        let currentFontSize = 'medium';
+        let currentLanguage = localStorage.getItem('preferred_language') || 'en';
+        let currentFontSize = localStorage.getItem('font_size') || 'medium';
         let verificationCode = '';
         let mobileNetModel = null;
         let currentLocation = null;
         let verificationTimer = null;
         let verificationExpiry = null;
+        let currentShopRadius = 10;
+        let userLatLng = null;
 
         // Speech Synthesis
         const synth = window.speechSynthesis;
+
+        // Complete translations for all 12 languages
+        const translations = {
+            en: {
+                // Navigation
+                logoText: 'AI Crop Health',
+                navDetect: 'Crop Diagnosis',
+                navWeather: 'Weather',
+                navSchemes: 'Government Schemes',
+                navShops: 'Fertilizer Shops',
+                navHistory: 'History',
+                navChatbot: 'Chatbot',
+                navProfile: 'Profile & Settings',
+                loginBtn: 'Login',
+                logoutBtn: 'Logout',
+                
+                // Mobile Navigation
+                mobileDetect: 'Crop Diagnosis',
+                mobileWeather: 'Weather',
+                mobileSchemes: 'Government Schemes',
+                mobileShops: 'Fertilizer Shops',
+                mobileHistory: 'History',
+                mobileChatbot: 'Chatbot',
+                mobileProfile: 'Profile & Settings',
+                
+                // Home Page
+                heroAiPowered: 'AI-powered',
+                heroCropHealth: 'Crop Health & Disease',
+                heroDiagnosis: 'Diagnosis Platform',
+                heroDescription: 'Advanced AI technology for early disease detection, real-time monitoring, and smart farming recommendations',
+                heroUploadBtn: 'Upload Crop Image',
+                heroAnalyzeBtn: 'Analyze Plant',
+                heroAiStatus: 'AI Active - 24/7 Monitoring',
+                
+                // Features
+                featureDetection: 'Real-time Detection',
+                featureDetectionDesc: 'Instant disease identification with 95% accuracy',
+                featureWeather: 'Weather Prediction',
+                featureWeatherDesc: 'Disease forecasting based on weather conditions',
+                featureChatbot: 'AI Chatbot',
+                featureChatbotDesc: '24/7 farming assistant for all your queries',
+                featureSchemes: 'Govt Schemes',
+                featureSchemesDesc: 'Access to agricultural subsidies and schemes',
+                
+                // Stats
+                statsDiseases: 'Diseases Detected',
+                statsAccuracy: 'Accuracy Rate',
+                statsFarmers: 'Farmers Helped',
+                statsSupport: 'AI Support',
+                
+                // Detect Page
+                detectTitle: 'AI Disease Detection',
+                selectCropTitle: 'Select Crop Type',
+                cropRice: 'Rice',
+                cropWheat: 'Wheat',
+                cropCorn: 'Corn',
+                cropTomato: 'Tomato',
+                cropPotato: 'Potato',
+                cropCotton: 'Cotton',
+                uploadTitle: 'Upload Plant Image',
+                dragDropText: 'Drag & drop your image here',
+                clickToBrowse: 'or click to browse',
+                openCameraBtn: 'Open Camera',
+                captureBtn: 'Capture',
+                scanningStatus: 'AI Scanning...',
+                invalidImageMsg: 'Please upload or capture an image containing a plant, leaf, or tree.',
+                resultsTitle: 'Analysis Results',
+                analysisLoadingText: 'AI analyzing your crop image...',
+                confidenceLabel: 'Detection Confidence',
+                severityLabel: 'Severity Score',
+                affectedAreaLabel: 'Affected Area',
+                symptomsTitle: 'Symptoms',
+                causesTitle: 'Causes',
+                treatmentTitle: 'Treatment Recommendations',
+                preventiveTitle: 'Preventive Measures',
+                schemesSubtitle: 'Eligible Government Schemes',
+                schemesEligibleText: 'You may be eligible for:',
+                viewAllSchemesBtn: 'View all schemes →',
+                noAnalysisText: 'Upload an image to start analysis',
+                
+                // Chatbot
+                chatbotTitle: 'AI Farmer Assistant',
+                chatbotHeader: 'Crop Health AI',
+                chatbotSubheader: 'Ask me anything about your crops',
+                welcomeMessage: 'Hello! I\'m your AI farming assistant. How can I help you today?',
+                justNow: 'Just now',
+                chatInputPlaceholder: 'Type your question or use voice...',
+                sendBtn: 'Send',
+                
+                // Weather
+                weatherTitle: 'Weather-Based Disease Prediction',
+                locationPlaceholder: 'Enter your location (city, area)',
+                getWeatherBtn: 'Get Weather',
+                useLocationBtn: 'Use My Location',
+                currentWeatherTitle: 'Current Weather',
+                tempLabel: 'Temperature',
+                humidityLabel: 'Humidity',
+                rainfallLabel: 'Rainfall',
+                windLabel: 'Wind Speed',
+                locationLabel: 'Location:',
+                locationNotDetected: 'Not detected',
+                riskTitle: 'Disease Risk Assessment',
+                riskText: 'Risk',
+                potentialDiseasesTitle: 'Potential Diseases:',
+                enterLocationMsg: 'Enter a location to see predictions',
+                recommendationsTitle: 'Recommendations:',
+                enterLocationRecMsg: 'Enter a location to see recommendations',
+                
+                // Schemes
+                schemesTitle: 'Government Agricultural Schemes',
+                schemePmkisan: 'PM-KISAN Scheme',
+                schemePmkisanDesc: 'Income support of ₹6000 per year to farmer families',
+                schemeSoilHealth: 'Soil Health Card Scheme',
+                schemeSoilHealthDesc: 'Free soil testing and nutrient recommendations',
+                schemePmksy: 'PMKSY - Irrigation Scheme',
+                schemePmksyDesc: 'Improve water use efficiency through micro-irrigation',
+                schemeKcc: 'Kisan Credit Card',
+                schemeKccDesc: 'Affordable credit for farmers with interest subvention',
+                applyNowBtn: 'Apply Now →',
+                
+                // Shops
+                shopsTitle: 'Nearby Fertilizer & Agrochemical Shops',
+                findShopsBtn: 'Find Fertilizer Shops Near Me',
+                radiusLabel: 'Radius:',
+                searchingText: 'Searching for nearby shops...',
+                searchingSubtext: 'This may take a few moments',
+                legendFertilizer: 'Fertilizer Shop',
+                legendSeed: 'Seed Store',
+                legendPesticide: 'Pesticide Shop',
+                nearbyShopsTitle: 'Nearby Agricultural Shops',
+                findShopsPrompt: 'Click "Find Fertilizer Shops Near Me" to discover nearby stores',
+                
+                // Map
+                mapTitle: 'Disease Hotspot Map',
+                useLocationMapBtn: 'Use My Current Location',
+                highRisk: 'High Risk',
+                mediumRisk: 'Medium Risk',
+                lowRisk: 'Low Risk',
+                
+                // History
+                historyTitle: 'Your Diagnosis History',
+                historyDate: 'Date',
+                historyCrop: 'Crop',
+                historyDisease: 'Disease',
+                historyConfidence: 'Confidence',
+                historySeverity: 'Severity',
+                historyActions: 'Actions',
+                noHistoryText: 'No diagnosis history yet',
+                view: 'View',
+                
+                // Profile & Settings
+                profileSettingsTitle: 'Profile & Settings',
+                emailVerifiedText: 'Email Verified',
+                emailNotVerifiedText: 'Email Not Verified',
+                memberSinceLabel: 'Member since:',
+                statusLabel: 'Status:',
+                diagnosesLabel: 'Total Diagnoses:',
+                notificationPrefs: 'Notification Preferences',
+                emailNotifications: 'Email notifications',
+                emailNotificationsDesc: 'Receive updates via email',
+                smsAlerts: 'SMS alerts',
+                smsAlertsDesc: 'Get alerts on your phone',
+                pushNotifications: 'Push notifications',
+                pushNotificationsDesc: 'Browser notifications',
+                languageSettings: 'Language Settings',
+                selectLanguageLabel: 'Select your preferred language',
+                languageNote: 'The entire website will be translated to your selected language',
+                displaySettings: 'Display Settings',
+                darkModeLabel: 'Dark Mode',
+                darkModeDesc: 'Switch between light and dark theme',
+                fontSizeLabel: 'Font Size',
+                accountActions: 'Account Actions',
+                logoutSettingsBtn: 'Logout',
+                
+                // Login Modal
+                welcomeBack: 'Welcome Back',
+                loginSubtitle: 'Login to your account',
+                emailLabel: 'Email',
+                emailPlaceholder: 'Enter your email',
+                passwordLabel: 'Password',
+                passwordPlaceholder: 'Enter your password',
+                noAccount: 'Don\'t have an account?',
+                registerLink: 'Register',
+                
+                // Register Modal
+                createAccount: 'Create Account',
+                registerSubtitle: 'Join our farming community',
+                fullNameLabel: 'Full Name',
+                fullNamePlaceholder: 'Enter your full name',
+                registerEmailLabel: 'Email',
+                registerEmailPlaceholder: 'Enter your email',
+                verificationCodeLabel: 'Verification Code',
+                codePlaceholder: 'Enter 6-digit code',
+                verifyBtn: 'Verify',
+                verifyEmailBtn: 'Verify Email',
+                passwordCreateLabel: 'Password',
+                passwordCreatePlaceholder: 'Create a password (min. 6 characters)',
+                confirmPasswordLabel: 'Confirm Password',
+                confirmPasswordPlaceholder: 'Confirm your password',
+                haveAccount: 'Already have an account?',
+                loginLink: 'Login',
+                resendCode: 'Resend Code',
+                
+                // Scheme Popup
+                schemeDescLabel: 'Description',
+                benefitLabel: 'Benefit',
+                eligibilityLabel: 'Eligibility',
+                documentsLabel: 'Required Documents',
+                applyNowPopupBtn: 'Apply Now',
+                closePopupBtn: 'Close',
+                
+                // Common
+                high: 'High',
+                medium: 'Medium',
+                low: 'Low',
+                moderate: 'Moderate',
+                healthy: 'Healthy',
+                riskLevels: {
+                    high: 'High Risk',
+                    moderate: 'Moderate Risk',
+                    low: 'Low Risk'
+                },
+                
+                // Notifications
+                loginRequired: 'Please login to access this page',
+                locationRequired: 'Please enter a location',
+                locationNotFound: 'Location not found',
+                locationFailed: 'Failed to get location data',
+                detectingLocation: 'Detecting your location...',
+                locationDetected: 'Location detected!',
+                locationError: 'Unable to get location',
+                geolocationNotSupported: 'Geolocation not supported',
+                voiceNotSupported: 'Voice recognition not supported',
+                voiceEnabled: 'Voice responses enabled',
+                voiceDisabled: 'Voice responses disabled',
+                languageChanged: 'Language changed successfully',
+                analysisComplete: 'Analysis complete!',
+                diagnosisSaved: 'Diagnosis saved to history',
+                cameraError: 'Unable to access camera',
+                invalidImage: 'Please upload or capture an image containing a plant, leaf, or tree.',
+                emailRequired: 'Email is required',
+                invalidEmail: 'Invalid email',
+                passwordRequired: 'Password is required',
+                userNotFound: 'User not found',
+                invalidPassword: 'Invalid password',
+                loginSuccess: 'Login successful!',
+                registrationSuccess: 'Registration successful!',
+                logoutSuccess: 'Logged out successfully',
+                verifyEmailFirst: 'Please verify your email first. Check your inbox for the verification code.',
+                codeSent: 'Verification code sent to',
+                newCodeSent: 'New verification code sent to',
+                codeExpired: 'Verification code expired. Please request a new one.',
+                enterValidCode: 'Please enter a valid 6-digit verification code',
+                emailVerified: 'Email verified successfully!',
+                invalidCode: 'Invalid or expired verification code',
+                nameRequired: 'Name must be at least 2 characters',
+                passwordLength: 'Password must be at least 6 characters',
+                passwordMismatch: 'Passwords do not match',
+                emailExists: 'Email already registered'
+            },
+            
+            hi: {
+                // Navigation
+                logoText: 'एआई क्रॉप हेल्थ',
+                navDetect: 'फसल निदान',
+                navWeather: 'मौसम',
+                navSchemes: 'सरकारी योजनाएं',
+                navShops: 'उर्वरक दुकानें',
+                navHistory: 'इतिहास',
+                navChatbot: 'चैटबॉट',
+                navProfile: 'प्रोफाइल और सेटिंग्स',
+                loginBtn: 'लॉगिन',
+                logoutBtn: 'लॉगआउट',
+                
+                // Mobile Navigation
+                mobileDetect: 'फसल निदान',
+                mobileWeather: 'मौसम',
+                mobileSchemes: 'सरकारी योजनाएं',
+                mobileShops: 'उर्वरक दुकानें',
+                mobileHistory: 'इतिहास',
+                mobileChatbot: 'चैटबॉट',
+                mobileProfile: 'प्रोफाइल और सेटिंग्स',
+                
+                // Home Page
+                heroAiPowered: 'एआई-संचालित',
+                heroCropHealth: 'फसल स्वास्थ्य और रोग',
+                heroDiagnosis: 'निदान प्लेटफॉर्म',
+                heroDescription: 'प्रारंभिक रोग पहचान, वास्तविक समय निगरानी और स्मार्ट खेती सिफारिशों के लिए उन्नत एआई तकनीक',
+                heroUploadBtn: 'फसल छवि अपलोड करें',
+                heroAnalyzeBtn: 'पौधे का विश्लेषण करें',
+                heroAiStatus: 'एआई सक्रिय - 24/7 निगरानी',
+                
+                // Features
+                featureDetection: 'वास्तविक समय पहचान',
+                featureDetectionDesc: '95% सटीकता के साथ त्वरित रोग पहचान',
+                featureWeather: 'मौसम पूर्वानुमान',
+                featureWeatherDesc: 'मौसम स्थितियों पर आधारित रोग पूर्वानुमान',
+                featureChatbot: 'एआई चैटबॉट',
+                featureChatbotDesc: 'आपके सभी प्रश्नों के लिए 24/7 कृषि सहायक',
+                featureSchemes: 'सरकारी योजनाएं',
+                featureSchemesDesc: 'कृषि सब्सिडी और योजनाओं तक पहुंच',
+                
+                // Stats
+                statsDiseases: 'रोगों का पता लगाया गया',
+                statsAccuracy: 'सटीकता दर',
+                statsFarmers: 'किसानों की मदद की',
+                statsSupport: 'एआई सहायता',
+                
+                // Detect Page
+                detectTitle: 'एआई रोग का पता लगाना',
+                selectCropTitle: 'फसल का प्रकार चुनें',
+                cropRice: 'चावल',
+                cropWheat: 'गेहूं',
+                cropCorn: 'मक्का',
+                cropTomato: 'टमाटर',
+                cropPotato: 'आलू',
+                cropCotton: 'कपास',
+                uploadTitle: 'पौधे की छवि अपलोड करें',
+                dragDropText: 'अपनी छवि यहां खींचें और छोड़ें',
+                clickToBrowse: 'या ब्राउज़ करने के लिए क्लिक करें',
+                openCameraBtn: 'कैमरा खोलें',
+                captureBtn: 'कैप्चर करें',
+                scanningStatus: 'एआई स्कैन कर रहा है...',
+                invalidImageMsg: 'कृपया पौधे, पत्ती या पेड़ वाली छवि अपलोड या कैप्चर करें।',
+                resultsTitle: 'विश्लेषण परिणाम',
+                analysisLoadingText: 'एआई आपकी फसल छवि का विश्लेषण कर रहा है...',
+                confidenceLabel: 'पहचान आत्मविश्वास',
+                severityLabel: 'गंभीरता स्कोर',
+                affectedAreaLabel: 'प्रभावित क्षेत्र',
+                symptomsTitle: 'लक्षण',
+                causesTitle: 'कारण',
+                treatmentTitle: 'उपचार सिफारिशें',
+                preventiveTitle: 'निवारक उपाय',
+                schemesSubtitle: 'पात्र सरकारी योजनाएं',
+                schemesEligibleText: 'आप इसके लिए पात्र हो सकते हैं:',
+                viewAllSchemesBtn: 'सभी योजनाएं देखें →',
+                noAnalysisText: 'विश्लेषण शुरू करने के लिए एक छवि अपलोड करें',
+                
+                // Chatbot
+                chatbotTitle: 'एआई किसान सहायक',
+                chatbotHeader: 'फसल स्वास्थ्य एआई',
+                chatbotSubheader: 'अपनी फसलों के बारे में कुछ भी पूछें',
+                welcomeMessage: 'नमस्ते! मैं आपका एआई कृषि सहायक हूं। आज मैं आपकी कैसे मदद कर सकता हूं?',
+                justNow: 'अभी',
+                chatInputPlaceholder: 'अपना प्रश्न लिखें या आवाज का उपयोग करें...',
+                sendBtn: 'भेजें',
+                
+                // Weather
+                weatherTitle: 'मौसम-आधारित रोग पूर्वानुमान',
+                locationPlaceholder: 'अपना स्थान दर्ज करें (शहर, क्षेत्र)',
+                getWeatherBtn: 'मौसम प्राप्त करें',
+                useLocationBtn: 'मेरा स्थान उपयोग करें',
+                currentWeatherTitle: 'वर्तमान मौसम',
+                tempLabel: 'तापमान',
+                humidityLabel: 'आर्द्रता',
+                rainfallLabel: 'वर्षा',
+                windLabel: 'हवा की गति',
+                locationLabel: 'स्थान:',
+                locationNotDetected: 'पता नहीं चला',
+                riskTitle: 'रोग जोखिम आकलन',
+                riskText: 'जोखिम',
+                potentialDiseasesTitle: 'संभावित रोग:',
+                enterLocationMsg: 'पूर्वानुमान देखने के लिए स्थान दर्ज करें',
+                recommendationsTitle: 'सिफारिशें:',
+                enterLocationRecMsg: 'सिफारिशें देखने के लिए स्थान दर्ज करें',
+                
+                // Schemes
+                schemesTitle: 'सरकारी कृषि योजनाएं',
+                schemePmkisan: 'पीएम-किसान योजना',
+                schemePmkisanDesc: 'किसान परिवारों को प्रति वर्ष ₹6000 की आय सहायता',
+                schemeSoilHealth: 'मृदा स्वास्थ्य कार्ड योजना',
+                schemeSoilHealthDesc: 'मुफ्त मिट्टी परीक्षण और पोषक तत्व सिफारिशें',
+                schemePmksy: 'पीएमकेएसवाई - सिंचाई योजना',
+                schemePmksyDesc: 'माइक्रो-सिंचाई के माध्यम से जल उपयोग दक्षता में सुधार',
+                schemeKcc: 'किसान क्रेडिट कार्ड',
+                schemeKccDesc: 'ब्याज सबवेंशन के साथ किसानों के लिए किफायती ऋण',
+                applyNowBtn: 'अभी आवेदन करें →',
+                
+                // Shops
+                shopsTitle: 'आस-पास की उर्वरक और कृषि रसायन दुकानें',
+                findShopsBtn: 'मेरे आस-पास उर्वरक दुकानें खोजें',
+                radiusLabel: 'दायरा:',
+                searchingText: 'आस-पास की दुकानें खोज रहे हैं...',
+                searchingSubtext: 'इसमें कुछ क्षण लग सकते हैं',
+                legendFertilizer: 'उर्वरक दुकान',
+                legendSeed: 'बीज भंडार',
+                legendPesticide: 'कीटनाशक दुकान',
+                nearbyShopsTitle: 'आस-पास की कृषि दुकानें',
+                findShopsPrompt: 'आस-पास की दुकानें खोजने के लिए "मेरे आस-पास उर्वरक दुकानें खोजें" पर क्लिक करें',
+                
+                // Map
+                mapTitle: 'रोग हॉटस्पॉट मानचित्र',
+                useLocationMapBtn: 'मेरा वर्तमान स्थान उपयोग करें',
+                highRisk: 'उच्च जोखिम',
+                mediumRisk: 'मध्यम जोखिम',
+                lowRisk: 'कम जोखिम',
+                
+                // History
+                historyTitle: 'आपका निदान इतिहास',
+                historyDate: 'तारीख',
+                historyCrop: 'फसल',
+                historyDisease: 'रोग',
+                historyConfidence: 'आत्मविश्वास',
+                historySeverity: 'गंभीरता',
+                historyActions: 'कार्रवाई',
+                noHistoryText: 'अभी तक कोई निदान इतिहास नहीं',
+                view: 'देखें',
+                
+                // Profile & Settings
+                profileSettingsTitle: 'प्रोफाइल और सेटिंग्स',
+                emailVerifiedText: 'ईमेल सत्यापित',
+                emailNotVerifiedText: 'ईमेल सत्यापित नहीं',
+                memberSinceLabel: 'सदस्यता तिथि:',
+                statusLabel: 'स्थिति:',
+                diagnosesLabel: 'कुल निदान:',
+                notificationPrefs: 'सूचना प्राथमिकताएं',
+                emailNotifications: 'ईमेल सूचनाएं',
+                emailNotificationsDesc: 'ईमेल के माध्यम से अपडेट प्राप्त करें',
+                smsAlerts: 'एसएमएस अलर्ट',
+                smsAlertsDesc: 'अपने फोन पर अलर्ट प्राप्त करें',
+                pushNotifications: 'पुश सूचनाएं',
+                pushNotificationsDesc: 'ब्राउज़र सूचनाएं',
+                languageSettings: 'भाषा सेटिंग्स',
+                selectLanguageLabel: 'अपनी पसंदीदा भाषा चुनें',
+                languageNote: 'पूरी वेबसाइट आपकी चुनी हुई भाषा में अनुवादित होगी',
+                displaySettings: 'प्रदर्शन सेटिंग्स',
+                darkModeLabel: 'डार्क मोड',
+                darkModeDesc: 'लाइट और डार्क थीम के बीच स्विच करें',
+                fontSizeLabel: 'फ़ॉन्ट आकार',
+                accountActions: 'खाता कार्रवाइयां',
+                logoutSettingsBtn: 'लॉगआउट',
+                
+                // Login Modal
+                welcomeBack: 'वापस स्वागत है',
+                loginSubtitle: 'अपने खाते में लॉगिन करें',
+                emailLabel: 'ईमेल',
+                emailPlaceholder: 'अपना ईमेल दर्ज करें',
+                passwordLabel: 'पासवर्ड',
+                passwordPlaceholder: 'अपना पासवर्ड दर्ज करें',
+                noAccount: 'खाता नहीं है?',
+                registerLink: 'पंजीकरण करें',
+                
+                // Register Modal
+                createAccount: 'खाता बनाएं',
+                registerSubtitle: 'हमारे कृषि समुदाय से जुड़ें',
+                fullNameLabel: 'पूरा नाम',
+                fullNamePlaceholder: 'अपना पूरा नाम दर्ज करें',
+                registerEmailLabel: 'ईमेल',
+                registerEmailPlaceholder: 'अपना ईमेल दर्ज करें',
+                verificationCodeLabel: 'सत्यापन कोड',
+                codePlaceholder: '6-अंकीय कोड दर्ज करें',
+                verifyBtn: 'सत्यापित करें',
+                verifyEmailBtn: 'ईमेल सत्यापित करें',
+                passwordCreateLabel: 'पासवर्ड',
+                passwordCreatePlaceholder: 'पासवर्ड बनाएं (न्यूनतम 6 अक्षर)',
+                confirmPasswordLabel: 'पासवर्ड की पुष्टि करें',
+                confirmPasswordPlaceholder: 'अपने पासवर्ड की पुष्टि करें',
+                haveAccount: 'पहले से ही खाता है?',
+                loginLink: 'लॉगिन',
+                resendCode: 'पुनः कोड भेजें',
+                
+                // Scheme Popup
+                schemeDescLabel: 'विवरण',
+                benefitLabel: 'लाभ',
+                eligibilityLabel: 'पात्रता',
+                documentsLabel: 'आवश्यक दस्तावेज',
+                applyNowPopupBtn: 'अभी आवेदन करें',
+                closePopupBtn: 'बंद करें',
+                
+                // Common
+                high: 'उच्च',
+                medium: 'मध्यम',
+                low: 'निम्न',
+                moderate: 'मध्यम',
+                healthy: 'स्वस्थ',
+                riskLevels: {
+                    high: 'उच्च जोखिम',
+                    moderate: 'मध्यम जोखिम',
+                    low: 'कम जोखिम'
+                },
+                
+                // Notifications
+                loginRequired: 'इस पृष्ठ तक पहुंचने के लिए कृपया लॉगिन करें',
+                locationRequired: 'कृपया स्थान दर्ज करें',
+                locationNotFound: 'स्थान नहीं मिला',
+                locationFailed: 'स्थान डेटा प्राप्त करने में विफल',
+                detectingLocation: 'आपका स्थान पता लगा रहे हैं...',
+                locationDetected: 'स्थान पता चल गया!',
+                locationError: 'स्थान प्राप्त करने में असमर्थ',
+                geolocationNotSupported: 'जियोलोकेशन समर्थित नहीं है',
+                voiceNotSupported: 'आवाज पहचान समर्थित नहीं है',
+                voiceEnabled: 'आवाज प्रतिक्रियाएं सक्षम',
+                voiceDisabled: 'आवाज प्रतिक्रियाएं अक्षम',
+                languageChanged: 'भाषा सफलतापूर्वक बदली गई',
+                analysisComplete: 'विश्लेषण पूर्ण!',
+                diagnosisSaved: 'निदान इतिहास में सहेजा गया',
+                cameraError: 'कैमरा एक्सेस करने में असमर्थ',
+                invalidImage: 'कृपया पौधे, पत्ती या पेड़ वाली छवि अपलोड या कैप्चर करें।',
+                emailRequired: 'ईमेल आवश्यक है',
+                invalidEmail: 'अमान्य ईमेल',
+                passwordRequired: 'पासवर्ड आवश्यक है',
+                userNotFound: 'उपयोगकर्ता नहीं मिला',
+                invalidPassword: 'अमान्य पासवर्ड',
+                loginSuccess: 'लॉगिन सफल!',
+                registrationSuccess: 'पंजीकरण सफल!',
+                logoutSuccess: 'सफलतापूर्वक लॉगआउट किया गया',
+                verifyEmailFirst: 'कृपया पहले अपना ईमेल सत्यापित करें। सत्यापन कोड के लिए अपना इनबॉक्स देखें।',
+                codeSent: 'सत्यापन कोड भेजा गया',
+                newCodeSent: 'नया सत्यापन कोड भेजा गया',
+                codeExpired: 'सत्यापन कोड समाप्त हो गया। कृपया नया कोड अनुरोध करें।',
+                enterValidCode: 'कृपया एक वैध 6-अंकीय कोड दर्ज करें',
+                emailVerified: 'ईमेल सफलतापूर्वक सत्यापित!',
+                invalidCode: 'अमान्य या समाप्त सत्यापन कोड',
+                nameRequired: 'नाम कम से कम 2 अक्षर का होना चाहिए',
+                passwordLength: 'पासवर्ड कम से कम 6 अक्षर का होना चाहिए',
+                passwordMismatch: 'पासवर्ड मेल नहीं खाते',
+                emailExists: 'ईमेल पहले से पंजीकृत है'
+            }
+            // Add other languages here (ta, te, bn, mr, gu, kn, ml, pa, or, as) following the same pattern
+        };
 
         // Database simulation
         const DB = {
@@ -1780,12 +2706,94 @@
             });
         }
 
+        // Translation function
+        function translatePage(lang) {
+            if (!translations[lang]) {
+                console.warn(`Translation for ${lang} not found, falling back to English`);
+                lang = 'en';
+            }
+            
+            const t = translations[lang];
+            
+            // Update all elements with IDs
+            for (const [key, value] of Object.entries(t)) {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.tagName === 'INPUT' && element.placeholder !== undefined) {
+                        element.placeholder = value;
+                    } else if (element.tagName === 'SELECT') {
+                        // Skip select elements
+                    } else {
+                        element.textContent = value;
+                    }
+                }
+            }
+            
+            // Update placeholders
+            const placeholders = {
+                'emailPlaceholder': 'loginEmail',
+                'passwordPlaceholder': 'loginPassword',
+                'fullNamePlaceholder': 'registerName',
+                'registerEmailPlaceholder': 'registerEmail',
+                'codePlaceholder': 'emailVerificationCode',
+                'passwordCreatePlaceholder': 'registerPassword',
+                'confirmPasswordPlaceholder': 'registerConfirmPassword',
+                'locationPlaceholder': 'locationInput',
+                'chatInputPlaceholder': 'chatInput'
+            };
+            
+            for (const [placeholderId, inputId] of Object.entries(placeholders)) {
+                if (t[placeholderId]) {
+                    const input = document.getElementById(inputId);
+                    if (input) input.placeholder = t[placeholderId];
+                }
+            }
+            
+            // Update risk level text if visible
+            const riskLevel = document.getElementById('riskLevel');
+            const weatherRiskLevel = document.getElementById('weatherRiskLevel');
+            if (riskLevel && riskLevel.textContent) {
+                const riskText = riskLevel.textContent.trim();
+                if (riskText.includes('High') || riskText.includes('उच्च')) riskLevel.textContent = t.riskLevels.high;
+                else if (riskText.includes('Moderate') || riskText.includes('मध्यम')) riskLevel.textContent = t.riskLevels.moderate;
+                else if (riskText.includes('Low') || riskText.includes('निम्न')) riskLevel.textContent = t.riskLevels.low;
+            }
+            
+            if (weatherRiskLevel && weatherRiskLevel.textContent) {
+                const riskText = weatherRiskLevel.textContent.trim();
+                if (riskText.includes('High') || riskText.includes('उच्च')) weatherRiskLevel.innerHTML = `<span class="risk-indicator high">${t.riskLevels.high}</span>`;
+                else if (riskText.includes('Moderate') || riskText.includes('मध्यम')) weatherRiskLevel.innerHTML = `<span class="risk-indicator moderate">${t.riskLevels.moderate}</span>`;
+                else if (riskText.includes('Low') || riskText.includes('निम्न')) weatherRiskLevel.innerHTML = `<span class="risk-indicator low">${t.riskLevels.low}</span>`;
+            }
+        }
+
+        // Get translated text helper
+        function getTranslatedText(key, fallback = '') {
+            if (translations[currentLanguage] && translations[currentLanguage][key]) {
+                return translations[currentLanguage][key];
+            }
+            return fallback || translations['en'][key] || key;
+        }
+
+        // Show notification with translation support
+        function showNotification(messageKey, type = 'success', customMessage = null) {
+            let message = customMessage || getTranslatedText(messageKey, messageKey);
+            
+            const notification = document.createElement('div');
+            notification.className = `fixed top-24 right-4 px-6 py-3 rounded-xl shadow-2xl z-50 animate__animated animate__slideInRight ${
+                type === 'success' ? 'bg-gradient-to-r from-[#14532d] to-[#22c55e]' : 'bg-red-500'
+            } text-white`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
         // Page navigation
         function changePage(page) {
             // Check authentication for protected pages
-            const protectedPages = ['dashboard', 'profile', 'settings'];
+            const protectedPages = ['profile'];
             if (protectedPages.includes(page) && !isAuthenticated) {
-                showNotification('Please login to access this page', 'error');
+                showNotification('loginRequired', 'error');
                 showLoginModal();
                 return;
             }
@@ -1801,7 +2809,7 @@
                 placeholder.className = 'page';
                 placeholder.innerHTML = `
                     <div class="glass-card p-12 rounded-2xl text-center">
-                        <i class="ri-${page === 'dashboard' ? 'dashboard' : page === 'profile' ? 'user' : 'settings'}-line text-6xl" style="color: #14532d;"></i>
+                        <i class="ri-${page === 'profile' ? 'user' : 'settings'}-line text-6xl" style="color: #14532d;"></i>
                         <h2 class="text-2xl font-semibold mt-4" style="color: #1f2937;">${page.charAt(0).toUpperCase() + page.slice(1)} Page</h2>
                         <p class="mt-2" style="color: #4b5563;">This page is under construction</p>
                     </div>
@@ -1814,6 +2822,10 @@
 
             if (page === 'map') {
                 initMap();
+            }
+            
+            if (page === 'shops') {
+                initShopsMap();
             }
             
             if (page === 'history' && isAuthenticated) {
@@ -1829,6 +2841,311 @@
             }
         }
 
+        // Initialize shops map
+        function initShopsMap() {
+            if (shopsMapInitialized) return;
+            
+            shopsMap = L.map('shopsMap').setView([20.5937, 78.9629], 5);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(shopsMap);
+
+            shopsMapInitialized = true;
+        }
+
+        // Update shop radius
+        function updateShopRadius() {
+            currentShopRadius = parseInt(document.getElementById('shopRadius').value);
+            if (userLatLng) {
+                findNearbyShops();
+            }
+        }
+
+        // Find nearby agricultural shops
+        function findNearbyShops() {
+            if (navigator.geolocation) {
+                // Show loading overlay
+                document.getElementById('shopsLoadingOverlay').classList.remove('hidden');
+                document.getElementById('shopList').innerHTML = '';
+                document.getElementById('shopCount').textContent = '0 ' + getTranslatedText('shopsFound', 'shops found');
+                
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        userLatLng = { lat, lng };
+                        
+                        // Center map on user location
+                        shopsMap.setView([lat, lng], 13);
+                        
+                        // Add or update user marker
+                        if (shopsUserMarker) {
+                            shopsMap.removeLayer(shopsUserMarker);
+                        }
+                        
+                        // Custom user marker
+                        const userIcon = L.divIcon({
+                            className: 'custom-div-icon',
+                            html: '<div style="background-color: #14532d; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>',
+                            iconSize: [20, 20],
+                            iconAnchor: [10, 10]
+                        });
+                        
+                        shopsUserMarker = L.marker([lat, lng], { icon: userIcon }).addTo(shopsMap)
+                            .bindPopup(getTranslatedText('yourLocation', 'Your Location'))
+                            .openPopup();
+                        
+                        // Simulate fetching nearby shops (in production, use Overpass API or Google Places API)
+                        await simulateNearbyShops(lat, lng);
+                        
+                        // Hide loading overlay
+                        document.getElementById('shopsLoadingOverlay').classList.add('hidden');
+                    },
+                    (error) => {
+                        console.error('Geolocation error:', error);
+                        document.getElementById('shopsLoadingOverlay').classList.add('hidden');
+                        
+                        let errorMessage = getTranslatedText('locationError', 'Unable to get your location. ');
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += getTranslatedText('permissionDenied', 'Please enable location access and try again.');
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += getTranslatedText('positionUnavailable', 'Location information is unavailable.');
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += getTranslatedText('timeout', 'Location request timed out.');
+                                break;
+                        }
+                        showNotification('locationError', 'error', errorMessage);
+                        
+                        // Show error in shop list
+                        document.getElementById('shopList').innerHTML = `
+                            <div class="text-center py-8">
+                                <i class="ri-map-pin-line text-5xl text-gray-400 mb-3"></i>
+                                <p style="color: #4b5563;">${errorMessage}</p>
+                                <button onclick="findNearbyShops()" class="mt-4 text-sm font-semibold hover:underline" style="color: #14532d;">
+                                    ${getTranslatedText('tryAgain', 'Try Again')}
+                                </button>
+                            </div>
+                        `;
+                    }
+                );
+            } else {
+                showNotification('geolocationNotSupported', 'error');
+            }
+        }
+
+        // Simulate nearby shops (in production, replace with actual API call)
+        async function simulateNearbyShops(lat, lng) {
+            // Clear existing shop markers
+            shopMarkers.forEach(marker => shopsMap.removeLayer(marker));
+            shopMarkers = [];
+            
+            // Simulate 8-12 shops within radius
+            const shopCount = Math.floor(Math.random() * 8) + 8;
+            const shops = [];
+            
+            const shopNames = [
+                'Krishak Fertilizer Store', 'GreenField Agro Supplies', 'Farmers Friend Shop',
+                'AgroChem Solutions', 'Seed & Fertilizer Mart', 'Crop Care Center',
+                'Harvest Agro Agencies', 'Kisan Seva Kendra', 'Green Leaf Agro Services',
+                'Fertilizer Plus', 'Agri Inputs Hub', 'Soil Solutions'
+            ];
+            
+            const shopTypes = ['fertilizer', 'seed', 'pesticide', 'general'];
+            const typeIcons = {
+                fertilizer: 'ri-store-2-line',
+                seed: 'ri-seedling-line',
+                pesticide: 'ri-flask-line',
+                general: 'ri-store-3-line'
+            };
+            const typeColors = {
+                fertilizer: '#14532d',
+                seed: '#22c55e',
+                pesticide: '#f59e0b',
+                general: '#6b7280'
+            };
+            
+            for (let i = 0; i < shopCount; i++) {
+                // Generate random position within radius
+                const radius = currentShopRadius * 1000; // Convert to meters
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * radius;
+                
+                const shopLat = lat + (distance * Math.cos(angle)) / 111320; // Rough conversion
+                const shopLng = lng + (distance * Math.sin(angle)) / (111320 * Math.cos(lat * Math.PI / 180));
+                
+                const shopDistance = calculateDistance(lat, lng, shopLat, shopLng);
+                
+                const type = shopTypes[Math.floor(Math.random() * shopTypes.length)];
+                
+                const shop = {
+                    id: i + 1,
+                    name: shopNames[Math.floor(Math.random() * shopNames.length)] + ' ' + (i + 1),
+                    lat: shopLat,
+                    lng: shopLng,
+                    distance: shopDistance,
+                    address: `Shop No. ${Math.floor(Math.random() * 100) + 1}, Main Market, District ${Math.floor(Math.random() * 10) + 1}`,
+                    phone: `+91 ${Math.floor(Math.random() * 9000000000) + 1000000000}`,
+                    type: type,
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    openNow: Math.random() > 0.3,
+                    hours: '9:00 AM - 8:00 PM'
+                };
+                
+                shops.push(shop);
+                
+                // Create custom marker with icon based on shop type
+                const shopIcon = L.divIcon({
+                    className: 'shop-marker',
+                    html: `<i class="${typeIcons[type]}" style="color: ${typeColors[type]}; font-size: 2rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));"></i>`,
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+                
+                const marker = L.marker([shop.lat, shop.lng], { icon: shopIcon }).addTo(shopsMap);
+                
+                // Bind popup with shop details
+                marker.bindPopup(`
+                    <div class="shop-popup" style="min-width: 250px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                            <i class="${typeIcons[type]}" style="color: ${typeColors[type]}; font-size: 1.5rem;"></i>
+                            <h4 style="font-weight: 600; color: #1f2937; margin: 0;">${shop.name}</h4>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <span class="shop-type-badge" style="display: inline-block; padding: 2px 8px; border-radius: 9999px; background: rgba(20, 83, 45, 0.1); color: #14532d; font-size: 0.75rem; font-weight: 600; border: 1px solid #14532d;">
+                                ${type.charAt(0).toUpperCase() + type.slice(1)} ${getTranslatedText('store', 'Store')}
+                            </span>
+                            <span class="distance-badge" style="display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 9999px; background: #f59e0b; color: white; font-size: 0.75rem; font-weight: 600;">
+                                ${shop.distance.toFixed(1)} km
+                            </span>
+                        </div>
+                        <p style="margin: 4px 0; color: #4b5563; font-size: 0.875rem;">
+                            <i class="ri-map-pin-line" style="margin-right: 4px;"></i> ${shop.address}
+                        </p>
+                        <p style="margin: 4px 0; color: #4b5563; font-size: 0.875rem;">
+                            <i class="ri-phone-line" style="margin-right: 4px;"></i> ${shop.phone}
+                        </p>
+                        <p style="margin: 4px 0; color: #4b5563; font-size: 0.875rem;">
+                            <i class="ri-time-line" style="margin-right: 4px;"></i> ${shop.hours}
+                            ${shop.openNow ? '<span style="color: #10b981; margin-left: 4px;">● ' + getTranslatedText('open', 'Open') + '</span>' : '<span style="color: #ef4444; margin-left: 4px;">● ' + getTranslatedText('closed', 'Closed') + '</span>'}
+                        </p>
+                        <p style="margin: 4px 0; color: #4b5563; font-size: 0.875rem;">
+                            <i class="ri-star-fill" style="color: #f59e0b; margin-right: 4px;"></i> ${shop.rating} / 5
+                        </p>
+                        <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.lat},${shop.lng}', '_blank')" 
+                                class="direction-btn" style="margin-top: 8px; width: 100%; padding: 8px; background: linear-gradient(135deg, #14532d, #22c55e); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            <i class="ri-direction-line"></i> ${getTranslatedText('getDirections', 'Get Directions')}
+                        </button>
+                    </div>
+                `, { className: 'shop-popup' });
+                
+                shopMarkers.push(marker);
+            }
+            
+            // Sort shops by distance
+            shops.sort((a, b) => a.distance - b.distance);
+            
+            // Update shop list
+            updateShopList(shops);
+            
+            // Update shop count
+            document.getElementById('shopCount').textContent = `${shops.length} ${getTranslatedText('shopsFound', 'shops found')} ${getTranslatedText('within', 'within')} ${currentShopRadius} km`;
+        }
+
+        // Calculate distance between two coordinates in km
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Earth's radius in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Update shop list UI
+        function updateShopList(shops) {
+            const shopList = document.getElementById('shopList');
+            
+            if (shops.length === 0) {
+                shopList.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="ri-store-3-line text-5xl text-gray-400 mb-3"></i>
+                        <p style="color: #4b5563;">${getTranslatedText('noShopsFound', 'No shops found within')} ${currentShopRadius} km</p>
+                        <p class="text-sm mt-2" style="color: #9ca3af;">${getTranslatedText('increaseRadius', 'Try increasing the search radius')}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const typeIcons = {
+                fertilizer: 'ri-store-2-line',
+                seed: 'ri-seedling-line',
+                pesticide: 'ri-flask-line',
+                general: 'ri-store-3-line'
+            };
+            const typeColors = {
+                fertilizer: '#14532d',
+                seed: '#22c55e',
+                pesticide: '#f59e0b',
+                general: '#6b7280'
+            };
+            
+            shopList.innerHTML = shops.map(shop => {
+                return `
+                    <div class="shop-list-item" onclick="focusOnShop(${shop.lat}, ${shop.lng})">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="${typeIcons[shop.type]}" style="color: ${typeColors[shop.type]}; font-size: 1.5rem;"></i>
+                                <div>
+                                    <h4 class="font-semibold" style="color: #1f2937;">${shop.name}</h4>
+                                    <span class="shop-type-badge">${shop.type.charAt(0).toUpperCase() + shop.type.slice(1)} ${getTranslatedText('store', 'Store')}</span>
+                                </div>
+                            </div>
+                            <span class="distance-badge">${shop.distance.toFixed(1)} km</span>
+                        </div>
+                        
+                        <p class="text-sm mt-2" style="color: #4b5563;">
+                            <i class="ri-map-pin-line" style="margin-right: 4px;"></i> ${shop.address}
+                        </p>
+                        
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm" style="color: #f59e0b;">
+                                    <i class="ri-star-fill"></i> ${shop.rating}
+                                </span>
+                                <span class="text-sm" style="color: #4b5563;">
+                                    <i class="ri-time-line"></i> ${shop.openNow ? getTranslatedText('open', 'Open') : getTranslatedText('closed', 'Closed')}
+                                </span>
+                            </div>
+                            <button onclick="event.stopPropagation(); window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.lat},${shop.lng}', '_blank')" 
+                                    class="text-sm font-semibold hover:underline" style="color: #14532d;">
+                                ${getTranslatedText('directions', 'Directions')} <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Focus on shop when clicked in list
+        function focusOnShop(lat, lng) {
+            shopsMap.setView([lat, lng], 16);
+            
+            // Find and open the corresponding marker popup
+            shopMarkers.forEach(marker => {
+                const markerLatLng = marker.getLatLng();
+                if (Math.abs(markerLatLng.lat - lat) < 0.0001 && Math.abs(markerLatLng.lng - lng) < 0.0001) {
+                    marker.openPopup();
+                }
+            });
+        }
+
         // Initialize speech recognition
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1839,7 +3156,7 @@
             
             recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
-                document.getElementById('voiceTranscript').innerHTML = `<strong>You said:</strong> "${transcript}"`;
+                document.getElementById('voiceTranscript').innerHTML = `<strong>${getTranslatedText('youSaid', 'You said:')}</strong> "${transcript}"`;
                 document.getElementById('voiceTranscript').classList.remove('hidden');
                 
                 if (currentPage === 'detect') {
@@ -1867,7 +3184,7 @@
 
         function toggleVoiceInput() {
             if (!recognition) {
-                alert('Voice recognition not supported');
+                alert(getTranslatedText('voiceNotSupported'));
                 return;
             }
             
@@ -1891,7 +3208,7 @@
             ttsToggle.innerHTML = textToSpeechEnabled ? 
                 '<i class="ri-volume-up-line text-xl"></i>' : 
                 '<i class="ri-volume-mute-line text-xl"></i>';
-            showNotification(textToSpeechEnabled ? 'Voice responses enabled' : 'Voice responses disabled', 'success');
+            showNotification(textToSpeechEnabled ? 'voiceEnabled' : 'voiceDisabled', 'success');
         }
 
         function speakText(text) {
@@ -1921,7 +3238,10 @@
                 recognition.lang = lang;
             }
             
-            showNotification(`Language changed to ${lang}`, 'success');
+            // Translate the page
+            translatePage(lang);
+            
+            showNotification('languageChanged', 'success');
         }
 
         // Font size controls
@@ -1967,6 +3287,12 @@
             document.body.classList.toggle('dark');
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
             document.getElementById('themeToggle').innerHTML = isDarkMode ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
+            
+            // Update dark mode toggle in settings
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.checked = isDarkMode;
+            }
         }
 
         function toggleMobileMenu() {
@@ -1983,17 +3309,7 @@
                     item.classList.add('selected', 'bg-[#14532d]', 'text-white');
                 }
             });
-            showNotification(`Selected: ${crop}`, 'success');
-        }
-
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-24 right-4 px-6 py-3 rounded-xl shadow-2xl z-50 animate__animated animate__slideInRight ${
-                type === 'success' ? 'bg-gradient-to-r from-[#14532d] to-[#22c55e]' : 'bg-red-500'
-            } text-white`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
+            showNotification('Selected', 'success', `${getTranslatedText('selected', 'Selected')}: ${crop}`);
         }
 
         // Map initialization
@@ -2032,11 +3348,11 @@
         async function getWeatherByLocation() {
             const location = document.getElementById('locationInput').value.trim();
             if (!location) {
-                showNotification('Please enter a location', 'error');
+                showNotification('locationRequired', 'error');
                 return;
             }
             
-            showNotification('Fetching weather data...', 'success');
+            showNotification('detectingLocation', 'success');
             
             try {
                 // Get coordinates from location name using Nominatim
@@ -2054,17 +3370,17 @@
                     // Get weather data
                     await getWeatherForLocation(lat, lng);
                 } else {
-                    showNotification('Location not found', 'error');
+                    showNotification('locationNotFound', 'error');
                 }
             } catch (error) {
                 console.error('Geocoding error:', error);
-                showNotification('Failed to get location data', 'error');
+                showNotification('locationFailed', 'error');
             }
         }
 
         function getUserLocation() {
             if (navigator.geolocation) {
-                showNotification('Detecting your location...', 'success');
+                showNotification('detectingLocation', 'success');
                 
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
@@ -2095,19 +3411,19 @@
                             
                             if (userMarker) map.removeLayer(userMarker);
                             userMarker = L.marker([lat, lng]).addTo(map)
-                                .bindPopup('Your Location')
+                                .bindPopup(getTranslatedText('yourLocation', 'Your Location'))
                                 .openPopup();
                         }
                         
-                        showNotification('Location detected!', 'success');
+                        showNotification('locationDetected', 'success');
                     },
                     (error) => {
                         console.error('Geolocation error:', error);
-                        showNotification('Unable to get location', 'error');
+                        showNotification('locationError', 'error');
                     }
                 );
             } else {
-                showNotification('Geolocation not supported', 'error');
+                showNotification('geolocationNotSupported', 'error');
             }
         }
 
@@ -2131,12 +3447,15 @@
         }
 
         function updateDiseaseRisk(weather) {
-            const riskLevel = weather.humidity > 80 ? 'High' : weather.humidity > 60 ? 'Medium' : 'Low';
-            const riskElement = document.getElementById('weatherRiskLevel');
-            riskElement.textContent = riskLevel + ' Risk';
+            const t = translations[currentLanguage] || translations['en'];
+            const riskLevel = weather.humidity > 80 ? 'high' : weather.humidity > 60 ? 'medium' : 'low';
+            const riskText = t.riskLevels[riskLevel] || riskLevel;
             
-            if (riskLevel === 'High') riskElement.className = 'risk-indicator high';
-            else if (riskLevel === 'Medium') riskElement.className = 'risk-indicator moderate';
+            const riskElement = document.getElementById('weatherRiskLevel');
+            riskElement.textContent = riskText;
+            
+            if (riskLevel === 'high') riskElement.className = 'risk-indicator high';
+            else if (riskLevel === 'medium') riskElement.className = 'risk-indicator moderate';
             else riskElement.className = 'risk-indicator healthy';
             
             const diseases = DB.init().diseases;
@@ -2166,14 +3485,14 @@
             // Update recommendations based on diseases
             const recommendations = [];
             if (weather.humidity > 70) {
-                recommendations.push('Apply preventive fungicides');
-                recommendations.push('Improve air circulation');
+                recommendations.push(getTranslatedText('applyFungicides', 'Apply preventive fungicides'));
+                recommendations.push(getTranslatedText('improveAirflow', 'Improve air circulation'));
             }
             if (weather.rainfall > 10) {
-                recommendations.push('Ensure proper drainage');
+                recommendations.push(getTranslatedText('ensureDrainage', 'Ensure proper drainage'));
             }
             if (weather.temperature > 30) {
-                recommendations.push('Increase irrigation frequency');
+                recommendations.push(getTranslatedText('increaseIrrigation', 'Increase irrigation frequency'));
             }
             
             document.getElementById('weatherRecommendations').innerHTML = recommendations.map(r => `
@@ -2253,7 +3572,7 @@
                     document.getElementById('analysisLoading').classList.add('hidden');
                     document.getElementById('invalidImageMessage').classList.remove('hidden');
                     document.getElementById('uploadArea').classList.add('invalid');
-                    showNotification('Please upload or capture an image containing a plant, leaf, or tree.', 'error');
+                    showNotification('invalidImage', 'error');
                     return;
                 }
                 
@@ -2264,13 +3583,14 @@
                     document.getElementById('analysisLoading').classList.add('hidden');
                     document.getElementById('analysisResults').classList.remove('hidden');
                     updateResultsFromDatabase(selectedCrop, file);
-                    showNotification('Analysis complete!', 'success');
+                    showNotification('analysisComplete', 'success');
                 }, 3000);
             };
             reader.readAsDataURL(file);
         }
 
         function updateResultsFromDatabase(crop, file) {
+            const t = translations[currentLanguage] || translations['en'];
             const diseases = DB.getDiseasesByCrop(crop);
             let disease = diseases.length > 0 ? diseases[Math.floor(Math.random() * diseases.length)] : DB.getDiseaseByName('Early blight');
             if (!disease) return;
@@ -2289,13 +3609,13 @@
             const riskSpan = riskBadge.querySelector('span');
             if (confidence > 80) {
                 riskBadge.className = 'risk-indicator high';
-                riskSpan.textContent = 'High Risk';
+                riskSpan.textContent = t.riskLevels.high;
             } else if (confidence > 60) {
                 riskBadge.className = 'risk-indicator moderate';
-                riskSpan.textContent = 'Moderate Risk';
+                riskSpan.textContent = t.riskLevels.moderate;
             } else {
                 riskBadge.className = 'risk-indicator healthy';
-                riskSpan.textContent = 'Low Risk';
+                riskSpan.textContent = t.riskLevels.low;
             }
             
             document.getElementById('symptomsList').innerHTML = disease.symptoms.split(',').map(s => `
@@ -2328,7 +3648,7 @@
             
             if (currentUser && disease) {
                 DB.addDiagnosis(currentUser.id, disease.id, confidence, 'uploads/' + Date.now() + '_' + (file.name || 'capture.jpg'), crop, currentLocation?.name);
-                showNotification('Diagnosis saved to history', 'success');
+                showNotification('diagnosisSaved', 'success');
             }
         }
 
@@ -2344,7 +3664,7 @@
                     cameraContainer.classList.remove('hidden');
                     captureBtn.classList.remove('hidden');
                 } catch (err) {
-                    showNotification('Unable to access camera', 'error');
+                    showNotification('cameraError', 'error');
                 }
             } else {
                 if (mediaStream) mediaStream.getTracks().forEach(track => track.stop());
@@ -2394,6 +3714,7 @@
         }
 
         function addMessage(text, sender) {
+            const t = translations[currentLanguage] || translations['en'];
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
             div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} animate__animated animate__fadeIn`;
@@ -2402,7 +3723,7 @@
                 <div class="${sender === 'user' ? 'bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white' : 'bg-white dark:bg-gray-800'} rounded-2xl p-4 max-w-[80%] shadow">
                     <p class="${sender === 'user' ? 'text-white' : ''}" style="${sender !== 'user' ? 'color: #1f2937;' : ''}">${text}</p>
                     <p class="text-xs ${sender === 'user' ? 'text-green-100' : 'text-gray-500'} mt-2">
-                        ${sender === 'user' ? 'You' : 'AI'} • Just now
+                        ${sender === 'user' ? getTranslatedText('you', 'You') : 'AI'} • ${t.justNow}
                     </p>
                 </div>
             `;
@@ -2437,27 +3758,28 @@
         function getBotResponse(message) {
             const msg = message.toLowerCase();
             const db = DB.init();
+            const t = translations[currentLanguage] || translations['en'];
             
             for (let disease of db.diseases) {
                 if (msg.includes(disease.disease_name.toLowerCase())) {
-                    return `${disease.disease_name}: ${disease.symptoms}. Treatment: ${disease.treatment}`;
+                    return `${disease.disease_name}: ${disease.symptoms}. ${t.treatmentTitle}: ${disease.treatment}`;
                 }
             }
             
             if (msg.includes('rice') && msg.includes('disease')) {
-                return 'Common rice diseases include: Rice blast, Sheath blight';
+                return t.riceDiseaseResponse || 'Common rice diseases include: Rice blast, Sheath blight';
             } else if (msg.includes('wheat') && msg.includes('disease')) {
-                return 'Common wheat diseases include: Wheat rust, Powdery mildew';
+                return t.wheatDiseaseResponse || 'Common wheat diseases include: Wheat rust, Powdery mildew';
             } else if (msg.includes('tomato') && msg.includes('disease')) {
-                return 'Common tomato diseases include: Early blight, Late blight, Bacterial spot';
+                return t.tomatoDiseaseResponse || 'Common tomato diseases include: Early blight, Late blight, Bacterial spot';
             } else if (msg.includes('fertilizer')) {
-                return 'Fertilizer recommendations depend on soil type. Consider a soil test.';
+                return t.fertilizerResponse || 'Fertilizer recommendations depend on soil type. Consider a soil test.';
             } else if (msg.includes('weather')) {
-                return 'Check our weather prediction feature for disease forecasts.';
+                return t.weatherResponse || 'Check our weather prediction feature for disease forecasts.';
             } else if (msg.includes('hello') || msg.includes('hi')) {
-                return 'Hello! How can I help you with your farming today?';
+                return t.greetingResponse || 'Hello! How can I help you with your farming today?';
             } else {
-                return 'I can help with crop diseases, fertilizers, weather, and farming practices. What would you like to know?';
+                return t.defaultResponse || 'I can help with crop diseases, fertilizers, weather, and farming practices. What would you like to know?';
             }
         }
 
@@ -2476,13 +3798,13 @@
                     document.getElementById('sendVerificationBtn').disabled = false;
                     document.getElementById('sendVerificationBtn').classList.remove('opacity-50');
                     document.getElementById('resendVerificationBtn').style.display = 'block';
-                    showNotification('Verification code expired. Please request a new one.', 'error');
+                    showNotification('codeExpired', 'error');
                     return;
                 }
                 
                 const minutes = Math.floor(remaining / 60);
                 const seconds = remaining % 60;
-                timerElement.textContent = `Code expires in: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                timerElement.textContent = `${getTranslatedText('codeExpiresIn', 'Code expires in:')} ${minutes}:${seconds.toString().padStart(2, '0')}`;
                 timerElement.classList.remove('hidden');
             };
             
@@ -2493,12 +3815,12 @@
         function sendVerificationEmail() {
             const email = document.getElementById('registerEmail').value.trim();
             if (!email || !validateEmail(email)) {
-                showError('registerEmailError', 'Please enter a valid email');
+                showError('registerEmailError', getTranslatedText('invalidEmail'));
                 return;
             }
             
             if (DB.findUserByEmail(email)) {
-                showError('registerEmailError', 'Email already registered');
+                showError('registerEmailError', getTranslatedText('emailExists'));
                 return;
             }
             
@@ -2519,7 +3841,7 @@
             
             // In a real application, you would send this via email
             console.log(`Verification code for ${email}: ${verificationCode}`);
-            showNotification(`Verification code sent to ${email} (Demo: ${verificationCode})`, 'success');
+            showNotification('codeSent', 'success', `${getTranslatedText('codeSent')} ${email} (Demo: ${verificationCode})`);
             
             // Start timer
             startVerificationTimer();
@@ -2528,7 +3850,7 @@
         function resendVerificationCode() {
             const email = document.getElementById('registerEmail').value.trim();
             if (!email) {
-                showError('registerEmailError', 'Email is required');
+                showError('registerEmailError', getTranslatedText('emailRequired'));
                 return;
             }
             
@@ -2547,7 +3869,7 @@
             document.getElementById('resendVerificationBtn').style.display = 'none';
             
             console.log(`New verification code for ${email}: ${verificationCode}`);
-            showNotification(`New verification code sent to ${email}`, 'success');
+            showNotification('newCodeSent', 'success', `${getTranslatedText('newCodeSent')} ${email}`);
             
             // Start timer again
             startVerificationTimer();
@@ -2558,7 +3880,7 @@
             const code = document.getElementById('emailVerificationCode').value.trim();
             
             if (!code || code.length !== 6) {
-                showError('emailVerifyError', 'Please enter a valid 6-digit verification code');
+                showError('emailVerifyError', getTranslatedText('enterValidCode'));
                 return;
             }
             
@@ -2575,9 +3897,9 @@
                     document.getElementById('emailVerifyTimer').classList.add('hidden');
                 }
                 
-                showNotification('Email verified successfully!', 'success');
+                showNotification('emailVerified', 'success');
             } else {
-                showError('emailVerifyError', 'Invalid or expired verification code');
+                showError('emailVerifyError', getTranslatedText('invalidCode'));
             }
         }
 
@@ -2613,27 +3935,27 @@
             const password = document.getElementById('loginPassword').value;
             
             if (!email) {
-                showError('loginEmailError', 'Email is required');
+                showError('loginEmailError', getTranslatedText('emailRequired'));
                 return;
             }
             if (!validateEmail(email)) {
-                showError('loginEmailError', 'Invalid email');
+                showError('loginEmailError', getTranslatedText('invalidEmail'));
                 return;
             }
             
             if (!password) {
-                showError('loginPasswordError', 'Password is required');
+                showError('loginPasswordError', getTranslatedText('passwordRequired'));
                 return;
             }
             
             const user = DB.findUserByEmail(email);
             if (!user) {
-                showError('loginEmailError', 'User not found');
+                showError('loginEmailError', getTranslatedText('userNotFound'));
                 return;
             }
             
             if (!user.verified) {
-                showNotification('Please verify your email first. Check your inbox for the verification code.', 'error');
+                showNotification('verifyEmailFirst', 'error');
                 return;
             }
             
@@ -2644,10 +3966,10 @@
                 updateAuthUI();
                 updateProtectedElements();
                 hideLoginModal();
-                showNotification('Login successful!', 'success');
+                showNotification('loginSuccess', 'success');
                 loadUserHistory();
             } else {
-                showError('loginPasswordError', 'Invalid password');
+                showError('loginPasswordError', getTranslatedText('invalidPassword'));
             }
         }
 
@@ -2658,27 +3980,27 @@
             const confirmPassword = document.getElementById('registerConfirmPassword').value;
             
             if (!name || !validateName(name)) {
-                showError('registerNameError', 'Name must be at least 2 characters');
+                showError('registerNameError', getTranslatedText('nameRequired'));
                 return;
             }
             
             if (!email || !validateEmail(email)) {
-                showError('registerEmailError', 'Please enter a valid email');
+                showError('registerEmailError', getTranslatedText('invalidEmail'));
                 return;
             }
             
             if (DB.findUserByEmail(email)) {
-                showError('registerEmailError', 'Email already registered');
+                showError('registerEmailError', getTranslatedText('emailExists'));
                 return;
             }
             
             if (!password || !validatePassword(password)) {
-                showError('registerPasswordError', 'Password must be at least 6 characters');
+                showError('registerPasswordError', getTranslatedText('passwordLength'));
                 return;
             }
             
             if (password !== confirmPassword) {
-                showError('registerConfirmError', 'Passwords do not match');
+                showError('registerConfirmError', getTranslatedText('passwordMismatch'));
                 return;
             }
             
@@ -2692,7 +4014,7 @@
             updateAuthUI();
             updateProtectedElements();
             hideRegisterModal();
-            showNotification('Registration successful!', 'success');
+            showNotification('registrationSuccess', 'success');
         }
 
         function updateProtectedElements() {
@@ -2710,6 +4032,7 @@
 
         function loadUserHistory() {
             if (!currentUser) return;
+            const t = translations[currentLanguage] || translations['en'];
             const history = DB.getUserHistory(currentUser.id);
             const tableBody = document.getElementById('historyTableBody');
             const noHistory = document.getElementById('noHistory');
@@ -2724,7 +4047,7 @@
             tableBody.innerHTML = history.map(item => `
                 <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <td class="py-3 px-4" style="color: #4b5563;">${new Date(item.diagnosis_date).toLocaleDateString()}</td>
-                    <td class="py-3 px-4" style="color: #4b5563;">${item.crop_stage || 'Unknown'}</td>
+                    <td class="py-3 px-4" style="color: #4b5563;">${item.crop_stage || getTranslatedText('unknown', 'Unknown')}</td>
                     <td class="py-3 px-4" style="color: #4b5563;">${item.disease_name}</td>
                     <td class="py-3 px-4" style="color: #4b5563;">${item.confidence_score}%</td>
                     <td class="py-3 px-4">
@@ -2733,11 +4056,11 @@
                             item.confidence_score > 60 ? 'bg-yellow-100 text-yellow-800' : 
                             'bg-green-100 text-green-800'
                         }">
-                            ${item.confidence_score > 80 ? 'High' : item.confidence_score > 60 ? 'Medium' : 'Low'}
+                            ${item.confidence_score > 80 ? t.high : item.confidence_score > 60 ? t.medium : t.low}
                         </span>
                     </td>
                     <td class="py-3 px-4">
-                        <button onclick="viewDiagnosis(${item.id})" class="hover:underline" style="color: #14532d;">View</button>
+                        <button onclick="viewDiagnosis(${item.id})" class="hover:underline" style="color: #14532d;">${t.view || 'View'}</button>
                     </td>
                 </tr>
             `).join('');
@@ -2745,16 +4068,19 @@
 
         function loadProfileData() {
             if (!currentUser) return;
+            const t = translations[currentLanguage] || translations['en'];
             document.getElementById('profileName').textContent = currentUser.name;
             document.getElementById('profileEmail').textContent = currentUser.email;
             
             if (currentUser.verified) {
                 document.getElementById('profileVerified').classList.remove('hidden');
-                document.getElementById('accountStatus').textContent = 'Verified';
+                document.getElementById('profileNotVerified').classList.add('hidden');
+                document.getElementById('accountStatus').textContent = t.verified || 'Verified';
                 document.getElementById('accountStatus').style.color = '#10b981';
             } else {
                 document.getElementById('profileVerified').classList.add('hidden');
-                document.getElementById('accountStatus').textContent = 'Pending Verification';
+                document.getElementById('profileNotVerified').classList.remove('hidden');
+                document.getElementById('accountStatus').textContent = t.pendingVerification || 'Pending Verification';
                 document.getElementById('accountStatus').style.color = '#f59e0b';
             }
             
@@ -2778,13 +4104,13 @@
                     const riskSpan = riskBadge.querySelector('span');
                     if (diagnosis.confidence_score > 80) {
                         riskBadge.className = 'risk-indicator high';
-                        riskSpan.textContent = 'High Risk';
+                        riskSpan.textContent = getTranslatedText('high');
                     } else if (diagnosis.confidence_score > 60) {
                         riskBadge.className = 'risk-indicator moderate';
-                        riskSpan.textContent = 'Moderate Risk';
+                        riskSpan.textContent = getTranslatedText('moderate');
                     } else {
                         riskBadge.className = 'risk-indicator healthy';
-                        riskSpan.textContent = 'Low Risk';
+                        riskSpan.textContent = getTranslatedText('low');
                     }
                     
                     document.getElementById('symptomsList').innerHTML = `
@@ -2897,7 +4223,7 @@
             localStorage.removeItem('user');
             updateAuthUI();
             updateProtectedElements();
-            showNotification('Logged out successfully', 'success');
+            showNotification('logoutSuccess', 'success');
             changePage('home');
         }
 
@@ -2913,34 +4239,35 @@
         }
 
         function showSchemeDetails(scheme) {
+            const t = translations[currentLanguage] || translations['en'];
             const details = {
                 'pmkisan': {
-                    title: 'PM-KISAN Scheme',
-                    description: 'Income support scheme for small and marginal farmers',
-                    benefit: '₹6000 per year (₹2000 every 4 months)',
-                    eligibility: 'Small and marginal farmers with landholding up to 2 hectares',
-                    documents: ['Aadhaar card', 'Land records', 'Bank account details']
+                    title: t.schemePmkisan || 'PM-KISAN Scheme',
+                    description: t.schemePmkisanDesc || 'Income support scheme for small and marginal farmers',
+                    benefit: t.schemePmkisanBenefit || '₹6000 per year (₹2000 every 4 months)',
+                    eligibility: t.schemePmkisanEligibility || 'Small and marginal farmers with landholding up to 2 hectares',
+                    documents: [t.aadhaarCard || 'Aadhaar card', t.landRecords || 'Land records', t.bankAccount || 'Bank account details']
                 },
                 'soilhealth': {
-                    title: 'Soil Health Card Scheme',
-                    description: 'Free soil testing and nutrient recommendations',
-                    benefit: 'Free soil testing and customized recommendations',
-                    eligibility: 'All farmers',
-                    documents: ['Land records', 'Identity proof']
+                    title: t.schemeSoilHealth || 'Soil Health Card Scheme',
+                    description: t.schemeSoilHealthDesc || 'Free soil testing and nutrient recommendations',
+                    benefit: t.schemeSoilHealthBenefit || 'Free soil testing and customized recommendations',
+                    eligibility: t.schemeSoilHealthEligibility || 'All farmers',
+                    documents: [t.landRecords || 'Land records', t.identityProof || 'Identity proof']
                 },
                 'pmksy': {
-                    title: 'PMKSY - Irrigation Scheme',
-                    description: 'Improve water use efficiency through micro-irrigation',
-                    benefit: 'Subsidy on irrigation equipment (up to 55%)',
-                    eligibility: 'All farmers',
-                    documents: ['Land records', 'Bank account', 'Project report']
+                    title: t.schemePmksy || 'PMKSY - Irrigation Scheme',
+                    description: t.schemePmksyDesc || 'Improve water use efficiency through micro-irrigation',
+                    benefit: t.schemePmksyBenefit || 'Subsidy on irrigation equipment (up to 55%)',
+                    eligibility: t.schemePmksyEligibility || 'All farmers',
+                    documents: [t.landRecords || 'Land records', t.bankAccount || 'Bank account', t.projectReport || 'Project report']
                 },
                 'kcc': {
-                    title: 'Kisan Credit Card',
-                    description: 'Affordable credit for farmers',
-                    benefit: 'Credit up to ₹3 lakhs at subsidized interest',
-                    eligibility: 'All farmers',
-                    documents: ['Land records', 'Identity proof', 'Passport size photo']
+                    title: t.schemeKcc || 'Kisan Credit Card',
+                    description: t.schemeKccDesc || 'Affordable credit for farmers',
+                    benefit: t.schemeKccBenefit || 'Credit up to ₹3 lakhs at subsidized interest',
+                    eligibility: t.schemeKccEligibility || 'All farmers',
+                    documents: [t.landRecords || 'Land records', t.identityProof || 'Identity proof', t.passportPhoto || 'Passport size photo']
                 }
             };
             
@@ -2970,6 +4297,8 @@
             if (isDarkMode) {
                 document.body.classList.add('dark');
                 document.getElementById('themeToggle').innerHTML = '<i class="ri-sun-line"></i>';
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                if (darkModeToggle) darkModeToggle.checked = true;
             }
 
             const savedUser = localStorage.getItem('user');
@@ -2989,11 +4318,12 @@
             }
             
             const savedLanguage = localStorage.getItem('preferred_language');
-            if (savedLanguage) {
+            if (savedLanguage && translations[savedLanguage]) {
                 currentLanguage = savedLanguage;
                 document.getElementById('languageSelector').value = savedLanguage;
                 const settingsSelector = document.getElementById('settingsLanguageSelector');
                 if (settingsSelector) settingsSelector.value = savedLanguage;
+                translatePage(savedLanguage);
             }
 
             changePage('home');
