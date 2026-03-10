@@ -172,7 +172,7 @@
             color: #22c55e;
         }
         
-        /* Accessibility buttons */
+        /* Accessibility buttons - now in floating panel */
         .accessibility-btn {
             color: #14532d;
             padding: 0.5rem;
@@ -864,9 +864,185 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+        
+        /* New Floating Panel Styles */
+        .floating-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .floating-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            width: 60px;
+            overflow: hidden;
+            transition: width 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            width: 250px;
+        }
+        
+        .dark .floating-card {
+            background: rgba(31, 41, 55, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .floating-card.ai-assistant {
+            background: linear-gradient(135deg, #14532d, #22c55e);
+            color: white;
+        }
+        
+        .floating-card.ai-assistant .accessibility-btn {
+            color: white;
+        }
+        
+        .floating-card.ai-assistant .accessibility-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+        }
+        
+        .floating-icon {
+            font-size: 24px;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .floating-controls {
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .floating-card:hover .floating-controls {
+            opacity: 1;
+        }
+        
+        .voice-command-text {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .voice-command-text.visible {
+            display: block;
+        }
+        
+        .ai-mic-btn {
+            background: white;
+            color: #14532d;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ai-mic-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .ai-mic-btn.listening {
+            background: #ef4444;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .dark .ai-mic-btn {
+            background: #1f2937;
+            color: #22c55e;
+        }
+        
+        .dark .ai-mic-btn.listening {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .font-controls {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body class="transition-colors duration-300">
+
+    <!-- Floating Panel with AI Assistant and Text Controls -->
+    <div class="floating-panel">
+        <!-- AI Assistant Card -->
+        <div class="floating-card ai-assistant">
+            <div class="floating-content">
+                <div class="floating-icon">
+                    <i class="ri-robot-line"></i>
+                </div>
+                <div class="floating-controls">
+                    <div style="display: flex; flex-direction: column; gap: 5px; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <button onclick="toggleAIVoice()" id="aiMicBtn" class="ai-mic-btn">
+                                <i class="ri-mic-line"></i>
+                            </button>
+                            <span style="font-size: 14px; font-weight: 500;">AI Voice</span>
+                        </div>
+                        <div id="aiVoiceCommandText" class="voice-command-text">
+                            Click mic and speak
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Size Controls Card -->
+        <div class="floating-card">
+            <div class="floating-content">
+                <div class="floating-icon">
+                    <i class="ri-font-size-2"></i>
+                </div>
+                <div class="floating-controls">
+                    <div style="display: flex; flex-direction: column; gap: 5px; width: 100%;">
+                        <div class="font-controls">
+                            <button onclick="decreaseFontSize()" class="accessibility-btn" title="Decrease text size">
+                                <i class="ri-font-size-2"></i> <span class="text-xs">-</span>
+                            </button>
+                            <button onclick="resetFontSize()" class="accessibility-btn" title="Reset text size">
+                                <i class="ri-font-size"></i>
+                            </button>
+                            <button onclick="increaseFontSize()" class="accessibility-btn" title="Increase text size">
+                                <i class="ri-font-size-2"></i> <span class="text-xs">+</span>
+                            </button>
+                        </div>
+                        <span style="font-size: 12px; color: #4b5563;">Text Size</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Improved Navigation Bar - All Items in One Line -->
     <nav class="navbar sticky top-0 z-50">
@@ -909,19 +1085,6 @@
                     <a href="#" onclick="changePage('profile')" class="nav-menu-item auth-required" data-page="profile" style="display: none;" id="navProfile">
                         Profile & Settings
                     </a>
-                    
-                    <!-- Accessibility Text Size Controls -->
-                    <div class="flex items-center space-x-1 border-l border-gray-300 dark:border-gray-600 pl-2 ml-1">
-                        <button onclick="decreaseFontSize()" class="accessibility-btn" title="Decrease text size">
-                            <i class="ri-font-size-2"></i> <span class="text-xs">-</span>
-                        </button>
-                        <button onclick="resetFontSize()" class="accessibility-btn" title="Reset text size">
-                            <i class="ri-font-size"></i>
-                        </button>
-                        <button onclick="increaseFontSize()" class="accessibility-btn" title="Increase text size">
-                            <i class="ri-font-size-2"></i> <span class="text-xs">+</span>
-                        </button>
-                    </div>
                     
                     <!-- Language Selector -->
                     <select id="languageSelector" onchange="changeLanguage(this.value)" class="language-selector">
@@ -1994,6 +2157,8 @@
         let verificationExpiry = null;
         let currentShopRadius = 10;
         let userLatLng = null;
+        let aiVoiceListening = false;
+        let aiVoiceRecognition = null;
 
         // Speech Synthesis
         const synth = window.speechSynthesis;
@@ -2255,7 +2420,23 @@
                 nameRequired: 'Name must be at least 2 characters',
                 passwordLength: 'Password must be at least 6 characters',
                 passwordMismatch: 'Passwords do not match',
-                emailExists: 'Email already registered'
+                emailExists: 'Email already registered',
+                
+                // Voice Commands
+                voiceListening: 'Listening...',
+                voiceCommandNotRecognized: 'Command not recognized',
+                voiceCommandHome: 'Going to Home page',
+                voiceCommandDetect: 'Opening Crop Diagnosis',
+                voiceCommandWeather: 'Opening Weather page',
+                voiceCommandSchemes: 'Opening Government Schemes',
+                voiceCommandShops: 'Opening Fertilizer Shops',
+                voiceCommandHistory: 'Opening History',
+                voiceCommandChatbot: 'Opening Chatbot',
+                voiceCommandProfile: 'Opening Profile',
+                voiceCommandLogout: 'Logging out',
+                voiceCommandUpload: 'Opening Upload Image',
+                voiceCommandDashboard: 'Opening Dashboard',
+                voiceCommandPlantDiagnosis: 'Opening Plant Diagnosis'
             },
             
             hi: {
@@ -2513,7 +2694,23 @@
                 nameRequired: 'नाम कम से कम 2 अक्षर का होना चाहिए',
                 passwordLength: 'पासवर्ड कम से कम 6 अक्षर का होना चाहिए',
                 passwordMismatch: 'पासवर्ड मेल नहीं खाते',
-                emailExists: 'ईमेल पहले से पंजीकृत है'
+                emailExists: 'ईमेल पहले से पंजीकृत है',
+                
+                // Voice Commands
+                voiceListening: 'सुन रहा हूँ...',
+                voiceCommandNotRecognized: 'कमांड पहचाना नहीं गया',
+                voiceCommandHome: 'होम पेज पर जा रहे हैं',
+                voiceCommandDetect: 'फसल निदान खोल रहे हैं',
+                voiceCommandWeather: 'मौसम पेज खोल रहे हैं',
+                voiceCommandSchemes: 'सरकारी योजनाएं खोल रहे हैं',
+                voiceCommandShops: 'उर्वरक दुकानें खोल रहे हैं',
+                voiceCommandHistory: 'इतिहास खोल रहे हैं',
+                voiceCommandChatbot: 'चैटबॉट खोल रहे हैं',
+                voiceCommandProfile: 'प्रोफाइल खोल रहे हैं',
+                voiceCommandLogout: 'लॉगआउट हो रहे हैं',
+                voiceCommandUpload: 'अपलोड छवि खोल रहे हैं',
+                voiceCommandDashboard: 'डैशबोर्ड खोल रहे हैं',
+                voiceCommandPlantDiagnosis: 'पौधा निदान खोल रहे हैं'
             }
             // Add other languages here (ta, te, bn, mr, gu, kn, ml, pa, or, as) following the same pattern
         };
@@ -3146,7 +3343,7 @@
             });
         }
 
-        // Initialize speech recognition
+        // Initialize speech recognition for main chatbot
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
@@ -3180,6 +3377,135 @@
                 document.getElementById('chatVoiceBtn')?.classList.remove('voice-btn-listening');
                 document.getElementById('voiceStatus')?.classList.add('hidden');
             };
+        }
+
+        // Initialize AI Voice Assistant recognition
+        function initAIVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                aiVoiceRecognition = new SpeechRecognition();
+                aiVoiceRecognition.continuous = false;
+                aiVoiceRecognition.interimResults = false;
+                aiVoiceRecognition.lang = currentLanguage;
+                
+                aiVoiceRecognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript.toLowerCase();
+                    document.getElementById('aiVoiceCommandText').textContent = `"${transcript}"`;
+                    document.getElementById('aiVoiceCommandText').classList.add('visible');
+                    
+                    // Process voice commands
+                    processVoiceCommand(transcript);
+                    
+                    setTimeout(() => {
+                        document.getElementById('aiVoiceCommandText').classList.remove('visible');
+                    }, 3000);
+                    
+                    aiVoiceListening = false;
+                    document.getElementById('aiMicBtn').classList.remove('listening');
+                };
+                
+                aiVoiceRecognition.onerror = () => {
+                    aiVoiceListening = false;
+                    document.getElementById('aiMicBtn').classList.remove('listening');
+                    document.getElementById('aiVoiceCommandText').textContent = getTranslatedText('voiceCommandNotRecognized');
+                    document.getElementById('aiVoiceCommandText').classList.add('visible');
+                    
+                    setTimeout(() => {
+                        document.getElementById('aiVoiceCommandText').classList.remove('visible');
+                    }, 2000);
+                };
+                
+                aiVoiceRecognition.onend = () => {
+                    aiVoiceListening = false;
+                    document.getElementById('aiMicBtn').classList.remove('listening');
+                };
+            }
+        }
+
+        // Toggle AI Voice Assistant
+        function toggleAIVoice() {
+            if (!aiVoiceRecognition) {
+                initAIVoiceRecognition();
+            }
+            
+            if (!aiVoiceRecognition) {
+                showNotification('voiceNotSupported', 'error');
+                return;
+            }
+            
+            if (aiVoiceListening) {
+                aiVoiceRecognition.stop();
+                aiVoiceListening = false;
+                document.getElementById('aiMicBtn').classList.remove('listening');
+                document.getElementById('aiVoiceCommandText').classList.remove('visible');
+            } else {
+                aiVoiceRecognition.lang = currentLanguage;
+                aiVoiceRecognition.start();
+                aiVoiceListening = true;
+                document.getElementById('aiMicBtn').classList.add('listening');
+                document.getElementById('aiVoiceCommandText').textContent = getTranslatedText('voiceListening');
+                document.getElementById('aiVoiceCommandText').classList.add('visible');
+            }
+        }
+
+        // Process voice commands
+        function processVoiceCommand(command) {
+            const t = translations[currentLanguage] || translations['en'];
+            
+            // Navigation commands
+            if (command.includes('home') || command.includes('होम') || command.includes('मुख्य')) {
+                changePage('home');
+                showNotification(t.voiceCommandHome || 'Going to Home page', 'success');
+            }
+            else if (command.includes('dashboard') || command.includes('डैशबोर्ड')) {
+                changePage('home');
+                showNotification(t.voiceCommandDashboard || 'Opening Dashboard', 'success');
+            }
+            else if (command.includes('diagnosis') || command.includes('निदान') || command.includes('plant diagnosis') || command.includes('पौधा निदान')) {
+                changePage('detect');
+                showNotification(t.voiceCommandPlantDiagnosis || 'Opening Plant Diagnosis', 'success');
+            }
+            else if (command.includes('upload') || command.includes('अपलोड') || command.includes('image') || command.includes('छवि')) {
+                changePage('detect');
+                showNotification(t.voiceCommandUpload || 'Opening Upload Image', 'success');
+            }
+            else if (command.includes('weather') || command.includes('मौसम')) {
+                changePage('weather');
+                showNotification(t.voiceCommandWeather || 'Opening Weather page', 'success');
+            }
+            else if (command.includes('scheme') || command.includes('योजना') || command.includes('government')) {
+                changePage('schemes');
+                showNotification(t.voiceCommandSchemes || 'Opening Government Schemes', 'success');
+            }
+            else if (command.includes('shop') || command.includes('दुकान') || command.includes('fertilizer') || command.includes('उर्वरक')) {
+                changePage('shops');
+                showNotification(t.voiceCommandShops || 'Opening Fertilizer Shops', 'success');
+            }
+            else if (command.includes('history') || command.includes('इतिहास')) {
+                changePage('history');
+                showNotification(t.voiceCommandHistory || 'Opening History', 'success');
+            }
+            else if (command.includes('chatbot') || command.includes('चैटबॉट') || command.includes('assistant') || command.includes('सहायक')) {
+                changePage('chatbot');
+                showNotification(t.voiceCommandChatbot || 'Opening Chatbot', 'success');
+            }
+            else if (command.includes('profile') || command.includes('प्रोफाइल') || command.includes('settings') || command.includes('सेटिंग्स')) {
+                if (isAuthenticated) {
+                    changePage('profile');
+                    showNotification(t.voiceCommandProfile || 'Opening Profile', 'success');
+                } else {
+                    showNotification('loginRequired', 'error');
+                }
+            }
+            else if (command.includes('logout') || command.includes('लॉगआउट')) {
+                if (isAuthenticated) {
+                    logout();
+                    showNotification(t.voiceCommandLogout || 'Logging out', 'success');
+                }
+            }
+            else {
+                showNotification(t.voiceCommandNotRecognized || 'Command not recognized', 'error');
+            }
         }
 
         function toggleVoiceInput() {
@@ -3236,6 +3562,9 @@
             // Update recognition language
             if (recognition) {
                 recognition.lang = lang;
+            }
+            if (aiVoiceRecognition) {
+                aiVoiceRecognition.lang = lang;
             }
             
             // Translate the page
