@@ -891,7 +891,7 @@
         }
         
         .floating-card:hover {
-            width: 250px;
+            width: 280px;
         }
         
         .dark .floating-card {
@@ -963,6 +963,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: glow 2s infinite;
         }
         
         .ai-mic-btn:hover {
@@ -973,6 +974,12 @@
             background: #ef4444;
             color: white;
             animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.5); }
         }
         
         .dark .ai-mic-btn {
@@ -990,11 +997,74 @@
             gap: 5px;
             margin-top: 10px;
         }
+        
+        .speaker-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .speaker-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .speaker-toggle.muted {
+            opacity: 0.5;
+        }
+        
+        /* Chat message styles from File B */
+        .chat-message {
+            transition: all 0.3s ease;
+        }
+        
+        .chat-message:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Quick action buttons from File B */
+        .quick-action-btn {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #14532d;
+            color: #14532d;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .quick-action-btn:hover {
+            background: #14532d;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .dark .quick-action-btn {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-color: #22c55e;
+        }
+        
+        .dark .quick-action-btn:hover {
+            background: #22c55e;
+            color: #111827;
+        }
     </style>
 </head>
 <body class="transition-colors duration-300">
 
-    <!-- Floating Panel with AI Assistant and Text Controls -->
+    <!-- Floating Panel with AI Assistant and Text Controls (from File A) -->
     <div class="floating-panel">
         <!-- AI Assistant Card -->
         <div class="floating-card ai-assistant">
@@ -1005,13 +1075,16 @@
                 <div class="floating-controls">
                     <div style="display: flex; flex-direction: column; gap: 5px; width: 100%;">
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <button onclick="toggleAIVoice()" id="aiMicBtn" class="ai-mic-btn">
+                            <button onclick="toggleAIVoice()" id="aiMicBtn" class="ai-mic-btn" title="Click to speak a command">
                                 <i class="ri-mic-line"></i>
                             </button>
                             <span style="font-size: 14px; font-weight: 500;">AI Voice</span>
+                            <button onclick="togglePageReading()" id="speakerToggle" class="speaker-toggle" title="Toggle page reading">
+                                <i class="ri-volume-up-line"></i>
+                            </button>
                         </div>
                         <div id="aiVoiceCommandText" class="voice-command-text">
-                            Click mic and speak
+                            Click mic and speak a command
                         </div>
                     </div>
                 </div>
@@ -1044,7 +1117,7 @@
         </div>
     </div>
 
-    <!-- Improved Navigation Bar - All Items in One Line -->
+    <!-- Improved Navigation Bar - All Items in One Line (combined from both files) -->
     <nav class="navbar sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Flexbox container with all items in one line -->
@@ -1058,8 +1131,11 @@
                     </a>
                 </div>
 
-                <!-- Center Menu Items -->
+                <!-- Center Menu Items (from both files) -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
+                    <a href="#" onclick="changePage('dashboard')" class="nav-menu-item auth-required" data-page="dashboard" style="display: none;">
+                        Dashboard
+                    </a>
                     <a href="#" onclick="changePage('detect')" class="nav-menu-item" data-page="detect" id="navDetect">
                         Crop Diagnosis
                     </a>
@@ -1077,7 +1153,7 @@
                     </a>
                 </div>
 
-                <!-- Right Menu Items -->
+                <!-- Right Menu Items (combined from both files) -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
                     <a href="#" onclick="changePage('chatbot')" class="nav-menu-item" data-page="chatbot" id="navChatbot">
                         Chatbot
@@ -1085,6 +1161,22 @@
                     <a href="#" onclick="changePage('profile')" class="nav-menu-item auth-required" data-page="profile" style="display: none;" id="navProfile">
                         Profile & Settings
                     </a>
+                    <a href="#" onclick="changePage('settings')" class="nav-menu-item auth-required" data-page="settings" style="display: none;" id="navSettings">
+                        Settings
+                    </a>
+                    
+                    <!-- Accessibility Text Size Controls (from File B - preserved) -->
+                    <div class="flex items-center space-x-1 border-l border-gray-300 dark:border-gray-600 pl-2 ml-1">
+                        <button onclick="decreaseFontSize()" class="accessibility-btn" title="Decrease text size">
+                            <i class="ri-font-size-2"></i> <span class="text-xs">-</span>
+                        </button>
+                        <button onclick="resetFontSize()" class="accessibility-btn" title="Reset text size">
+                            <i class="ri-font-size"></i>
+                        </button>
+                        <button onclick="increaseFontSize()" class="accessibility-btn" title="Increase text size">
+                            <i class="ri-font-size-2"></i> <span class="text-xs">+</span>
+                        </button>
+                    </div>
                     
                     <!-- Language Selector -->
                     <select id="languageSelector" onchange="changeLanguage(this.value)" class="language-selector">
@@ -1138,9 +1230,10 @@
             </div>
         </div>
 
-        <!-- Mobile Menu -->
+        <!-- Mobile Menu (combined from both files) -->
         <div id="mobileMenu" class="hidden md:hidden">
             <div class="max-w-7xl mx-auto px-4 py-2 space-y-1">
+                <a href="#" onclick="changePage('dashboard')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileDashboard">Dashboard</a>
                 <a href="#" onclick="changePage('detect')" class="mobile-nav-item" id="mobileDetect">Crop Diagnosis</a>
                 <a href="#" onclick="changePage('weather')" class="mobile-nav-item" id="mobileWeather">Weather</a>
                 <a href="#" onclick="changePage('schemes')" class="mobile-nav-item" id="mobileSchemes">Government Schemes</a>
@@ -1148,6 +1241,7 @@
                 <a href="#" onclick="changePage('history')" class="mobile-nav-item" id="mobileHistory">History</a>
                 <a href="#" onclick="changePage('chatbot')" class="mobile-nav-item" id="mobileChatbot">Chatbot</a>
                 <a href="#" onclick="changePage('profile')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileProfile">Profile & Settings</a>
+                <a href="#" onclick="changePage('settings')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileSettings">Settings</a>
             </div>
         </div>
     </nav>
@@ -1157,7 +1251,7 @@
 
     <!-- Main Content Area -->
     <div id="contentArea" class="max-w-7xl mx-auto px-4 py-8 page-transition">
-        <!-- Home Page -->
+        <!-- Home Page (from File A, with translations preserved) -->
         <div id="homePage" class="page">
             <!-- Hero Section -->
             <div class="relative overflow-hidden rounded-3xl glass-card p-12 mb-12">
@@ -1242,7 +1336,7 @@
             </div>
         </div>
 
-        <!-- Disease Detection Page -->
+        <!-- Disease Detection Page (from File A, with translations preserved) -->
         <div id="detectPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="detectTitle">AI Disease Detection</h1>
 
@@ -1456,12 +1550,12 @@
             </div>
         </div>
 
-        <!-- AI Chatbot Page -->
+        <!-- AI Chatbot Page - Enhanced with Real-time Responses (combined from both files) -->
         <div id="chatbotPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="chatbotTitle">AI Farmer Assistant</h1>
 
             <div class="glass-card rounded-2xl overflow-hidden">
-                <!-- Chat Header -->
+                <!-- Chat Header (from File A) -->
                 <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white px-6 py-4">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -1491,11 +1585,41 @@
                     </div>
                 </div>
 
+                <!-- Quick Action Buttons (from File B) -->
+                <div class="px-4 py-3 border-b dark:border-gray-700 overflow-x-auto flex gap-2" style="background: rgba(34, 197, 94, 0.05);">
+                    <button class="quick-action-btn" onclick="quickAction('rice cultivation')">
+                        <i class="ri-plant-line mr-1"></i> Rice Tips
+                    </button>
+                    <button class="quick-action-btn" onclick="quickAction('tomato disease')">
+                        <i class="ri-bug-line mr-1"></i> Tomato Disease
+                    </button>
+                    <button class="quick-action-btn" onclick="quickAction('fertilizer recommendation')">
+                        <i class="ri-flask-line mr-1"></i> Fertilizer
+                    </button>
+                    <button class="quick-action-btn" onclick="quickAction('weather for farming')">
+                        <i class="ri-cloud-line mr-1"></i> Weather Tips
+                    </button>
+                    <button class="quick-action-btn" onclick="quickAction('pest control')">
+                        <i class="ri-spray-line mr-1"></i> Pest Control
+                    </button>
+                    <button class="quick-action-btn" onclick="quickAction('irrigation schedule')">
+                        <i class="ri-drop-line mr-1"></i> Irrigation
+                    </button>
+                </div>
+
                 <!-- Chat Messages -->
                 <div id="chatMessages" class="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
                     <div class="flex justify-start">
-                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 max-w-[80%] shadow">
-                            <p style="color: #1f2937;" id="welcomeMessage">Hello! I'm your AI farming assistant. How can I help you today?</p>
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 max-w-[80%] shadow chat-message">
+                            <p style="color: #1f2937;" id="welcomeMessage">🌾 Namaste! I'm your AI farming assistant. I can help you with:</p>
+                            <ul class="mt-2 space-y-1 text-sm" style="color: #4b5563;">
+                                <li>• 🌱 Crop cultivation techniques and best practices</li>
+                                <li>• 🔍 Disease identification and treatment</li>
+                                <li>• 💧 Irrigation schedules and water management</li>
+                                <li>• 🌿 Fertilizer recommendations</li>
+                                <li>• 🐛 Pest control methods</li>
+                                <li>• 📋 Step-by-step farming guidance</li>
+                            </ul>
                             <p class="text-xs text-gray-500 mt-2">AI • <span id="justNow">Just now</span></p>
                         </div>
                     </div>
@@ -1507,8 +1631,10 @@
                         <button onclick="toggleVoiceInput()" id="chatVoiceBtn" class="p-3 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 transition-all">
                             <i class="ri-mic-line"></i>
                         </button>
-                        <input type="text" id="chatInput" placeholder="Type your question or use voice..." 
-                               class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white" id="chatInputPlaceholder">
+                        <input type="text" id="chatInput" placeholder="Type your question or use voice... (e.g., How to grow tomatoes? What causes blight?)" 
+                               class="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14532d] dark:bg-gray-800 dark:text-white" 
+                               id="chatInputPlaceholder"
+                               onkeypress="if(event.key === 'Enter') sendMessage()">
                         <button onclick="sendMessage()" class="bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all" id="sendBtn">
                             <i class="ri-send-plane-line"></i>
                         </button>
@@ -1517,7 +1643,7 @@
             </div>
         </div>
 
-        <!-- Weather Page -->
+        <!-- Weather Page (from File A, with translations preserved) -->
         <div id="weatherPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="weatherTitle">Weather-Based Disease Prediction</h1>
 
@@ -1588,7 +1714,7 @@
             </div>
         </div>
 
-        <!-- Government Schemes Page -->
+        <!-- Government Schemes Page (from File A) -->
         <div id="schemesPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="schemesTitle">Government Agricultural Schemes</h1>
             
@@ -1647,7 +1773,7 @@
             </div>
         </div>
 
-        <!-- Nearby Fertilizer Shops Page -->
+        <!-- Nearby Fertilizer Shops Page (from File A) -->
         <div id="shopsPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="shopsTitle">Nearby Fertilizer & Agrochemical Shops</h1>
             
@@ -1728,7 +1854,7 @@
             </div>
         </div>
 
-        <!-- Map Page -->
+        <!-- Map Page (from File A) -->
         <div id="mapPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="mapTitle">Disease Hotspot Map</h1>
             
@@ -1758,7 +1884,7 @@
             </div>
         </div>
 
-        <!-- History Page -->
+        <!-- History Page (from File A) -->
         <div id="historyPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="historyTitle">Your Diagnosis History</h1>
             
@@ -1788,7 +1914,17 @@
             </div>
         </div>
 
-        <!-- Merged Profile & Settings Page -->
+        <!-- Dashboard Page (from File B) -->
+        <div id="dashboardPage" class="page hidden">
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Dashboard</h1>
+            <div class="glass-card p-8 rounded-2xl text-center">
+                <i class="ri-dashboard-line text-6xl" style="color: #14532d;"></i>
+                <h2 class="text-2xl font-semibold mt-4" style="color: #1f2937;">Welcome to your Dashboard</h2>
+                <p class="mt-2" style="color: #4b5563;">Your personalized farming insights will appear here</p>
+            </div>
+        </div>
+
+        <!-- Merged Profile & Settings Page (from File A) -->
         <div id="profilePage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="profileSettingsTitle">Profile & Settings</h1>
             
@@ -1945,6 +2081,45 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page (from File B) - Keeping as separate page -->
+        <div id="settingsPage" class="page hidden">
+            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Settings</h1>
+            <div class="glass-card p-8 rounded-2xl">
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Notification Preferences</h2>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="rounded text-[#14532d]"> 
+                                <span style="color: #4b5563;">Email notifications</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" class="rounded text-[#14532d]"> 
+                                <span style="color: #4b5563;">SMS alerts</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Language Settings</h2>
+                        <select class="w-full p-2 border rounded-xl" onchange="changeLanguage(this.value)" id="settingsLanguageSelectorB">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="te">తెలుగు</option>
+                            <option value="bn">বাংলা</option>
+                            <option value="mr">मराठी</option>
+                            <option value="gu">ગુજરાતી</option>
+                            <option value="kn">ಕನ್ನಡ</option>
+                            <option value="ml">മലയാളം</option>
+                            <option value="pa">ਪੰਜਾਬੀ</option>
+                            <option value="or">ଓଡ଼ିଆ</option>
+                            <option value="as">অসমীয়া</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -2130,7 +2305,8 @@
     </div>
 
     <script>
-        // Global variables
+        // === Integration Code Start ===
+        // Combined global variables from both files
         let currentPage = 'home';
         let isDarkMode = localStorage.getItem('theme') === 'dark';
         let isAuthenticated = false;
@@ -2159,11 +2335,13 @@
         let userLatLng = null;
         let aiVoiceListening = false;
         let aiVoiceRecognition = null;
+        let pageReadingEnabled = true;
+        let chatHistory = [];
 
         // Speech Synthesis
         const synth = window.speechSynthesis;
 
-        // Complete translations for all 12 languages
+        // Complete translations for all 12 languages (from File A)
         const translations = {
             en: {
                 // Navigation
@@ -2436,7 +2614,18 @@
                 voiceCommandLogout: 'Logging out',
                 voiceCommandUpload: 'Opening Upload Image',
                 voiceCommandDashboard: 'Opening Dashboard',
-                voiceCommandPlantDiagnosis: 'Opening Plant Diagnosis'
+                voiceCommandPlantDiagnosis: 'Opening Plant Diagnosis',
+                
+                // Page Descriptions
+                pageDescHome: 'Welcome to the Home page. From here you can explore plant disease detection, upload plant images, and access your dashboard.',
+                pageDescDetect: 'This page allows you to upload or capture a plant image. The AI will analyze the image and detect possible plant diseases. You can also select specific crop types like rice, wheat, or tomatoes for more accurate diagnosis.',
+                pageDescWeather: 'The Weather page provides current weather conditions and disease risk assessments based on temperature, humidity, and rainfall. Enter your location to get personalized disease predictions and recommendations.',
+                pageDescSchemes: 'Government Agricultural Schemes page lists various farming subsidies and financial support programs. You can view details about PM-KISAN, Soil Health Card, and other schemes to benefit your farming.',
+                pageDescShops: 'Find nearby fertilizer and agrochemical shops on this page. Use your location to discover stores within your area, view their details, and get directions.',
+                pageDescMap: 'The Disease Hotspot Map shows areas with high, medium, and low risk of crop diseases. Use this to monitor disease spread in your region.',
+                pageDescHistory: 'Your Diagnosis History page shows all your previous plant disease analyses. You can review past results and track disease patterns over time.',
+                pageDescProfile: 'Profile and Settings page allows you to manage your account, notification preferences, language settings, and display options.',
+                pageDescChatbot: 'The AI Chatbot is your farming assistant. Ask questions about crop diseases, fertilizers, weather, or farming practices, and get instant responses.'
             },
             
             hi: {
@@ -2710,9 +2899,76 @@
                 voiceCommandLogout: 'लॉगआउट हो रहे हैं',
                 voiceCommandUpload: 'अपलोड छवि खोल रहे हैं',
                 voiceCommandDashboard: 'डैशबोर्ड खोल रहे हैं',
-                voiceCommandPlantDiagnosis: 'पौधा निदान खोल रहे हैं'
+                voiceCommandPlantDiagnosis: 'पौधा निदान खोल रहे हैं',
+                
+                // Page Descriptions
+                pageDescHome: 'होम पेज पर आपका स्वागत है। यहां से आप पौधे के रोगों का पता लगा सकते हैं, पौधे की छवियां अपलोड कर सकते हैं और अपने डैशबोर्ड तक पहुंच सकते हैं।',
+                pageDescDetect: 'यह पृष्ठ आपको पौधे की छवि अपलोड या कैप्चर करने की अनुमति देता है। एआई छवि का विश्लेषण करेगा और संभावित पौधे रोगों का पता लगाएगा। अधिक सटीक निदान के लिए आप चावल, गेहूं या टमाटर जैसी विशिष्ट फसल प्रकार भी चुन सकते हैं।',
+                pageDescWeather: 'मौसम पृष्ठ तापमान, आर्द्रता और वर्षा के आधार पर वर्तमान मौसम की स्थिति और रोग जोखिम आकलन प्रदान करता है। व्यक्तिगत रोग भविष्यवाणियों और सिफारिशों के लिए अपना स्थान दर्ज करें।',
+                pageDescSchemes: 'सरकारी कृषि योजनाएं पृष्ठ विभिन्न कृषि सब्सिडी और वित्तीय सहायता कार्यक्रमों को सूचीबद्ध करता है। आप पीएम-किसान, मृदा स्वास्थ्य कार्ड और अपनी खेती को लाभ पहुंचाने वाली अन्य योजनाओं के बारे में विवरण देख सकते हैं।',
+                pageDescShops: 'इस पृष्ठ पर आस-पास के उर्वरक और कृषि रसायन दुकानों का पता लगाएं। अपने क्षेत्र में दुकानों की खोज करने, उनके विवरण देखने और दिशा-निर्देश प्राप्त करने के लिए अपने स्थान का उपयोग करें।',
+                pageDescMap: 'रोग हॉटस्पॉट मानचित्र फसल रोगों के उच्च, मध्यम और निम्न जोखिम वाले क्षेत्रों को दिखाता है। अपने क्षेत्र में रोग के प्रसार की निगरानी के लिए इसका उपयोग करें।',
+                pageDescHistory: 'आपका निदान इतिहास पृष्ठ आपके सभी पिछले पौधे रोग विश्लेषण दिखाता है। आप पिछले परिणामों की समीक्षा कर सकते हैं और समय के साथ रोग पैटर्न को ट्रैक कर सकते हैं।',
+                pageDescProfile: 'प्रोफाइल और सेटिंग्स पृष्ठ आपको अपने खाते, सूचना प्राथमिकताओं, भाषा सेटिंग्स और प्रदर्शन विकल्पों को प्रबंधित करने की अनुमति देता है।',
+                pageDescChatbot: 'एआई चैटबॉट आपका कृषि सहायक है। फसल रोगों, उर्वरकों, मौसम या कृषि प्रथाओं के बारे में प्रश्न पूछें और तुरंत जवाब प्राप्त करें।'
             }
             // Add other languages here (ta, te, bn, mr, gu, kn, ml, pa, or, as) following the same pattern
+        };
+
+        // Enhanced farming knowledge base for chatbot (from File B)
+        const farmingKnowledge = {
+            crops: {
+                rice: {
+                    cultivation: "🌾 Rice Cultivation Guide:\n\n1. Land Preparation: Plow field 2-3 times and level properly\n2. Seed Selection: Use certified seeds (e.g., Pusa Basmati, IR36)\n3. Nursery: Sow seeds in raised beds, 20-25 days before transplanting\n4. Transplanting: 25x25 cm spacing, 2-3 seedlings per hill\n5. Water Management: Maintain 5cm water depth\n6. Fertilizer: Apply 120:60:40 kg/ha NPK\n7. Harvesting: When grains turn golden (110-150 days)",
+                    diseases: {
+                        blast: "🔍 Rice Blast:\nSymptoms: Diamond-shaped lesions with gray centers\nTreatment: Apply Tricyclazole 75% WP @ 0.6g/L\nPrevention: Use resistant varieties, avoid excess nitrogen",
+                        blight: "🔍 Bacterial Leaf Blight:\nSymptoms: Yellow to white lesions along leaf margins\nTreatment: Streptocycline 200ppm + Copper oxychloride 2.5g/L\nPrevention: Field sanitation, balanced fertilization"
+                    }
+                },
+                wheat: {
+                    cultivation: "🌾 Wheat Cultivation Guide:\n\n1. Sowing Time: October-December (Rabi season)\n2. Seed Rate: 100-125 kg/ha\n3. Spacing: 22.5 cm between rows\n4. Irrigation: 4-6 irrigations at critical stages\n5. Fertilizer: 120:60:40 kg/ha NPK\n6. Harvesting: When grains are hard (120-150 days)",
+                    diseases: {
+                        rust: "🔍 Wheat Rust:\nSymptoms: Reddish-brown pustules on leaves\nTreatment: Propiconazole 25% EC @ 1ml/L\nPrevention: Grow resistant varieties (HD 2967, PBW 550)",
+                        mildew: "🔍 Powdery Mildew:\nSymptoms: White powdery growth on leaves\nTreatment: Sulfur 80% WP @ 3g/L\nPrevention: Avoid dense planting"
+                    }
+                },
+                tomato: {
+                    cultivation: "🍅 Tomato Cultivation Guide:\n\n1. Nursery: Raise seedlings for 25-30 days\n2. Planting: 60x45 cm spacing\n3. Staking: Support plants with bamboo sticks\n4. Pruning: Remove side shoots regularly\n5. Fertilizer: 120:60:60 kg/ha NPK\n6. Harvesting: 70-90 days after planting",
+                    diseases: {
+                        blight: "🔍 Early Blight:\nSymptoms: Dark spots with concentric rings\nTreatment: Mancozeb 2g/L or Chlorothalonil 2ml/L\nPrevention: Mulching, crop rotation",
+                        wilt: "🔍 Fusarium Wilt:\nSymptoms: Yellowing and wilting of leaves\nTreatment: Trichoderma viride soil application\nPrevention: Use resistant varieties"
+                    }
+                },
+                potato: {
+                    cultivation: "🥔 Potato Cultivation Guide:\n\n1. Seed: Use disease-free tubers\n2. Planting: 60x20 cm spacing, 10cm depth\n3. Earthing-up: 30 and 45 days after planting\n4. Fertilizer: 120:80:120 kg/ha NPK\n5. Irrigation: At planting, 30, 50, 70 days\n6. Harvesting: 90-110 days",
+                    diseases: {
+                        blight: "🔍 Late Blight:\nSymptoms: Dark lesions on leaves and stems\nTreatment: Metalaxyl + Mancozeb 2.5g/L\nPrevention: Avoid overhead irrigation"
+                    }
+                }
+            },
+            
+            fertilizers: {
+                npk: "🌿 NPK Fertilizer Guide:\n- Nitrogen (N): For vegetative growth\n- Phosphorus (P): For root development\n- Potassium (K): For disease resistance\n\nApplication: Based on soil test. General: Urea 4-5 bags/acre, DAP 2-3 bags/acre, MOP 1-2 bags/acre",
+                organic: "🌱 Organic Farming:\n1. Compost: 10-15 tons/hectare\n2. Vermicompost: 5 tons/hectare\n3. Green manure: Sunhemp or Dhaincha\n4. Bio-fertilizers: Azotobacter, PSB"
+            },
+            
+            pests: {
+                aphids: "🐛 Aphid Control:\nSymptoms: Curling leaves, sticky honeydew\nTreatment: Imidacloprid 0.5ml/L or Neem oil 5ml/L\nPrevention: Yellow sticky traps",
+                caterpillars: "🐛 Caterpillar Control:\nSymptoms: Chewed leaves, holes\nTreatment: Emamectin benzoate 0.4g/L\nPrevention: Hand picking, light traps",
+                whitefly: "🦟 Whitefly Control:\nSymptoms: Yellowing, sooty mold\nTreatment: Acetamiprid 1g/L\nPrevention: Yellow sticky traps"
+            },
+            
+            irrigation: {
+                drip: "💧 Drip Irrigation:\n- Water saving: 40-60%\n- Ideal for: Tomato, chilli, watermelon\n- Schedule: Daily or alternate days\n- Fertigation: Water-soluble fertilizers",
+                sprinkler: "💧 Sprinkler Irrigation:\n- Water saving: 30-40%\n- Ideal for: Wheat, pulses, vegetables\n- Schedule: 4-6 hours per irrigation",
+                flood: "💧 Flood Irrigation:\n- Traditional method\n- For: Rice, sugarcane\n- Schedule: Based on crop stage"
+            },
+            
+            weather: {
+                high_rain: "🌧️ High Rainfall Advisory:\n- Ensure proper drainage\n- Apply mulch to prevent soil erosion\n- Watch for fungal diseases\n- Avoid standing water",
+                drought: "☀️ Drought Conditions:\n- Mulching to conserve moisture\n- Use drip irrigation\n- Apply potassium for stress tolerance\n- Harvest rainwater",
+                cold: "❄️ Cold Weather:\n- Cover seedlings with plastic\n- Apply straw mulch\n- Irrigate during morning hours\n- Watch for frost damage"
+            }
         };
 
         // Database simulation
@@ -2832,6 +3088,11 @@
                     return true;
                 }
                 return false;
+            },
+            
+            getDiseaseByName: function(name) {
+                const db = this.init();
+                return db.diseases.find(d => d.disease_name.toLowerCase() === name.toLowerCase());
             }
         };
 
@@ -2988,7 +3249,7 @@
         // Page navigation
         function changePage(page) {
             // Check authentication for protected pages
-            const protectedPages = ['profile'];
+            const protectedPages = ['profile', 'settings', 'dashboard'];
             if (protectedPages.includes(page) && !isAuthenticated) {
                 showNotification('loginRequired', 'error');
                 showLoginModal();
@@ -3035,6 +3296,77 @@
 
             if (page === 'detect') {
                 loadMobileNet(); // Preload model for plant detection
+            }
+            
+            // Read page description if enabled
+            if (pageReadingEnabled) {
+                setTimeout(() => readPageDescription(page), 500);
+            }
+        }
+
+        // Read page description using Text-to-Speech
+        function readPageDescription(page) {
+            if (!pageReadingEnabled || !synth) return;
+            
+            const t = translations[currentLanguage] || translations['en'];
+            let description = '';
+            
+            switch(page) {
+                case 'home':
+                    description = t.pageDescHome;
+                    break;
+                case 'detect':
+                    description = t.pageDescDetect;
+                    break;
+                case 'weather':
+                    description = t.pageDescWeather;
+                    break;
+                case 'schemes':
+                    description = t.pageDescSchemes;
+                    break;
+                case 'shops':
+                    description = t.pageDescShops;
+                    break;
+                case 'map':
+                    description = t.pageDescMap;
+                    break;
+                case 'history':
+                    description = t.pageDescHistory;
+                    break;
+                case 'profile':
+                    description = t.pageDescProfile;
+                    break;
+                case 'chatbot':
+                    description = t.pageDescChatbot;
+                    break;
+                default:
+                    return;
+            }
+            
+            // Cancel any ongoing speech
+            synth.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(description);
+            utterance.lang = currentLanguage;
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            synth.speak(utterance);
+        }
+
+        // Toggle page reading
+        function togglePageReading() {
+            pageReadingEnabled = !pageReadingEnabled;
+            const speakerToggle = document.getElementById('speakerToggle');
+            if (pageReadingEnabled) {
+                speakerToggle.innerHTML = '<i class="ri-volume-up-line"></i>';
+                speakerToggle.classList.remove('muted');
+                showNotification('Page reading enabled', 'success');
+            } else {
+                speakerToggle.innerHTML = '<i class="ri-volume-mute-line"></i>';
+                speakerToggle.classList.add('muted');
+                showNotification('Page reading disabled', 'success');
+                // Cancel any ongoing speech
+                if (synth) synth.cancel();
             }
         }
 
@@ -3458,7 +3790,7 @@
                 showNotification(t.voiceCommandHome || 'Going to Home page', 'success');
             }
             else if (command.includes('dashboard') || command.includes('डैशबोर्ड')) {
-                changePage('home');
+                changePage('dashboard');
                 showNotification(t.voiceCommandDashboard || 'Opening Dashboard', 'success');
             }
             else if (command.includes('diagnosis') || command.includes('निदान') || command.includes('plant diagnosis') || command.includes('पौधा निदान')) {
@@ -3558,6 +3890,8 @@
             document.getElementById('languageSelector').value = lang;
             const settingsSelector = document.getElementById('settingsLanguageSelector');
             if (settingsSelector) settingsSelector.value = lang;
+            const settingsSelectorB = document.getElementById('settingsLanguageSelectorB');
+            if (settingsSelectorB) settingsSelectorB.value = lang;
             
             // Update recognition language
             if (recognition) {
@@ -4019,7 +4353,7 @@
             }, 'image/jpeg');
         }
 
-        // Chat functions
+        // Enhanced Chat functions for real-time farming assistant
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
@@ -4032,7 +4366,7 @@
 
             setTimeout(() => {
                 hideTypingIndicator();
-                const response = getBotResponse(message);
+                const response = getEnhancedBotResponse(message);
                 addMessage(response, 'bot');
                 
                 // Text-to-speech for bot response
@@ -4042,23 +4376,34 @@
             }, 1500);
         }
 
+        function quickAction(query) {
+            document.getElementById('chatInput').value = query;
+            sendMessage();
+        }
+
         function addMessage(text, sender) {
             const t = translations[currentLanguage] || translations['en'];
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
-            div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} animate__animated animate__fadeIn`;
+            div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} animate__animated animate__fadeIn chat-message`;
+            
+            // Format text with line breaks and emojis
+            const formattedText = text.replace(/\n/g, '<br>');
             
             div.innerHTML = `
                 <div class="${sender === 'user' ? 'bg-gradient-to-r from-[#14532d] to-[#22c55e] text-white' : 'bg-white dark:bg-gray-800'} rounded-2xl p-4 max-w-[80%] shadow">
-                    <p class="${sender === 'user' ? 'text-white' : ''}" style="${sender !== 'user' ? 'color: #1f2937;' : ''}">${text}</p>
+                    <p class="${sender === 'user' ? 'text-white' : ''}" style="${sender !== 'user' ? 'color: #1f2937;' : ''}">${formattedText}</p>
                     <p class="text-xs ${sender === 'user' ? 'text-green-100' : 'text-gray-500'} mt-2">
-                        ${sender === 'user' ? getTranslatedText('you', 'You') : 'AI'} • ${t.justNow}
+                        ${sender === 'user' ? getTranslatedText('you', 'You') : 'AI Farming Expert'} • ${t.justNow}
                     </p>
                 </div>
             `;
             
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
+            
+            // Save to chat history
+            chatHistory.push({ text, sender, timestamp: new Date() });
         }
 
         function showTypingIndicator() {
@@ -4084,32 +4429,125 @@
             if (indicator) indicator.remove();
         }
 
-        function getBotResponse(message) {
-            const msg = message.toLowerCase();
-            const db = DB.init();
+        function getEnhancedBotResponse(message) {
+            const msg = message.toLowerCase().trim();
             const t = translations[currentLanguage] || translations['en'];
+            const db = DB.init();
             
-            for (let disease of db.diseases) {
-                if (msg.includes(disease.disease_name.toLowerCase())) {
-                    return `${disease.disease_name}: ${disease.symptoms}. ${t.treatmentTitle}: ${disease.treatment}`;
+            // Check for greetings
+            if (msg.match(/^(hi|hello|hey|namaste|bonjour)$/)) {
+                return "🌾 Namaste! I'm your AI farming assistant. How can I help you today? You can ask me about:\n\n• Crop cultivation (rice, wheat, tomato, etc.)\n• Disease identification and treatment\n• Fertilizer recommendations\n• Pest control methods\n• Irrigation techniques\n• Weather-based farming tips";
+            }
+            
+            // Check for crop-specific queries
+            for (let crop in farmingKnowledge.crops) {
+                if (msg.includes(crop) || msg.includes(crop + ' cultivation') || msg.includes('how to grow ' + crop)) {
+                    return farmingKnowledge.crops[crop].cultivation;
+                }
+                
+                // Check for crop diseases
+                if (farmingKnowledge.crops[crop].diseases) {
+                    for (let disease in farmingKnowledge.crops[crop].diseases) {
+                        if (msg.includes(disease) || (msg.includes(crop) && (msg.includes('disease') || msg.includes('problem')))) {
+                            return farmingKnowledge.crops[crop].diseases[disease];
+                        }
+                    }
                 }
             }
             
-            if (msg.includes('rice') && msg.includes('disease')) {
-                return t.riceDiseaseResponse || 'Common rice diseases include: Rice blast, Sheath blight';
-            } else if (msg.includes('wheat') && msg.includes('disease')) {
-                return t.wheatDiseaseResponse || 'Common wheat diseases include: Wheat rust, Powdery mildew';
-            } else if (msg.includes('tomato') && msg.includes('disease')) {
-                return t.tomatoDiseaseResponse || 'Common tomato diseases include: Early blight, Late blight, Bacterial spot';
-            } else if (msg.includes('fertilizer')) {
-                return t.fertilizerResponse || 'Fertilizer recommendations depend on soil type. Consider a soil test.';
-            } else if (msg.includes('weather')) {
-                return t.weatherResponse || 'Check our weather prediction feature for disease forecasts.';
-            } else if (msg.includes('hello') || msg.includes('hi')) {
-                return t.greetingResponse || 'Hello! How can I help you with your farming today?';
-            } else {
-                return t.defaultResponse || 'I can help with crop diseases, fertilizers, weather, and farming practices. What would you like to know?';
+            // Check for fertilizer queries
+            if (msg.includes('fertilizer') || msg.includes('nutrient') || msg.includes('urea') || msg.includes('dap') || msg.includes('npk')) {
+                if (msg.includes('organic')) {
+                    return farmingKnowledge.fertilizers.organic;
+                }
+                return farmingKnowledge.fertilizers.npk;
             }
+            
+            // Check for pest control
+            if (msg.includes('pest') || msg.includes('insect') || msg.includes('bug')) {
+                if (msg.includes('aphid')) return farmingKnowledge.pests.aphids;
+                if (msg.includes('caterpillar')) return farmingKnowledge.pests.caterpillars;
+                if (msg.includes('whitefly')) return farmingKnowledge.pests.whitefly;
+                return "Common pests and their control:\n\n" + 
+                       Object.values(farmingKnowledge.pests).join('\n\n');
+            }
+            
+            // Check for irrigation queries
+            if (msg.includes('irrigation') || msg.includes('water') || msg.includes('drip') || msg.includes('sprinkler')) {
+                if (msg.includes('drip')) return farmingKnowledge.irrigation.drip;
+                if (msg.includes('sprinkler')) return farmingKnowledge.irrigation.sprinkler;
+                if (msg.includes('flood')) return farmingKnowledge.irrigation.flood;
+                return "💧 Irrigation Methods:\n\n" + 
+                       farmingKnowledge.irrigation.drip + '\n\n' +
+                       farmingKnowledge.irrigation.sprinkler + '\n\n' +
+                       farmingKnowledge.irrigation.flood;
+            }
+            
+            // Check for weather-related queries
+            if (msg.includes('weather') || msg.includes('rain') || msg.includes('drought') || msg.includes('cold')) {
+                if (msg.includes('rain')) return farmingKnowledge.weather.high_rain;
+                if (msg.includes('drought')) return farmingKnowledge.weather.drought;
+                if (msg.includes('cold')) return farmingKnowledge.weather.cold;
+                return "🌤️ Weather-Based Recommendations:\n\n" +
+                       farmingKnowledge.weather.high_rain + '\n\n' +
+                       farmingKnowledge.weather.drought + '\n\n' +
+                       farmingKnowledge.weather.cold;
+            }
+            
+            // Check for general disease queries
+            if (msg.includes('disease') || msg.includes('blight') || msg.includes('rust') || msg.includes('mildew')) {
+                const db = DB.init();
+                const relevantDiseases = db.diseases.filter(d => 
+                    msg.includes(d.disease_name.toLowerCase()) || 
+                    d.disease_name.toLowerCase().includes(msg.split(' ').pop())
+                );
+                
+                if (relevantDiseases.length > 0) {
+                    return relevantDiseases.map(d => 
+                        `🔍 ${d.disease_name}:\nSymptoms: ${d.symptoms}\nTreatment: ${d.treatment}\nPrevention: ${d.prevention}`
+                    ).join('\n\n');
+                }
+                return "Please specify the disease name or symptoms. Common diseases include: Early blight, Late blight, Powdery mildew, Rice blast, Wheat rust.";
+            }
+            
+            // Check for soil health
+            if (msg.includes('soil') || msg.includes('soil health') || msg.includes('soil test')) {
+                return "🌱 Soil Health Tips:\n\n1. Test soil every 2-3 years\n2. Maintain organic matter (minimum 0.5%)\n3. pH should be 6.5-7.5 for most crops\n4. Apply lime if pH is low\n5. Use green manure crops\n6. Practice crop rotation\n\nCheck government's Soil Health Card scheme for free testing!";
+            }
+            
+            // Check for organic farming
+            if (msg.includes('organic') || msg.includes('natural farming')) {
+                return "🌿 Organic Farming Guide:\n\n1. Use organic manure (compost, vermicompost)\n2. Practice crop rotation\n3. Use bio-pesticides (neem oil, trichoderma)\n4. Green manuring\n5. Mulching\n6. Biological pest control\n7. Avoid chemical fertilizers and pesticides";
+            }
+            
+            // Check for government schemes
+            if (msg.includes('scheme') || msg.includes('subsidy') || msg.includes('government')) {
+                return "🏛️ Government Schemes for Farmers:\n\n1. PM-KISAN: ₹6000/year income support\n2. Soil Health Card: Free soil testing\n3. PMKSY: Irrigation subsidy (up to 55%)\n4. Kisan Credit Card: Low-interest loans\n5. PMFBY: Crop insurance\n6. RKVY: Agricultural development\n\nClick on 'Government Schemes' page for details!";
+            }
+            
+            // Check for help
+            if (msg.includes('help') || msg.includes('what can you do') || msg.includes('capabilities')) {
+                return "🌾 I can help you with:\n\n" +
+                       "• Crop-specific cultivation guides (rice, wheat, tomato, potato)\n" +
+                       "• Disease identification and treatment\n" +
+                       "• Fertilizer recommendations (NPK, organic)\n" +
+                       "• Pest control methods\n" +
+                       "• Irrigation techniques (drip, sprinkler)\n" +
+                       "• Weather-based farming advice\n" +
+                       "• Soil health management\n" +
+                       "• Government scheme information\n" +
+                       "• Organic farming practices\n\n" +
+                       "Just ask me anything about farming!";
+            }
+            
+            // Default response
+            return "🤖 I understand you're asking about '" + message + "'. To help you better, please specify:\n\n" +
+                   "• Which crop are you interested in? (rice, wheat, tomato, potato, etc.)\n" +
+                   "• Do you need help with disease identification?\n" +
+                   "• Are you looking for fertilizer recommendations?\n" +
+                   "• Need pest control advice?\n" +
+                   "• Want to know about irrigation methods?\n\n" +
+                   "Feel free to ask in more detail, and I'll provide specific guidance!";
         }
 
         // Auth functions
@@ -4652,11 +5090,14 @@
                 document.getElementById('languageSelector').value = savedLanguage;
                 const settingsSelector = document.getElementById('settingsLanguageSelector');
                 if (settingsSelector) settingsSelector.value = savedLanguage;
+                const settingsSelectorB = document.getElementById('settingsLanguageSelectorB');
+                if (settingsSelectorB) settingsSelectorB.value = savedLanguage;
                 translatePage(savedLanguage);
             }
 
             changePage('home');
         });
+        // === Integration Code End ===
     </script>
 </body>
 </html>
