@@ -1714,62 +1714,11 @@
             </div>
         </div>
 
-        <!-- Government Schemes Page (from File A) -->
+        <!-- Government Schemes Page (dynamic) -->
         <div id="schemesPage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="schemesTitle">Government Agricultural Schemes</h1>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('pmkisan')">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] p-3 rounded-xl">
-                            <i class="ri-government-line text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemePmkisan">PM-KISAN Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;" id="schemePmkisanDesc">Income support of ₹6000 per year to farmer families</p>
-                            <button onclick="event.stopPropagation(); window.open('https://pmkisan.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn">Apply Now →</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('soilhealth')">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] p-3 rounded-xl">
-                            <i class="ri-seedling-line text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemeSoilHealth">Soil Health Card Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;" id="schemeSoilHealthDesc">Free soil testing and nutrient recommendations</p>
-                            <button onclick="event.stopPropagation(); window.open('https://soilhealth.dac.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn2">Apply Now →</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('pmksy')">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] p-3 rounded-xl">
-                            <i class="ri-drop-line text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemePmksy">PMKSY - Irrigation Scheme</h3>
-                            <p class="mb-3" style="color: #4b5563;" id="schemePmksyDesc">Improve water use efficiency through micro-irrigation</p>
-                            <button onclick="event.stopPropagation(); window.open('https://pmksy.gov.in/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn3">Apply Now →</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('kcc')">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] p-3 rounded-xl">
-                            <i class="ri-funds-line text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;" id="schemeKcc">Kisan Credit Card</h3>
-                            <p class="mb-3" style="color: #4b5563;" id="schemeKccDesc">Affordable credit for farmers with interest subvention</p>
-                            <button onclick="event.stopPropagation(); window.open('https://www.kccbank.com/', '_blank')" class="font-semibold hover:underline" style="color: #14532d;" id="applyNowBtn4">Apply Now →</button>
-                        </div>
-                    </div>
-                </div>
+            <div id="schemesContainer" class="grid md:grid-cols-2 gap-6">
+                <!-- Dynamically populated by renderSchemes() -->
             </div>
         </div>
 
@@ -3297,6 +3246,10 @@
             if (page === 'detect') {
                 loadMobileNet(); // Preload model for plant detection
             }
+
+            if (page === 'schemes') {
+                renderSchemes(); // Render active schemes
+            }
             
             // Read page description if enabled
             if (pageReadingEnabled) {
@@ -4550,6 +4503,138 @@
                    "Feel free to ask in more detail, and I'll provide specific guidance!";
         }
 
+        // ========== NEW SCHEME DATA AND FUNCTIONS ==========
+        const schemesData = [
+            {
+                id: 'pmkisan',
+                title: 'PM-KISAN Scheme',
+                description: 'Income support scheme for small and marginal farmers',
+                benefit: '₹6000 per year (₹2000 every 4 months)',
+                eligibility: 'Small and marginal farmers with landholding up to 2 hectares',
+                documents: ['Aadhaar card', 'Land records', 'Bank account details'],
+                start_date: '2020-01-01',
+                end_date: '2030-12-31',
+                url: 'https://pmkisan.gov.in/'
+            },
+            {
+                id: 'soilhealth',
+                title: 'Soil Health Card Scheme',
+                description: 'Free soil testing and nutrient recommendations',
+                benefit: 'Free soil testing and customized recommendations',
+                eligibility: 'All farmers',
+                documents: ['Land records', 'Identity proof'],
+                start_date: '2020-01-01',
+                end_date: '2030-12-31',
+                url: 'https://soilhealth.dac.gov.in/'
+            },
+            {
+                id: 'pmksy',
+                title: 'PMKSY - Irrigation Scheme',
+                description: 'Improve water use efficiency through micro-irrigation',
+                benefit: 'Subsidy on irrigation equipment (up to 55%)',
+                eligibility: 'All farmers',
+                documents: ['Land records', 'Bank account', 'Project report'],
+                start_date: '2020-01-01',
+                end_date: '2030-12-31',
+                url: 'https://pmksy.gov.in/'
+            },
+            {
+                id: 'kcc',
+                title: 'Kisan Credit Card',
+                description: 'Affordable credit for farmers',
+                benefit: 'Credit up to ₹3 lakhs at subsidized interest',
+                eligibility: 'All farmers',
+                documents: ['Land records', 'Identity proof', 'Passport size photo'],
+                start_date: '2020-01-01',
+                end_date: '2030-12-31',
+                url: 'https://www.kccbank.com/'
+            }
+        ];
+
+        function getSchemeStatus(start_date, end_date) {
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            if (today < start_date) return 'upcoming';
+            if (today > end_date) return 'expired';
+            return 'active';
+        }
+
+        function renderSchemes() {
+            const container = document.getElementById('schemesContainer');
+            if (!container) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const activeSchemes = schemesData.filter(s => 
+                today >= s.start_date && today <= s.end_date
+            );
+            
+            let html = '';
+            activeSchemes.forEach(scheme => {
+                const status = getSchemeStatus(scheme.start_date, scheme.end_date);
+                const statusClass = status === 'active' ? 'bg-green-100 text-green-800' : 
+                                   status === 'upcoming' ? 'bg-yellow-100 text-yellow-800' : 
+                                   'bg-red-100 text-red-800';
+                const statusText = status === 'active' ? 'Active' : 
+                                  status === 'upcoming' ? 'Upcoming' : 'Expired';
+                
+                html += `
+                    <div class="glass-card p-6 rounded-2xl scheme-card" onclick="showSchemeDetails('${scheme.id}')">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-gradient-to-r from-[#14532d] to-[#22c55e] p-3 rounded-xl">
+                                <i class="ri-government-line text-2xl text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-xl font-semibold mb-2" style="color: #1f2937;">${scheme.title}</h3>
+                                    <span class="px-2 py-1 rounded-full text-xs font-semibold ${statusClass}">${statusText}</span>
+                                </div>
+                                <p class="mb-3" style="color: #4b5563;">${scheme.description}</p>
+                                <button onclick="event.stopPropagation(); window.open('${scheme.url}', '_blank')" class="font-semibold hover:underline" style="color: #14532d;">Apply Now →</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p class="text-center text-gray-500">No active schemes at the moment.</p>';
+        }
+
+        // Override showSchemeDetails
+        function showSchemeDetails(schemeId) {
+            const scheme = schemesData.find(s => s.id === schemeId);
+            if (!scheme) return;
+            
+            const t = translations[currentLanguage] || translations['en'];
+            const status = getSchemeStatus(scheme.start_date, scheme.end_date);
+            const statusText = status === 'active' ? 'Active' : status === 'upcoming' ? 'Upcoming' : 'Expired';
+            const statusClass = status === 'active' ? 'text-green-600' : status === 'upcoming' ? 'text-yellow-600' : 'text-red-600';
+            
+            document.getElementById('schemePopupTitle').textContent = scheme.title;
+            document.getElementById('schemePopupDescription').textContent = scheme.description;
+            document.getElementById('schemePopupBenefit').textContent = scheme.benefit;
+            document.getElementById('schemePopupEligibility').textContent = scheme.eligibility;
+            
+            let docsHtml = scheme.documents.map(doc => `<li>• ${doc}</li>`).join('');
+            docsHtml += `<li class="mt-2 font-semibold ${statusClass}">Status: ${statusText}</li>`;
+            document.getElementById('schemePopupDocs').innerHTML = docsHtml;
+            
+            document.getElementById('schemePopupOverlay').classList.remove('hidden');
+            document.getElementById('schemePopup').classList.remove('hidden');
+            
+            // Highlight card (optional)
+            const card = event?.currentTarget;
+            if (card) {
+                card.classList.add('success-highlight');
+                setTimeout(() => card.classList.remove('success-highlight'), 500);
+            }
+        }
+
+        // Override getSchemeUrl
+        function getSchemeUrl() {
+            const title = document.getElementById('schemePopupTitle').textContent;
+            const scheme = schemesData.find(s => s.title === title);
+            return scheme ? scheme.url : '#';
+        }
+
         // Auth functions
         function startVerificationTimer() {
             const timerElement = document.getElementById('emailVerifyTimer');
@@ -4992,66 +5077,6 @@
             updateProtectedElements();
             showNotification('logoutSuccess', 'success');
             changePage('home');
-        }
-
-        function getSchemeUrl() {
-            const title = document.getElementById('schemePopupTitle').textContent;
-            const urls = {
-                'PM-KISAN Scheme': 'https://pmkisan.gov.in/',
-                'Soil Health Card Scheme': 'https://soilhealth.dac.gov.in/',
-                'PMKSY - Irrigation Scheme': 'https://pmksy.gov.in/',
-                'Kisan Credit Card': 'https://www.kccbank.com/'
-            };
-            return urls[title] || '#';
-        }
-
-        function showSchemeDetails(scheme) {
-            const t = translations[currentLanguage] || translations['en'];
-            const details = {
-                'pmkisan': {
-                    title: t.schemePmkisan || 'PM-KISAN Scheme',
-                    description: t.schemePmkisanDesc || 'Income support scheme for small and marginal farmers',
-                    benefit: t.schemePmkisanBenefit || '₹6000 per year (₹2000 every 4 months)',
-                    eligibility: t.schemePmkisanEligibility || 'Small and marginal farmers with landholding up to 2 hectares',
-                    documents: [t.aadhaarCard || 'Aadhaar card', t.landRecords || 'Land records', t.bankAccount || 'Bank account details']
-                },
-                'soilhealth': {
-                    title: t.schemeSoilHealth || 'Soil Health Card Scheme',
-                    description: t.schemeSoilHealthDesc || 'Free soil testing and nutrient recommendations',
-                    benefit: t.schemeSoilHealthBenefit || 'Free soil testing and customized recommendations',
-                    eligibility: t.schemeSoilHealthEligibility || 'All farmers',
-                    documents: [t.landRecords || 'Land records', t.identityProof || 'Identity proof']
-                },
-                'pmksy': {
-                    title: t.schemePmksy || 'PMKSY - Irrigation Scheme',
-                    description: t.schemePmksyDesc || 'Improve water use efficiency through micro-irrigation',
-                    benefit: t.schemePmksyBenefit || 'Subsidy on irrigation equipment (up to 55%)',
-                    eligibility: t.schemePmksyEligibility || 'All farmers',
-                    documents: [t.landRecords || 'Land records', t.bankAccount || 'Bank account', t.projectReport || 'Project report']
-                },
-                'kcc': {
-                    title: t.schemeKcc || 'Kisan Credit Card',
-                    description: t.schemeKccDesc || 'Affordable credit for farmers',
-                    benefit: t.schemeKccBenefit || 'Credit up to ₹3 lakhs at subsidized interest',
-                    eligibility: t.schemeKccEligibility || 'All farmers',
-                    documents: [t.landRecords || 'Land records', t.identityProof || 'Identity proof', t.passportPhoto || 'Passport size photo']
-                }
-            };
-            
-            const schemeDetails = details[scheme];
-            if (schemeDetails) {
-                document.getElementById('schemePopupTitle').textContent = schemeDetails.title;
-                document.getElementById('schemePopupDescription').textContent = schemeDetails.description;
-                document.getElementById('schemePopupBenefit').textContent = schemeDetails.benefit;
-                document.getElementById('schemePopupEligibility').textContent = schemeDetails.eligibility;
-                document.getElementById('schemePopupDocs').innerHTML = schemeDetails.documents.map(doc => `<li>• ${doc}</li>`).join('');
-                
-                document.getElementById('schemePopupOverlay').classList.remove('hidden');
-                document.getElementById('schemePopup').classList.remove('hidden');
-                
-                event.currentTarget.classList.add('success-highlight');
-                setTimeout(() => event.currentTarget.classList.remove('success-highlight'), 500);
-            }
         }
 
         function hideSchemePopup() {
