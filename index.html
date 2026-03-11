@@ -1131,11 +1131,8 @@
                     </a>
                 </div>
 
-                <!-- Center Menu Items (from both files) -->
+                <!-- Center Menu Items (from both files) - Dashboard removed -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
-                    <a href="#" onclick="changePage('dashboard')" class="nav-menu-item auth-required" data-page="dashboard" style="display: none;">
-                        Dashboard
-                    </a>
                     <a href="#" onclick="changePage('detect')" class="nav-menu-item" data-page="detect" id="navDetect">
                         Crop Diagnosis
                     </a>
@@ -1153,16 +1150,13 @@
                     </a>
                 </div>
 
-                <!-- Right Menu Items (combined from both files) -->
+                <!-- Right Menu Items (combined from both files) - Settings removed -->
                 <div class="hidden md:flex items-center space-x-1" style="display: flex; align-items: center; white-space: nowrap;">
                     <a href="#" onclick="changePage('chatbot')" class="nav-menu-item" data-page="chatbot" id="navChatbot">
                         Chatbot
                     </a>
                     <a href="#" onclick="changePage('profile')" class="nav-menu-item auth-required" data-page="profile" style="display: none;" id="navProfile">
                         Profile & Settings
-                    </a>
-                    <a href="#" onclick="changePage('settings')" class="nav-menu-item auth-required" data-page="settings" style="display: none;" id="navSettings">
-                        Settings
                     </a>
                     
                     <!-- Accessibility Text Size Controls (from File B - preserved) -->
@@ -1230,10 +1224,9 @@
             </div>
         </div>
 
-        <!-- Mobile Menu (combined from both files) -->
+        <!-- Mobile Menu (combined from both files) - Dashboard and Settings removed -->
         <div id="mobileMenu" class="hidden md:hidden">
             <div class="max-w-7xl mx-auto px-4 py-2 space-y-1">
-                <a href="#" onclick="changePage('dashboard')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileDashboard">Dashboard</a>
                 <a href="#" onclick="changePage('detect')" class="mobile-nav-item" id="mobileDetect">Crop Diagnosis</a>
                 <a href="#" onclick="changePage('weather')" class="mobile-nav-item" id="mobileWeather">Weather</a>
                 <a href="#" onclick="changePage('schemes')" class="mobile-nav-item" id="mobileSchemes">Government Schemes</a>
@@ -1241,7 +1234,6 @@
                 <a href="#" onclick="changePage('history')" class="mobile-nav-item" id="mobileHistory">History</a>
                 <a href="#" onclick="changePage('chatbot')" class="mobile-nav-item" id="mobileChatbot">Chatbot</a>
                 <a href="#" onclick="changePage('profile')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileProfile">Profile & Settings</a>
-                <a href="#" onclick="changePage('settings')" class="mobile-nav-item auth-required-mobile" style="display: none;" id="mobileSettings">Settings</a>
             </div>
         </div>
     </nav>
@@ -1863,17 +1855,7 @@
             </div>
         </div>
 
-        <!-- Dashboard Page (from File B) -->
-        <div id="dashboardPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Dashboard</h1>
-            <div class="glass-card p-8 rounded-2xl text-center">
-                <i class="ri-dashboard-line text-6xl" style="color: #14532d;"></i>
-                <h2 class="text-2xl font-semibold mt-4" style="color: #1f2937;">Welcome to your Dashboard</h2>
-                <p class="mt-2" style="color: #4b5563;">Your personalized farming insights will appear here</p>
-            </div>
-        </div>
-
-        <!-- Merged Profile & Settings Page (from File A) -->
+        <!-- Merged Profile & Settings Page (from File A) - Notification Preferences removed -->
         <div id="profilePage" class="page hidden">
             <h1 class="text-3xl font-bold mb-8" style="color: #14532d;" id="profileSettingsTitle">Profile & Settings</h1>
             
@@ -1915,46 +1897,6 @@
                 <!-- Settings Section -->
                 <div class="md:col-span-2">
                     <div class="space-y-6">
-                        <!-- Notification Settings -->
-                        <div class="settings-card">
-                            <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="notificationPrefs">
-                                <i class="ri-notification-3-line" style="color: #14532d;"></i>
-                                Notification Preferences
-                            </h2>
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p style="color: #1f2937;" class="font-medium" id="emailNotifications">Email notifications</p>
-                                        <p style="color: #4b5563;" class="text-sm" id="emailNotificationsDesc">Receive updates via email</p>
-                                    </div>
-                                    <label class="notification-toggle">
-                                        <input type="checkbox" id="emailNotificationsToggle" checked>
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p style="color: #1f2937;" class="font-medium" id="smsAlerts">SMS alerts</p>
-                                        <p style="color: #4b5563;" class="text-sm" id="smsAlertsDesc">Get alerts on your phone</p>
-                                    </div>
-                                    <label class="notification-toggle">
-                                        <input type="checkbox" id="smsAlertsToggle">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p style="color: #1f2937;" class="font-medium" id="pushNotifications">Push notifications</p>
-                                        <p style="color: #4b5563;" class="text-sm" id="pushNotificationsDesc">Browser notifications</p>
-                                    </div>
-                                    <label class="notification-toggle">
-                                        <input type="checkbox" id="pushNotificationsToggle" checked>
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <!-- Language Settings -->
                         <div class="settings-card">
                             <h2 class="text-xl font-semibold mb-4 flex items-center gap-2" style="color: #1f2937;" id="languageSettings">
@@ -2030,45 +1972,6 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Page (from File B) - Keeping as separate page -->
-        <div id="settingsPage" class="page hidden">
-            <h1 class="text-3xl font-bold mb-8" style="color: #14532d;">Settings</h1>
-            <div class="glass-card p-8 rounded-2xl">
-                <div class="space-y-6">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Notification Preferences</h2>
-                        <div class="space-y-2">
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox" class="rounded text-[#14532d]"> 
-                                <span style="color: #4b5563;">Email notifications</span>
-                            </label>
-                            <label class="flex items-center gap-2">
-                                <input type="checkbox" class="rounded text-[#14532d]"> 
-                                <span style="color: #4b5563;">SMS alerts</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-semibold mb-4" style="color: #1f2937;">Language Settings</h2>
-                        <select class="w-full p-2 border rounded-xl" onchange="changeLanguage(this.value)" id="settingsLanguageSelectorB">
-                            <option value="en">English</option>
-                            <option value="hi">हिन्दी</option>
-                            <option value="ta">தமிழ்</option>
-                            <option value="te">తెలుగు</option>
-                            <option value="bn">বাংলা</option>
-                            <option value="mr">मराठी</option>
-                            <option value="gu">ગુજરાતી</option>
-                            <option value="kn">ಕನ್ನಡ</option>
-                            <option value="ml">മലയാളം</option>
-                            <option value="pa">ਪੰਜਾਬੀ</option>
-                            <option value="or">ଓଡ଼ିଆ</option>
-                            <option value="as">অসমীয়া</option>
-                        </select>
                     </div>
                 </div>
             </div>
@@ -2446,13 +2349,6 @@
                 memberSinceLabel: 'Member since:',
                 statusLabel: 'Status:',
                 diagnosesLabel: 'Total Diagnoses:',
-                notificationPrefs: 'Notification Preferences',
-                emailNotifications: 'Email notifications',
-                emailNotificationsDesc: 'Receive updates via email',
-                smsAlerts: 'SMS alerts',
-                smsAlertsDesc: 'Get alerts on your phone',
-                pushNotifications: 'Push notifications',
-                pushNotificationsDesc: 'Browser notifications',
                 languageSettings: 'Language Settings',
                 selectLanguageLabel: 'Select your preferred language',
                 languageNote: 'The entire website will be translated to your selected language',
@@ -2562,7 +2458,6 @@
                 voiceCommandProfile: 'Opening Profile',
                 voiceCommandLogout: 'Logging out',
                 voiceCommandUpload: 'Opening Upload Image',
-                voiceCommandDashboard: 'Opening Dashboard',
                 voiceCommandPlantDiagnosis: 'Opening Plant Diagnosis',
                 
                 // Page Descriptions
@@ -2573,7 +2468,7 @@
                 pageDescShops: 'Find nearby fertilizer and agrochemical shops on this page. Use your location to discover stores within your area, view their details, and get directions.',
                 pageDescMap: 'The Disease Hotspot Map shows areas with high, medium, and low risk of crop diseases. Use this to monitor disease spread in your region.',
                 pageDescHistory: 'Your Diagnosis History page shows all your previous plant disease analyses. You can review past results and track disease patterns over time.',
-                pageDescProfile: 'Profile and Settings page allows you to manage your account, notification preferences, language settings, and display options.',
+                pageDescProfile: 'Profile and Settings page allows you to manage your account, language settings, and display options.',
                 pageDescChatbot: 'The AI Chatbot is your farming assistant. Ask questions about crop diseases, fertilizers, weather, or farming practices, and get instant responses.'
             },
             
@@ -2731,13 +2626,6 @@
                 memberSinceLabel: 'सदस्यता तिथि:',
                 statusLabel: 'स्थिति:',
                 diagnosesLabel: 'कुल निदान:',
-                notificationPrefs: 'सूचना प्राथमिकताएं',
-                emailNotifications: 'ईमेल सूचनाएं',
-                emailNotificationsDesc: 'ईमेल के माध्यम से अपडेट प्राप्त करें',
-                smsAlerts: 'एसएमएस अलर्ट',
-                smsAlertsDesc: 'अपने फोन पर अलर्ट प्राप्त करें',
-                pushNotifications: 'पुश सूचनाएं',
-                pushNotificationsDesc: 'ब्राउज़र सूचनाएं',
                 languageSettings: 'भाषा सेटिंग्स',
                 selectLanguageLabel: 'अपनी पसंदीदा भाषा चुनें',
                 languageNote: 'पूरी वेबसाइट आपकी चुनी हुई भाषा में अनुवादित होगी',
@@ -2847,7 +2735,6 @@
                 voiceCommandProfile: 'प्रोफाइल खोल रहे हैं',
                 voiceCommandLogout: 'लॉगआउट हो रहे हैं',
                 voiceCommandUpload: 'अपलोड छवि खोल रहे हैं',
-                voiceCommandDashboard: 'डैशबोर्ड खोल रहे हैं',
                 voiceCommandPlantDiagnosis: 'पौधा निदान खोल रहे हैं',
                 
                 // Page Descriptions
@@ -2858,7 +2745,7 @@
                 pageDescShops: 'इस पृष्ठ पर आस-पास के उर्वरक और कृषि रसायन दुकानों का पता लगाएं। अपने क्षेत्र में दुकानों की खोज करने, उनके विवरण देखने और दिशा-निर्देश प्राप्त करने के लिए अपने स्थान का उपयोग करें।',
                 pageDescMap: 'रोग हॉटस्पॉट मानचित्र फसल रोगों के उच्च, मध्यम और निम्न जोखिम वाले क्षेत्रों को दिखाता है। अपने क्षेत्र में रोग के प्रसार की निगरानी के लिए इसका उपयोग करें।',
                 pageDescHistory: 'आपका निदान इतिहास पृष्ठ आपके सभी पिछले पौधे रोग विश्लेषण दिखाता है। आप पिछले परिणामों की समीक्षा कर सकते हैं और समय के साथ रोग पैटर्न को ट्रैक कर सकते हैं।',
-                pageDescProfile: 'प्रोफाइल और सेटिंग्स पृष्ठ आपको अपने खाते, सूचना प्राथमिकताओं, भाषा सेटिंग्स और प्रदर्शन विकल्पों को प्रबंधित करने की अनुमति देता है।',
+                pageDescProfile: 'प्रोफाइल और सेटिंग्स पृष्ठ आपको अपने खाते, भाषा सेटिंग्स और प्रदर्शन विकल्पों को प्रबंधित करने की अनुमति देता है।',
                 pageDescChatbot: 'एआई चैटबॉट आपका कृषि सहायक है। फसल रोगों, उर्वरकों, मौसम या कृषि प्रथाओं के बारे में प्रश्न पूछें और तुरंत जवाब प्राप्त करें।'
             }
             // Add other languages here (ta, te, bn, mr, gu, kn, ml, pa, or, as) following the same pattern
@@ -3195,10 +3082,10 @@
             setTimeout(() => notification.remove(), 3000);
         }
 
-        // Page navigation
+        // Page navigation - Dashboard removed from protected pages
         function changePage(page) {
             // Check authentication for protected pages
-            const protectedPages = ['profile', 'settings', 'dashboard'];
+            const protectedPages = ['profile', 'settings'];
             if (protectedPages.includes(page) && !isAuthenticated) {
                 showNotification('loginRequired', 'error');
                 showLoginModal();
@@ -3733,7 +3620,7 @@
             }
         }
 
-        // Process voice commands
+        // Process voice commands - Dashboard command removed
         function processVoiceCommand(command) {
             const t = translations[currentLanguage] || translations['en'];
             
@@ -3741,10 +3628,6 @@
             if (command.includes('home') || command.includes('होम') || command.includes('मुख्य')) {
                 changePage('home');
                 showNotification(t.voiceCommandHome || 'Going to Home page', 'success');
-            }
-            else if (command.includes('dashboard') || command.includes('डैशबोर्ड')) {
-                changePage('dashboard');
-                showNotification(t.voiceCommandDashboard || 'Opening Dashboard', 'success');
             }
             else if (command.includes('diagnosis') || command.includes('निदान') || command.includes('plant diagnosis') || command.includes('पौधा निदान')) {
                 changePage('detect');
@@ -3843,8 +3726,6 @@
             document.getElementById('languageSelector').value = lang;
             const settingsSelector = document.getElementById('settingsLanguageSelector');
             if (settingsSelector) settingsSelector.value = lang;
-            const settingsSelectorB = document.getElementById('settingsLanguageSelectorB');
-            if (settingsSelectorB) settingsSelectorB.value = lang;
             
             // Update recognition language
             if (recognition) {
@@ -5115,8 +4996,6 @@
                 document.getElementById('languageSelector').value = savedLanguage;
                 const settingsSelector = document.getElementById('settingsLanguageSelector');
                 if (settingsSelector) settingsSelector.value = savedLanguage;
-                const settingsSelectorB = document.getElementById('settingsLanguageSelectorB');
-                if (settingsSelectorB) settingsSelectorB.value = savedLanguage;
                 translatePage(savedLanguage);
             }
 
